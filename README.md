@@ -1,4 +1,4 @@
-# **RunPHI Project**
+# **RunPHI Environment Builder**
 
 **The purpose of this repository is to automate the building of multiple working environmets (Target + Backend) to use/test runPHI.**
 
