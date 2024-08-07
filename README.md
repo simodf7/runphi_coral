@@ -1,4 +1,4 @@
-# **RunPHI Project**
+# **RunPHI Environment Builder**
 
 **The purpose of this repository is to automate the building of multiple working environmets (Target + Backend) to use/test runPHI.**
 
@@ -95,15 +95,14 @@ Supported BACKENDs:
 ## Dependencies
 
 > [!WARNING]
-> We strongly recommend you run the compiling scripts in a docker image to avoid unexpected errors due to different software versions (e.g., compilers version).
+> We strongly recommend you run the compiling scripts in a docker container to avoid unexpected errors due to different software versions (e.g., compilers version).
 
 To open a shell in the Docker image with all the needed dependencies just run:
 
 ```bash
-cd docker/
-docker build -t runphidocker .
-cd ../../
-docker run -it --rm --user $(id -u):$(id -g) -v /etc/passwd:/etc/passwd:ro --net=host --name jhqemu -v ./runphi:/home runphidocker /bin/bash
+cd ~/environment_builder
+docker build -t runphi_env_builder .
+docker run -it --rm --user $(id -u):$(id -g) -v /etc/passwd:/etc/passwd:ro --net=host --name env_builder_container -v ${PWD}:/home -w="/home" runphi_env_builder /bin/bash
 ```
 
 > [!NOTE]
@@ -144,7 +143,7 @@ From now on the chosen target and backend will be the default ones. If you need 
 
 Otherwhise if you need to change the target and backend just for a single script you can always add the flags -t \<target\> -b \<backend\>.
 
-### 2. Configure ssh [OPTIONAL]
+### 2. Configure ssh [OPTIONAL but RECOMMENDED]
 
 > [!NOTE]
 > All the scripts in ./scripts/remote/* can be launched outside the docker container.
@@ -155,13 +154,8 @@ While the board/QEMU is running, use the following script on the host machine to
 ./scripts/remote/set_remote_ssh.sh
 ```
 
-Then in QEMU copy the authorized keys in the .ssh directory if it has been saved in the dropbear directory
+After executing above script you can ssh QEMU VM without password.
 
-```bash
-cd ~
-mkdir .ssh
-cp /etc/dropbear/authorized_keys ~/.ssh
-```
 
 ### 3. Load projects
 
