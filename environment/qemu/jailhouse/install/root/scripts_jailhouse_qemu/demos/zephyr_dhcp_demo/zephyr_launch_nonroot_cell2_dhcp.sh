@@ -9,5 +9,5 @@ ZEPHYR_INMATE_CELL="qemu-arm64-zephyr-non-rootcell2.cell"
 ARCH="arm64"
 
 jailhouse cell create ${JAILHOUSE_DIR}/configs/arm64/${ZEPHYR_INMATE_CELL}
-jailhouse cell load ${ZEPHYR_INMATE_NAME} ${NON_ROOTCELL_DIR}/bin/${ARCH}/zephyr_dhcp.bin -a 0x70000000
+jailhouse cell load ${ZEPHYR_INMATE_NAME} ${NON_ROOTCELL_DIR}/${ARCH}/zephyr_dhcp.bin -a 0x70000000
 jailhouse cell start ${ZEPHYR_INMATE_NAME}
