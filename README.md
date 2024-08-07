@@ -144,7 +144,7 @@ From now on the chosen target and backend will be the default ones. If you need 
 
 Otherwhise if you need to change the target and backend just for a single script you can always add the flags -t \<target\> -b \<backend\>.
 
-### 2. Configure ssh [OPTIONAL]
+### 2. Configure ssh [OPTIONAL but RECOMMENDED]
 
 > [!NOTE]
 > All the scripts in ./scripts/remote/* can be launched outside the docker container.
@@ -155,13 +155,8 @@ While the board/QEMU is running, use the following script on the host machine to
 ./scripts/remote/set_remote_ssh.sh
 ```
 
-Then in QEMU copy the authorized keys in the .ssh directory if it has been saved in the dropbear directory
+After executing above script you can ssh QEMU VM without password.
 
-```bash
-cd ~
-mkdir .ssh
-cp /etc/dropbear/authorized_keys ~/.ssh
-```
 
 ### 3. Load projects
 
