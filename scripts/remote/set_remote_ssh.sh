@@ -48,8 +48,12 @@ else
   ssh-keygen -t rsa
 fi
 
+# TODO: remove this if it is useless
 # Remove known host every time the emulation restart
-if [ ${TARGET} == "qemu" ]; then
-  ssh-keygen -f "${HOME_DIR}/.ssh/known_hosts" -R "[localhost]:5022"
-fi
+#if [ ${TARGET} == "qemu" ]; then
+#  ssh-keygen -f "${HOME_DIR}/.ssh/known_hosts" -R "[localhost]:5022"
+#fi
+
 ssh-copy-id -i ${HOME_DIR}/.ssh/id_rsa.pub ${SSH_ARGS} ${USER}@${IP}
+
+ssh ${SSH_ARGS} ${USER}@${IP} "mkdir /root/.ssh/ && cp /etc/dropbear/authorized_keys /root/.ssh/"
