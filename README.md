@@ -95,15 +95,14 @@ Supported BACKENDs:
 ## Dependencies
 
 > [!WARNING]
-> We strongly recommend you run the compiling scripts in a docker image to avoid unexpected errors due to different software versions (e.g., compilers version).
+> We strongly recommend you run the compiling scripts in a docker container to avoid unexpected errors due to different software versions (e.g., compilers version).
 
 To open a shell in the Docker image with all the needed dependencies just run:
 
 ```bash
-cd docker/
-docker build -t runphidocker .
-cd ../../
-docker run -it --rm --user $(id -u):$(id -g) -v /etc/passwd:/etc/passwd:ro --net=host --name jhqemu -v ./runphi:/home runphidocker /bin/bash
+cd ~/environment_builder
+docker build -t runphi_env_builder .
+docker run -it --rm --user $(id -u):$(id -g) -v /etc/passwd:/etc/passwd:ro --net=host --name env_builder_container -v ${PWD}:/home -w="/home" runphi_env_builder /bin/bash
 ```
 
 > [!NOTE]
