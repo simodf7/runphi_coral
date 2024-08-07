@@ -34,7 +34,7 @@ Timer fired, jitter: 138306 ns, min:  81177 ns, max: 202596 ns
 
 ```
 
-#### Linux demo
+#### Linux ARM64 demo
 
 ```
 # cd /root/scripts_jailhouse_qemu
@@ -43,11 +43,13 @@ Timer fired, jitter: 138306 ns, min:  81177 ns, max: 202596 ns
 # ./jailhouse_setup/start_jailhouse.sh qemu-arm64.cell
 
 ### Run non-root cell Linux
-# ./demos/linux_demo/linux_demo.sh
+# ./demos/linux_demo/linux_arm64_demo.sh
 
 .....
 Cell "qemu-arm64-linux-demo" can be loaded
 Started cell "qemu-arm64-linux-demo"
+
+..... (after some times)
 
 Welcome to Buildroot
 buildroot login:
