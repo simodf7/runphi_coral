@@ -144,22 +144,7 @@ From now on the chosen target and backend will be the default ones. If you need 
 
 Otherwhise if you need to change the target and backend just for a single script you can always add the flags -t \<target\> -b \<backend\>.
 
-### 2. Test the QEMU target
-
-If the target is qemu and the backend is jailhouse run the emulation with the following script:
-
-```bash
-./scripts/qemu/start_qemu.sh
-```
-
-Insert User and Password:
-
-```bash
-login:    root
-Password: root
-```
-
-### 3. Configure ssh [OPTIONAL]
+### 2. Configure ssh [OPTIONAL]
 
 > [!NOTE]
 > All the scripts in ./scripts/remote/* can be launched outside the docker container.
@@ -178,7 +163,7 @@ mkdir .ssh
 cp /etc/dropbear/authorized_keys ~/.ssh
 ```
 
-### 4. Load projects
+### 3. Load projects
 
 Use the following script to sync the install directory in the target file system:
 
@@ -194,65 +179,9 @@ Use the following script to load (or update if already loaded) runPHI and Jailho
 
 Verify in the /root directory if the files have been loaded correctly.
 
-### 5. Test Jailhouse
+### 4. Test QEMU-Jailhouse environment
 
-Update the PATH in QEMU by logging again:
-
-```bash
-exit
-```
-
-```bash
-login:  root
-Password: root
-```
-
-Verify that the jailhouse PATH have been exported correctly by printing the version:
-
-```bash
-jailhouse --version
-```
-
-Load the jailhouse hypervisor, using the previously loaded script:
-
-```bash
-cd scripts_jailhouse_<target>/
-sh jailhouse_start.sh
-```
-
-Verify that the rootcell is running:
-
-```bash
-jailhouse cell list
-```
-
-Try to create baremetal cell:
-
-```bash
-sh gic_demo.sh
-```
-
-Stop the baremetal cell:
-
-```bash
-jailhouse cell destroy inmate-demo
-```
-
-Try Linux non_rootcell demo:
-
-```bash
-sh linux_demo.sh
-```
-
-You can open an ssh connection to take control of the rootcell while the non-rootcell is running.
-To do it, open another shell and in the runphi directory launch:
-
-```bash
-./scripts/remote/ssh_connection.sh 
-```
-
-> [!WARNING]
-> Remember to exit from the QEMU virtual machine with the "CTRL A + X" command. Before launching start_qemu.sh again.
+Refer to this [README](https://dessert.unina.it:8088/runphi/environment_builder/-/blob/main/environment/qemu/jailhouse/README.md)
 
 ## Updates
 
