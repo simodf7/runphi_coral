@@ -7,7 +7,7 @@ After building the environment ``qemu-jailhouse``, (check [this](https://dessert
 # ./scripts/qemu/start_qemu.sh
 ```
 
-Make sure to load all built components (e.g., jailhouse, etc.) into QEMU VM (check [this](https://dessert.unina.it:8088/runphi/environment_builder#4-load-projects)). Then, run demos as described in the following (all commands are executed within the QEMU VM).
+Make sure to load all built components (e.g., jailhouse, etc.) into QEMU VM (check [this](https://dessert.unina.it:8088/runphi/environment_builder#4-load-projects)). Then, run demos as described in the following (all commands are executed within the QEMU VM). Make sure to run ``jailhouse disable`` before each demo.
 
 #### GIC demo
 
@@ -34,7 +34,7 @@ Timer fired, jitter: 138306 ns, min:  81177 ns, max: 202596 ns
 
 ```
 
-#### Linux demo
+#### Linux ARM64 demo
 
 ```
 # cd /root/scripts_jailhouse_qemu
@@ -43,11 +43,13 @@ Timer fired, jitter: 138306 ns, min:  81177 ns, max: 202596 ns
 # ./jailhouse_setup/start_jailhouse.sh qemu-arm64.cell
 
 ### Run non-root cell Linux
-# ./demos/linux_demo/linux_demo.sh
+# ./demos/linux_demo/linux_arm64_demo.sh
 
 .....
 Cell "qemu-arm64-linux-demo" can be loaded
 Started cell "qemu-arm64-linux-demo"
+
+..... (after some times)
 
 Welcome to Buildroot
 buildroot login:
