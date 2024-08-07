@@ -7,7 +7,7 @@ After building the environment ``qemu-jailhouse``, (check [this](https://dessert
 # ./scripts/qemu/start_qemu.sh
 ```
 
-Make sure to load all built components (e.g., jailhouse, etc.) into QEMU VM (check [this](https://dessert.unina.it:8088/runphi/environment_builder#4-load-projects)). Then, run demos as described in the following (all commands are executed within the QEMU VM).
+Make sure to load all built components (e.g., jailhouse, etc.) into QEMU VM (check [this](https://dessert.unina.it:8088/runphi/environment_builder#4-load-projects)). Then, run demos as described in the following (all commands are executed within the QEMU VM). Make sure to run ``jailhouse disable`` before each demo.
 
 #### GIC demo
 
