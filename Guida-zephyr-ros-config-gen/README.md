@@ -1,27 +1,4 @@
-# Micro-ROS and Zephyr Setup Guide
-
-This repository contains the necessary materials and instructions to set up a micro-ROS and Zephyr environment.
-
-## Repository Contents
-- `cells/`
-- `ping_pong_docker/`
-- `zephyr/`
-- `zephyr_apps/`
-- `create.sh`
-- `runphi_docker.sh`
-- `zephyr.bin`
-
-## Directory Structure
-After following the steps below, you will have the following structure in your home directory:
-
-    
-    home/
-    ├── microros_ws/
-    ├── runphi/
-    ├── runphi_docker.sh
-    ├── zephyrproject/ (optional)
-    └── zephyr-sdk-0.16.8/ (optional)
-    
+# Micro-ROS and Zephyr Demo in Runphi (builder and manager)
 
 ## ROS2 and Micro-ROS Installation
 
@@ -177,13 +154,13 @@ Note: micro-ROS has its own Zephyr and Zephyr-SDK environment, so installing an 
 
 With these commands we can rebuild the binary for the hello world and dhcp apps
 
-## Demo in qemu-jailhouse environment
+## Demo in ``qemu-jailhouse`` environment
 
 At this point, the file ``/microros_ws/firmware/build/zephyr/zephyr.bin``, within the container used to build ping pong demo, contains the ping pong binary used as inmate in a Jailhouse cell.
 
-#### Setup qemu-jailhouse environment
+#### Setup ``qemu-jailhouse`` environment
 
-* **Before building a qemu-jailhouse environment**
+* **Before building a ``qemu-jailhouse`` environment**
 
     If you want to add this binary as custom inmate into jailhouse directory run the following:
 
@@ -191,7 +168,7 @@ At this point, the file ``/microros_ws/firmware/build/zephyr/zephyr.bin``, withi
 
     Now, you should follow this [guide](https://dessert.unina.it:8088/runphi/environment_builder#how-to-use-the-repository) to build a ``qemu-jailhouse`` environment and use ``zephyr_ping_pong.bin`` as inmate in a non-root cell.
 
-* **Already built a qemu-jailhouse environment**
+* **Already built a ``qemu-jailhouse`` environment**
 
     If you have already built a ``qemu-jailhouse`` environment, run the following:
 
