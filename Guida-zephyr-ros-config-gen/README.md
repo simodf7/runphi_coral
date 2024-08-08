@@ -139,7 +139,7 @@ All build artifacts are in ``/microros_ws/firmware/build/zephyr/`` dir. The ``ze
 
     ```
     ### From host machine run a fresh docker container from microros_humble_runphi_image if you exited the previous one
-    # docker run -it -v /dev:/dev --privileged -p 8888:8888/udp --name ros_humble_runphi microros_humble_runphi_image
+    # docker run -it -v /dev:/dev --privileged --name ros_humble_runphi microros_humble_runphi_image
 
     ### From the container
     root@hostname:/microros_ws# source /opt/ros/$ROS_DISTRO/setup.bash
@@ -151,13 +151,7 @@ All build artifacts are in ``/microros_ws/firmware/build/zephyr/`` dir. The ``ze
 
     ## Build step
     root@hostname:/microros_ws# ros2 run micro_ros_setup build_agent.sh
-    root@hostname:/microros_ws# source install/local_setup.bash
-
-    # Run a micro-ROS agent
-    # ros2 run micro_ros_agent micro_ros_agent udp4 --port 8888
-    root@hostname:/microros_ws# ros2 run micro_ros_agent micro_ros_agent udp4 --port 8888
-    [1723130528.466883] info     | UDPv4AgentLinux.cpp | init                     | running...             | port: 8888
-    [1723130528.467074] info     | Root.cpp           | set_verbose_level        | logger setup           | verbose_level: 4
+    
     ```
 
 ## Zephyr and Zephyr-SDK Installation
@@ -186,11 +180,15 @@ With these commands we can rebuild the binary for the hello world and dhcp apps
 ## Demo in qemu-jailhouse environment
 
 At this point, the file ``/microros_ws/firmware/build/zephyr/zephyr.bin``, within the container used to build ping pong demo, contains the ping pong binary used as inmate in a Jailhouse cell.
+
+#### Before building a qemu-jailhouse environment
 If you want to add this binary as custom inmate into jailhouse directory run the following:
 
-``docker cp ros_humble_runphi:/microros_ws/firmware/build/zephyr/zephyr.bin /PATH_TO_environment_builder/environment/qemu/jailhouse/custom_build/jailhouse/inmates/demos/arm64/zephyr_ping_pong.bin```
+``docker cp ros_humble_runphi:/microros_ws/firmware/build/zephyr/zephyr.bin /PATH_TO_environment_builder/environment/qemu/jailhouse/custom_build/jailhouse/inmates/demos/arm64/zephyr_ping_pong.bin``
 
 Now, you should follow this [guide](https://dessert.unina.it:8088/runphi/environment_builder#how-to-use-the-repository) to build a ``qemu-jailhouse`` environment and use ``zephyr_ping_pong.bin`` as inmate in a non-root cell.
+
+#### Already built a qemu-jailhouse environment
 
 If you have already built a ``qemu-jailhouse`` environment, run the following:
 
@@ -205,9 +203,145 @@ If you have already built a ``qemu-jailhouse`` environment, run the following:
 # ./scripts/remote/load_components_to_remote.sh -j`` 
 ```
 
+#### Run ping pong 
+
+##### Run a micro-ROS agent
+```
+### From host machine run a fresh docker container from microros_humble_runphi_image and publish 8888/upd port
+
+# docker run -it -v /dev:/dev --privileged -p 8888:8888/udp --name ros_humble_runphi microros_humble_runphi_image
+
+### From container
+root@hostname:/microros_ws# source install/local_setup.bash
+root@hostname:/microros_ws# ros2 run micro_ros_agent micro_ros_agent udp4 --port 8888
+    [1723130528.466883] info     | UDPv4AgentLinux.cpp | init                     | running...             | port: 8888
+    [1723130528.467074] info     | Root.cpp           | set_verbose_level        | logger setup           | verbose_level: 4
+```
+
+##### Run the ping_pong Jailhouse non-root cell
+
+```
+### Run root cell for Zephyr DEMO
+# cd /root/scripts_jailhouse_qemu
+# ./jailhouse_setup/start_jailhouse.sh qemu-arm64-zephyr-rootcell.cell
+
+### Configure eth1 interface on root cell to make a IVSHMEM pipe between root and non-root cell
+
+# ./demos/zephyr_ping_pong_demo/config_net_eth1_zephyr_dhcp_demo.sh
+
+### Run the non-root cell
+# ./demos/zephyr_ping_pong_demo/zephyr_launch_nonroot_cell_ping_pong.sh
+
+Created cell "qemu-arm64-zephyr-non-rootcell1"
+Page pool usage after cell creation: mem 161/991, remap 528/131072
+[   72.535672] Created Jailhouse cell "qemu-arm64-zephyr-non-rootcell1"
+Cell "qemu-arm64-zephyr-non-rootcell1" can be loaded
+Started cell "qemu-arm64-zephyr-non-rootcell1"
+[00:00:00.000,000] <inf> ivshmem: PCIe: ID 0x4106110A, BDF 0x800, class-rev 0xFF000100
+[00:00:00.010,000] <inf> ivshmem: MSI-X bar present: no
+[00:00:00.010,000] <inf> ivshmem: SHMEM bar present: no
+[00:00:00.010,000] <inf> ivshmem: State table size 0x1000
+[00:00:00.010,000] <inf> ivshmem: RW section size 0x0
+[00:00:00.010,000] <inf> ivshmem: Output section size 0x7F000
+[00:00:00.010,000] <inf> ivshmem: Enabling INTx IRQ 141 (pin 2)
+[00:00:00.010,000] <inf> ivshmem: ivshmem configured:
+[00:00:00.010,000] <inf> ivshmem: - Registers at 0x10001000 (mapped to 0xEFEFE000)
+[00:00:00.010,000] <inf> ivshmem: - Shared memory of 0xFF000 bytes at 0x7F900000 (mapped to 0x0)
+[00:00:00.020,000] <inf> eth_ivshmem: ivshmem: id 1, max_peers 2
+[00:00:00.020,000] <inf> eth_ivshmem: shmem queue: desc len 0x800, header size 0xD080, data size 0x71F80
+[00:00:00.020,000] <inf> eth_ivshmem: MAC Address A6:67:72:4B:C0:A4
+*** Booting Zephyr OS build v3.7.0-761-g0c7e87714d92 ***
+[00:00:00.020,000] <inf> net_dhcpv4_client_sample: Run dhcpv4 client
+[00:00:00.030,000] <inf> net_dhcpv4_client_sample: Start on eth_ivshmem: index=1
 
 
+uart:~$ [   72.857045] IPv6: ADDRCONF(NETDEV_CHANGE): eth1: link becomes ready
+[00:00:01.080,000] <inf> net_dhcpv4: Received: 192.0.2.10
+[00:00:01.080,000] <inf> net_dhcpv4: Received: 192.0.2.10
+uart:~$ [00:00:01.080,000] <inf> net_dhcpv4_client_sample:    Address[1]: 192.0.2.10
+[00:00:01.080,000] <inf> net_dhcpv4_client_sample:    Address[1]: 192.0.2.10
+uart:~$ [00:00:01.090,000] <inf> net_dhcpv4_client_sample:     Subnet[1]: 255.255.255.0
+[00:00:01.090,000] <inf> net_dhcpv4_client_sample:     Subnet[1]: 255.255.255.0
+uart:~$ [00:00:01.090,000] <inf> net_dhcpv4_client_sample:     Router[1]: 192.0.2.1
+[00:00:01.090,000] <inf> net_dhcpv4_client_sample:     Router[1]: 192.0.2.1
+uart:~$ [00:00:01.090,000] <inf> net_dhcpv4_client_sample: Lease time[1]: 600 seconds
+[00:00:01.090,000] <inf> net_dhcpv4_client_sample: Lease time[1]: 600 seconds
+uart:~$ Ping send seq 1687299856_1385592283
+Ping send seq 1718562674_1385592283
+Ping send seq 1530762823_1385592283
+Ping send seq 743232442_1385592283
+Ping send seq 1942525642_1385592283
+....
+```
 
+##### Test /microROS/ping topic
+
+```
+### From host machine
+# docker exec -it ros_humble_runphi /bin/bash
+
+### From container
+root@b3d179f80200:/# source /opt/ros/$ROS_DISTRO/setup.bash
+root@b3d179f80200:/# ros2 topic echo /microROS/ping
+stamp:
+  sec: 202
+  nanosec: 110000000
+frame_id: '1654068131_1385592283'
+---
+stamp:
+  sec: 204
+  nanosec: 110000000
+frame_id: '2002021665_1385592283'
+---
+stamp:
+  sec: 206
+  nanosec: 110000000
+frame_id: '565096958_1385592283'
+---
+....
+```
+
+##### Test /microROS/pong topic
+
+Open two terminals. On the firs subscribe to ``/microROS/pong`` topic, on the second send a ping via the ROS2 broker towards Jailhouse non-root cell.
+
+```
+1st terminal
+### From host machine
+# docker exec -it ros_humble_runphi /bin/bash
+root@b3d179f80200:/# source /opt/ros/$ROS_DISTRO/setup.bash
+root@b3d179f80200:/# ros2 topic echo /microROS/pong
+stamp:
+  sec: 0
+  nanosec: 0
+frame_id: fake_ping
+---
+....
+```
+
+```
+2nd terminal
+### From host machine
+# docker exec -it ros_humble_runphi /bin/bash
+
+root@b3d179f80200:/# source /opt/ros/$ROS_DISTRO/setup.bash
+root@b3d179f80200:/# ros2 topic pub --once /microROS/ping std_msgs/msg/Header '{frame_id: "fake_ping"}'
+publisher: beginning loop
+publishing #1: std_msgs.msg.Header(stamp=builtin_interfaces.msg.Time(sec=0, nanosec=0), frame_id='fake_ping')
+```
+
+Check non-root cell printing the ping received:
+```
+....
+Ping send seq 1484061832_1385592283
+Ping send seq 1240941892_1385592283
+Ping send seq 358766469_1385592283
+Ping received with seq fake_ping. Answering.
+Ping send seq 1876187127_1385592283
+Ping send seq 985853053_1385592283
+Ping send seq 822127230_1385592283
+....
+```
 
 ## Demo in runphi 
 
