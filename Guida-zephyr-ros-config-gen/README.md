@@ -32,15 +32,13 @@ We referred to guide in [https://micro.ros.org/docs/tutorials/core/zephyr_emulat
    We recommend to install ROS2 via a docker container. We tested ``ROS2 HUMBLE`` version.
 
     ```
-    # mkdir ${HOME}/microros_ws
-    # docker run -it -v /dev:/dev -v ${HOME}/microros_ws:/microros_ws -p 8888:8888/udp --privileged --name ros_humble_runphi ros:humble
+    # docker run -it -v /dev:/dev --privileged --name ros_humble_runphi ros:humble
     ```
-    
-    Port 8888/UDP is published to allow microros broker to be contacted by outside.
-   
+       
 2. **Setup Micro-ROS Workspace**
    
-   Follow this modified version of the guide [here](https://micro.ros.org/docs/tutorials/core/zephyr_emulator/):
+   After run the docker container, we obtain a terminal in which run all the following commands.
+
 
    ```
     ## Check $ROS_DISTRO, should be humble
@@ -52,10 +50,12 @@ We referred to guide in [https://micro.ros.org/docs/tutorials/core/zephyr_emulat
     source /opt/ros/$ROS_DISTRO/setup.bash
 
     ## Create a workspace and download the micro-ROS tools
+    # mkdir microros_ws
     # cd microros_ws
     # git clone -b $ROS_DISTRO https://github.com/micro-ROS/micro_ros_setup.git src/micro_ros_setup
 
     ## Update dependencies using rosdep
+    # rm /etc/ros/rosdep/sources.list.d/20-default.list
     # apt update && rosdep init && rosdep update
     # rosdep install --from-paths src --ignore-src -y
 
@@ -132,6 +132,10 @@ All build artifacts are in ``/microros_ws/firmware/build/zephyr/`` dir. The ``ze
 1. **Run these commands to create, build, and run the ROS2 agent:**
 
     ```bash
+    # source /opt/ros/$ROS_DISTRO/setup.bash
+    # cd /microros_ws/
+    # source install/local_setup.bash
+
     # Download micro-ROS-Agent packages
     ros2 run micro_ros_setup create_agent_ws.sh
 
