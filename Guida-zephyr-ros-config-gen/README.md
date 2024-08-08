@@ -125,26 +125,37 @@ We referred to guide in [https://micro.ros.org/docs/tutorials/core/zephyr_emulat
     user@hostname:/microros_ws# ros2 run micro_ros_setup build_firmware.sh
     ```
 
-All build artifacts are in ``/microros_ws/firmware/build/zephyr/`` dir. The ``zephyr.bin`` is the binary to be used as inmate in partitioned container.
+    Now you can save all built artifact as a docker image to be reused after. Run the following:
 
+    ```
+    # docker commit ros_humble_runphi microros_humble_runphi_image
+    sha256:c5befde097ddd9a0ef683452b6f1b663e28d1e5a8106c95f08b3dba0b0b594b3
+    ```
+
+All build artifacts are in ``/microros_ws/firmware/build/zephyr/`` dir. The ``zephyr.bin`` is the binary to be used as inmate in partitioned container.
 ## ROS2 Agent
 
 1. **Run these commands to create, build, and run the ROS2 agent:**
 
-    ```bash
+    ```
+    ### From host machine run a fresh docker container from microros_humble_runphi_image if you exited the previous one
+    # docker run -it -v /dev:/dev --privileged -p 8888:8888/udp --name ros_humble_runphi microros_humble_runphi_image
+
+    ### From the container
     # source /opt/ros/$ROS_DISTRO/setup.bash
     # cd /microros_ws/
     # source install/local_setup.bash
 
-    # Download micro-ROS-Agent packages
-    ros2 run micro_ros_setup create_agent_ws.sh
+    ## Download micro-ROS-Agent packages
+    # ros2 run micro_ros_setup create_agent_ws.sh
 
-    # Build step
-    ros2 run micro_ros_setup build_agent.sh
-    source install/local_setup.bash
+    ## Build step
+    # ros2 run micro_ros_setup build_agent.sh
+    # source install/local_setup.bash
 
     # Run a micro-ROS agent
-    ros2 run micro_ros_agent micro_ros_agent udp4 --port 8888
+    # ros2 run micro_ros_agent micro_ros_agent udp4 --port 8888
+    ```
 
 ## Zephyr and Zephyr-SDK Installation
 Note: micro-ROS has its own Zephyr and Zephyr-SDK environment, so installing an additional instance is optional.
