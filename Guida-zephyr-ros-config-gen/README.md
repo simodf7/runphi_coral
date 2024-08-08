@@ -103,7 +103,7 @@ We referred to guide in [https://micro.ros.org/docs/tutorials/core/zephyr_emulat
 
 5. **Configure the firmware:**
 
-    We assmume microROS broker is running on host with a bridge with IP ``192.0.3.1`` (is the br0 IP set in qemu-jailhouse environment, check (this)[https://dessert.unina.it:8088/runphi/partitioned_container_demos/-/blob/main/demos/README.md#from-host-machine].)
+    We assmume microROS broker is running on host with a bridge with IP ``192.0.3.1`` (is the br0 IP set in qemu-jailhouse environment, check [this](https://dessert.unina.it:8088/runphi/partitioned_container_demos/-/blob/main/demos/README.md#from-host-machine).)
 
     ```
     ### From container
@@ -181,27 +181,32 @@ With these commands we can rebuild the binary for the hello world and dhcp apps
 
 At this point, the file ``/microros_ws/firmware/build/zephyr/zephyr.bin``, within the container used to build ping pong demo, contains the ping pong binary used as inmate in a Jailhouse cell.
 
-#### Before building a qemu-jailhouse environment
-If you want to add this binary as custom inmate into jailhouse directory run the following:
+#### Setup qemu-jailhouse environment
 
-``docker cp ros_humble_runphi:/microros_ws/firmware/build/zephyr/zephyr.bin /PATH_TO_environment_builder/environment/qemu/jailhouse/custom_build/jailhouse/inmates/demos/arm64/zephyr_ping_pong.bin``
+* **Before building a qemu-jailhouse environment**
 
-Now, you should follow this [guide](https://dessert.unina.it:8088/runphi/environment_builder#how-to-use-the-repository) to build a ``qemu-jailhouse`` environment and use ``zephyr_ping_pong.bin`` as inmate in a non-root cell.
+    If you want to add this binary as custom inmate into jailhouse directory run the following:
 
-#### Already built a qemu-jailhouse environment
+    ``docker cp ros_humble_runphi:/microros_ws/firmware/build/zephyr/zephyr.bin /PATH_TO_environment_builder/environment/qemu/jailhouse/custom_build/jailhouse/inmates/demos/arm64/zephyr_ping_pong.bin``
 
-If you have already built a ``qemu-jailhouse`` environment, run the following:
+    Now, you should follow this [guide](https://dessert.unina.it:8088/runphi/environment_builder#how-to-use-the-repository) to build a ``qemu-jailhouse`` environment and use ``zephyr_ping_pong.bin`` as inmate in a non-root cell.
 
-##### Copy zephyr binary into inmates directory
-```
-# docker cp ros_humble_runphi:/microros_ws/firmware/build/zephyr/zephyr.bin /PATH_TO_environment_builder/environment/qemu/jailhouse/build/jailhouse/inmates/demos/arm64/ 
-```
+* **Already built a qemu-jailhouse environment**
 
-##### Reload jailhouse components into QEMU VM (Please, refer to this [this](https://dessert.unina.it:8088/runphi/environment_builder#3-load-projects))
-```
-# cd /PATH_TO_environment_builder/
-# ./scripts/remote/load_components_to_remote.sh -j`` 
-```
+    If you have already built a ``qemu-jailhouse`` environment, run the following:
+
+    ###### Copy zephyr binary into inmates directory
+    
+    ```
+    # docker cp ros_humble_runphi:/microros_ws/firmware/build/zephyr/zephyr.bin /PATH_TO_environment_builder/environment/qemu/jailhouse/build/jailhouse/    inmates/demos/arm64/ 
+    ```
+
+    ###### Reload jailhouse components into QEMU VM (Please, refer to this [this](https://dessert.unina.it:8088/runphi/environment_builder#3-load-projects))
+
+    ```
+    # cd /PATH_TO_environment_builder/
+    # ./scripts/remote/load_components_to_remote.sh -j`` 
+    ```
 
 #### Run ping pong 
 
@@ -344,46 +349,6 @@ Ping send seq 822127230_1385592283
 ```
 
 ## Demo in runphi 
-
-
-
-
-## Cells configuration
-
-1. **Ensure the ROS2 agent is running:**
-
-    ```bash
-    ros2 run micro_ros_agent micro_ros_agent udp4 --port 8888
-
-2. **Inside QEMU:**
-
-    ```bash
-    cd scripts_jailhouse_qemu/
-    sh start_jailhouse_net.sh
-    sh ping_pong_zephyr.sh
-
-
-3. **From a terminal window, subscribe to the micro-ROS ping topic:**
-
-    ```bash
-    ros2 topic echo /microROS/ping
-
-
-4. **From another terminal window, subscribe to the micro-ROS pong topic:**
-
-    ```bash
-    ros2 topic echo /microROS/pong
-
-
-5. **From yet another terminal window, send a fake ping:**
-
-    ```bash
-    ros2 topic pub --once /microROS/ping std_msgs/msg/Header '{frame_id: "fake_ping"}'
-
-
-You should see the fake_ping in the ping subscriber console, and the micro-ROS node in the Zephyr cell will respond with a pong, which will appear in the pong subscriber console.
-
-# Orchestration
 
 As of now, a Zephyr micro-ROS cell has been executed manually and its functioning has been tested. The next step is to set-up and test the RunPHI framework by deploying the partitioned container inside an automatically configured cell. 
 
