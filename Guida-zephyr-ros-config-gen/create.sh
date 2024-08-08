@@ -19,7 +19,7 @@ export ZEPHYR_VERSION="v0.12.4"
 export ARCH=$(uname -m)
 
 # Install west
-pip3 install --user -U west --break-system-packages
+pip3 install --user -U west
 
 pushd $FW_TARGETDIR >/dev/null
 
@@ -31,7 +31,7 @@ pushd $FW_TARGETDIR >/dev/null
         west update
     popd >/dev/null
 
-    pip3 install -r zephyrproject/zephyr/scripts/requirements.txt --ignore-installed --break-system-packages
+    pip3 install -r zephyrproject/zephyr/scripts/requirements.txt --ignore-installed
 
     wget https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.16.8/zephyr-sdk-0.16.8_linux-x86_64.tar.xz
     wget -O - https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v0.16.8/sha256.sum | shasum --check --ignore-missing
@@ -51,12 +51,15 @@ pushd $FW_TARGETDIR >/dev/null
     touch mcu_ws/ros2/rcl/COLCON_IGNORE
     touch mcu_ws/ros2/rosidl/rosidl_typesupport_introspection_cpp/COLCON_IGNORE
     touch mcu_ws/ros2/rcpputils/COLCON_IGNORE
-    touch mcu_ws/ros2/ros2_tracing/test_tracetools/COLCON_IGNORE
     touch mcu_ws/uros/rcl/rcl_yaml_param_parser/COLCON_IGNORE
     touch mcu_ws/uros/rclc/rclc_examples/COLCON_IGNORE
+
+    mkdir -p mcu_ws/ros2/ros2_tracing/test_tracetools
+    mkdir -p mcu_ws/ros2/ros2_tracing/lttngpy
+    touch mcu_ws/ros2/ros2_tracing/test_tracetools/COLCON_IGNORE
     touch mcu_ws/ros2/ros2_tracing/lttngpy/COLCON_IGNORE
 
     # Upgrade sphinx
-    pip install --force-reinstall Sphinx==4.2.0 --break-system-packages
+    pip install --force-reinstall docutils==0.16 Sphinx==4.2.0
 
 popd >/dev/null
