@@ -1,27 +1,4 @@
-# Micro-ROS and Zephyr Setup Guide
-
-This repository contains the necessary materials and instructions to set up a micro-ROS and Zephyr environment.
-
-## Repository Contents
-- `cells/`
-- `ping_pong_docker/`
-- `zephyr/`
-- `zephyr_apps/`
-- `create.sh`
-- `runphi_docker.sh`
-- `zephyr.bin`
-
-## Directory Structure
-After following the steps below, you will have the following structure in your home directory:
-
-    
-    home/
-    ├── microros_ws/
-    ├── runphi/
-    ├── runphi_docker.sh
-    ├── zephyrproject/ (optional)
-    └── zephyr-sdk-0.16.8/ (optional)
-    
+# Micro-ROS and Zephyr Demo in Runphi (builder and manager)
 
 ## ROS2 and Micro-ROS Installation
 
