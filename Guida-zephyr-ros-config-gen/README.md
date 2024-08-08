@@ -25,64 +25,107 @@ After following the steps below, you will have the following structure in your h
 
 ## ROS2 and Micro-ROS Installation
 
-1. **Install ROS2**
-   Follow the instructions [here](https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debians.html) to install the latest version of ROS2 globally. Install the desktop version and dev tools, then verify that `$ROS_DISTRO` is set to the name of the last ROS2 version (currently `jazzy`).
+We referred to guide in [https://micro.ros.org/docs/tutorials/core/zephyr_emulator/](https://micro.ros.org/docs/tutorials/core/zephyr_emulator/).
 
+1. **Install ROS2**
+   
+   We recommend to install ROS2 via a docker container. We tested ``ROS2 HUMBLE`` version.
+
+    ```
+    # mkdir ${HOME}/microros_ws
+    # docker run -it -v /dev:/dev -v ${HOME}/microros_ws:/microros_ws -p 8888:8888/udp --privileged --name ros_humble_runphi ros:humble
+    ```
+    
+    Port 8888/UDP is published to allow microros broker to be contacted by outside.
+   
 2. **Setup Micro-ROS Workspace**
+   
    Follow this modified version of the guide [here](https://micro.ros.org/docs/tutorials/core/zephyr_emulator/):
 
-   ```bash
-   # Source the ROS 2 installation
-   source /opt/ros/$ROS_DISTRO/setup.bash
+   ```
+    ## Check $ROS_DISTRO, should be humble
+    
+    # echo $ROS_DISTRO
+    humble
 
-   # Create a workspace and download the micro-ROS tools
-   cd $HOME
-   mkdir microros_ws
-   cd microros_ws
-   git clone -b $ROS_DISTRO https://github.com/micro-ROS/micro_ros_setup.git src/micro_ros_setup
+    ## Source the ROS 2 installation
+    source /opt/ros/$ROS_DISTRO/setup.bash
 
-   # Update dependencies using rosdep
-   sudo apt update && sudo rosdep init && rosdep update
-   rosdep install --from-paths src --ignore-src -y
+    ## Create a workspace and download the micro-ROS tools
+    # cd microros_ws
+    # git clone -b $ROS_DISTRO https://github.com/micro-ROS/micro_ros_setup.git src/micro_ros_setup
 
-   # Install pip
-   sudo apt-get install python3-pip
+    ## Update dependencies using rosdep
+    # apt update && rosdep init && rosdep update
+    # rosdep install --from-paths src --ignore-src -y
 
-   # Build micro-ROS tools and source them
-   colcon build
-   source install/local_setup.bash
+    ## Install pip
+    # apt-get install python3-pip -y
+
+    ## Build micro-ROS tools and source them
+    # colcon build
+    # source install/local_setup.bash
+    ```
 
 ## Zephyr Firmware for Micro-ROS Setup
 
-1. **Substitute the following file with the updated version provided in this repository:**
+1. **Replace the ``create.sh`` file in ``microros_ws/install/micro_ros_setup/config/zephyr/generic/`` with the patched version provided in this repo:**
 
-    ```bash
-    $HOME/microros_ws/install/micro_ros_setup/config/zephyr/generic/create.sh
+    ```
+    ### From host machine
+    # docker cp ~/create.sh ros_humble_runphi:/microros_ws/install/micro_ros_setup/config/zephyr/generic/create.sh
+    ```
+
+    NOTE: ros_humble_runphi is the name of run container in "Install ROS" step.
 
 2. **Download and set Zephyr and its SDK:**
 
-    ```bash
-    ros2 run micro_ros_setup create_firmware_ws.sh zephyr qemu_cortex_a53
+    We assume a QEMU VM with a ARM Cortex A53. The board name is ``qemu_cortex_a53``
 
-3. **Configure the firmware:**
-    ```bash
-    ros2 run micro_ros_setup configure_firmware.sh ping_pong --transport udp --ip 192.0.3.1 --port 8888
+    ```
+    ### From container
+    user@hostname:/microros_ws# ros2 run micro_ros_setup create_firmware_ws.sh zephyr qemu_cortex_a53
+    ```
 
-4. **Edit firmware/zephyr_apps/microros_extensions/microros_transports.h to change the IP address:**
-    ```bash
+3. **Copy the ping_ping and microros_extensions apps in zephyr_apps directory:**
+
+    ```
+    ### From host machine
+    # docker cp /PATH_TO_repo/microros_extensions ros_humble_runphi:/microros_ws/firmware/zephyr_apps/
+    # docker cp /PATH_TO_repo/ping_pong ros_humble_runphi:/microros_ws/firmware/zephyr_apps/apps/
+    ```
+
+4. **Patch picolibc.specs file:**
+    ```
+    ### From host machine
+    # docker cp picolibc.specs ros_humble_runphi:/microros_ws/firmware/zephyr-sdk/aarch64-zephyr-elf/aarch64-zephyr-elf/lib/picolibc.specs
+    ```
+
+5. **Configure the firmware:**
+
+    We assmume microROS broker is running on host with a bridge with IP ``192.0.3.1`` (is the br0 IP set in qemu-jailhouse environment, check (this)[https://dessert.unina.it:8088/runphi/partitioned_container_demos/-/blob/main/demos/README.md#from-host-machine].)
+
+    ```
+    ### From container
+    user@hostname:/microros_ws# ros2 run micro_ros_setup configure_firmware.sh ping_pong --transport udp --ip 192.0.3.1 --port 8888
+    ```
+
+6. **Be sure that ``firmware/zephyr_apps/microros_extensions/microros_transports.h`` has proper IP address for the broker (in our example 192.0.3.1):**
+    ```
+    ### From container
+    user@hostname:/microros_ws# grep "default_params" /microros_ws/firmware/zephyr_apps/microros_extensions/microros_transports.h
+    static zephyr_transport_params_t default_params = {.fd = 0};
     static zephyr_transport_params_t default_params = {{0,0,0}, "192.0.3.1", "8888"};
-
-5. **Copy the zephyr_apps/ directory from this repository to:**
-    ```bash
-    $HOME/microros_ws/firmware
-
-6. **Edit picolibc.specs by commenting out the 4 renames at the top of the file:**
-    ```bash
-    $HOME/microros_ws/firmware/zephyr-sdk/aarch64-zephyr-elf/aarch64-zephyr-elf/lib/picolibc.specs
+    static zephyr_transport_params_t default_params;
+    ```
 
 7. **Start the build process:**
-    ```bash
-    ros2 run micro_ros_setup build_firmware.sh
+    ```
+    ### From container
+    user@hostname:/microros_ws# ros2 run micro_ros_setup build_firmware.sh
+    ```
+
+All build artifacts are in ``/microros_ws/firmware/build/zephyr/`` dir. The ``zephyr.bin`` is the binary to be used as inmate in partitioned container.
 
 ## ROS2 Agent
 
