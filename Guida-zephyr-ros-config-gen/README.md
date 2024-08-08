@@ -142,19 +142,22 @@ All build artifacts are in ``/microros_ws/firmware/build/zephyr/`` dir. The ``ze
     # docker run -it -v /dev:/dev --privileged -p 8888:8888/udp --name ros_humble_runphi microros_humble_runphi_image
 
     ### From the container
-    # source /opt/ros/$ROS_DISTRO/setup.bash
-    # cd /microros_ws/
-    # source install/local_setup.bash
+    root@hostname:/microros_ws# source /opt/ros/$ROS_DISTRO/setup.bash
+    root@hostname:/microros_ws# cd /microros_ws/
+    root@hostname:/microros_ws# source install/local_setup.bash
 
     ## Download micro-ROS-Agent packages
-    # ros2 run micro_ros_setup create_agent_ws.sh
+    root@hostname:/microros_ws# ros2 run micro_ros_setup create_agent_ws.sh
 
     ## Build step
-    # ros2 run micro_ros_setup build_agent.sh
-    # source install/local_setup.bash
+    root@hostname:/microros_ws# ros2 run micro_ros_setup build_agent.sh
+    root@hostname:/microros_ws# source install/local_setup.bash
 
     # Run a micro-ROS agent
     # ros2 run micro_ros_agent micro_ros_agent udp4 --port 8888
+    root@hostname:/microros_ws# ros2 run micro_ros_agent micro_ros_agent udp4 --port 8888
+    [1723130528.466883] info     | UDPv4AgentLinux.cpp | init                     | running...             | port: 8888
+    [1723130528.467074] info     | Root.cpp           | set_verbose_level        | logger setup           | verbose_level: 4
     ```
 
 ## Zephyr and Zephyr-SDK Installation
@@ -180,25 +183,36 @@ Note: micro-ROS has its own Zephyr and Zephyr-SDK environment, so installing an 
 
 With these commands we can rebuild the binary for the hello world and dhcp apps
 
-# Runphi Setup
+## Demo in qemu-jailhouse environment
 
-1. **Clone thid branch of the official repository:**
+At this point, the file ``/microros_ws/firmware/build/zephyr/zephyr.bin``, within the container used to build ping pong demo, contains the ping pong binary used as inmate in a Jailhouse cell.
+If you want to add this binary as custom inmate into jailhouse directory run the following:
 
-    ```bash
-    cd $HOME
-    git clone -b zephyr_micro-ros_config-gen https://dessert.unina.it:8088/ldesi/runphi.git
+``docker cp ros_humble_runphi:/microros_ws/firmware/build/zephyr/zephyr.bin /PATH_TO_environment_builder/environment/qemu/jailhouse/custom_build/jailhouse/inmates/demos/arm64/zephyr_ping_pong.bin```
 
-2. **Ensure the following packages are installed: bridge-utils, uml-utilities, dnsmasq, and net-tools.**
+Now, you should follow this [guide](https://dessert.unina.it:8088/runphi/environment_builder#how-to-use-the-repository) to build a ``qemu-jailhouse`` environment and use ``zephyr_ping_pong.bin`` as inmate in a non-root cell.
 
-3. **Copy runphi_docker.sh to your $HOME folder.**
+If you have already built a ``qemu-jailhouse`` environment, run the following:
 
-4. **Build and run the Docker container:**
+##### Copy zephyr binary into inmates directory
+```
+# docker cp ros_humble_runphi:/microros_ws/firmware/build/zephyr/zephyr.bin /PATH_TO_environment_builder/environment/qemu/jailhouse/build/jailhouse/inmates/demos/arm64/ 
+```
 
-    ```bash
-    cd runphi/docker
-    docker build -t runphidocker .
-    cd ../../
-    sudo ./runphy_docker.sh
+##### Reload jailhouse components into QEMU VM (Please, refer to this [this](https://dessert.unina.it:8088/runphi/environment_builder#3-load-projects))
+```
+# cd /PATH_TO_environment_builder/
+# ./scripts/remote/load_components_to_remote.sh -j`` 
+```
+
+
+
+
+
+## Demo in runphi 
+
+
+
 
 ## Cells configuration
 
