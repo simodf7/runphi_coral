@@ -332,7 +332,7 @@ To run the ping pong application as a partitioned container via runphi, you can:
 - Use the prebuilt image, namely ``dessertunina/microrospingpong:arm64jh``.
 - Build the image from scratch using the binary obtained at the end of [this](https://dessert.unina.it:8088/runphi/environment_builder/-/edit/main/Guida-zephyr-ros-config-gen/README.md#zephyr-firmware-for-micro-ros-setup) step. Then, follow instructions [here](https://dessert.unina.it:8088/runphi/partitioned_container_demos/-/blob/main/README.md) to build the image.
 
-Once obtained k8s image, you can use the following pod manifest:
+Once obtained k8s image, you can use the following pod manifest (assuming the image name ``dessertunina/microrospingpong:arm64jh``):
 
 ```yaml
 apiVersion: v1
@@ -344,7 +344,7 @@ spec:
   containers:
 
   - name: zephyr
-    image: <imagename>
+    image: dessertunina/microrospingpong:arm64jh
     imagePullPolicy: Always
 
   nodeName: buildroot
