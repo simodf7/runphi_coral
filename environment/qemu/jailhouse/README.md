@@ -1,6 +1,6 @@
 # Run demos
 
-After building the environment ``qemu-jailhouse``, (check [this](https://dessert.unina.it:8088/runphi/environment_builder#1-download-configure-and-compile-everything)), setup QEMU VM networking and start QEMU VM:
+After building the environment ``qemu-jailhouse``, (check [this](https://dessert.unina.it:8088/runphi/environment_builder#1-download-configure-and-compile-everything)) (if you built the environment via a docker container, please exit and destroy it), setup QEMU VM networking and start QEMU VM. 
 
 ```
 # cd /PATH_TO_RUNPHI/
