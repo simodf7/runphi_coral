@@ -6,6 +6,8 @@ After building the environment ``qemu-jailhouse``, (check [this](https://dessert
 # cd /PATH_TO_RUNPHI/
 # ./scripts/qemu/setup_bridge_tap.sh
 # ./scripts/qemu/start_qemu.sh
+
+## When request user: root, password: root
 ```
 
 Make sure to load all built components (e.g., jailhouse, etc.) into QEMU VM (check [this](https://dessert.unina.it:8088/runphi/environment_builder#3-load-projects)). Then, run demos as described in the following (all commands are executed within the QEMU VM). Make sure to run ``jailhouse disable`` before each demo.
