@@ -146,7 +146,7 @@ Otherwhise if you need to change the target and backend just for a single script
 > [!NOTE]
 > All the scripts in ./scripts/remote/* can be launched outside the docker container.
 
-**While the board/QEMU is running**, use the following script on the host machine to create a local key pair for the user (if it doesn't exist) and send the pub key to the target to authorize the host to exchange data without requiring any password
+**While the board/QEMU is running** (skip to [this](https://dessert.unina.it:8088/runphi/environment_builder/-/blob/main/README.md#4-test-qemu-jailhouse-environment) if you want to test a ``qemu-jailhouse`` environment), use the following script on the host machine to create a local key pair for the user (if it doesn't exist) and send the pub key to the target to authorize the host to exchange data without requiring any password
 
 ```bash
 ./scripts/remote/set_remote_ssh.sh
@@ -157,7 +157,7 @@ After executing above script you can ssh QEMU VM without password.
 
 ### 3. Load projects
 
-**While the board/QEMU is running**, use the following script to sync the install directory in the target file system:
+**While the board/QEMU is running** (skip to [this](https://dessert.unina.it:8088/runphi/environment_builder/-/blob/main/README.md#4-test-qemu-jailhouse-environment) if you want to test a ``qemu-jailhouse`` environment), use the following script to sync the install directory in the target file system:
 
 ```bash
 ./scripts/remote/load_install_dir_to_remote.sh
