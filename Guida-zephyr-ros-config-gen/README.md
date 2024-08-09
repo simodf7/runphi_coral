@@ -130,30 +130,7 @@ All build artifacts are in ``/microros_ws/firmware/build/zephyr/`` dir. The ``ze
     root@hostname:/microros_ws# ros2 run micro_ros_setup build_agent.sh
     
     ```
-
-## Zephyr and Zephyr-SDK Installation
-Note: micro-ROS has its own Zephyr and Zephyr-SDK environment, so installing an additional instance is optional.
-
-1. **Follow the guide [here](https://docs.zephyrproject.org/latest/develop/getting_started/index.html) for installation.**
-
-2. **To build different Zephyr images, navigate to:**
-
-    ```bash
-    $HOME/microros_ws/firmware/zephyrproject/zephyr
-
-3. **If zephyr is also installed in the home directory it's possible to use west also here:**
-
-    ```bash
-    $HOME/zephyrproject/zephyr
-
-4. **Run the west build tool:**
-
-    ```bash
-    west build -p always -b qemu_cortex_a53 lite-jailhouse/zephyr_app/
-    west build -p always -b qemu_cortex_a53 samples/drivers/ethernet/dhcp_ivshmem/
-
-With these commands we can rebuild the binary for the hello world and dhcp apps
-
+    
 ## Demo in ``qemu-jailhouse`` environment
 
 At this point, the file ``/microros_ws/firmware/build/zephyr/zephyr.bin``, within the container used to build ping pong demo, contains the ping pong binary used as inmate in a Jailhouse cell.
