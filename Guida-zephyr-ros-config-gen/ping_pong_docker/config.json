@@ -1,5 +1,0 @@
-{
-    "starting_vaddress": "0x70000000",
-    "os_var": "zephyr",
-    "inmate": "/boot/hello.bin"
-}

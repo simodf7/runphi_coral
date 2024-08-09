@@ -1,1 +1,0 @@
-mettere in /home/boccolarg/microros_ws/firmware/zephyr_apps/microros_extensions
