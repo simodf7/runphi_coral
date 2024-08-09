@@ -12,6 +12,8 @@ After building the environment ``qemu-jailhouse``, (check [this](https://dessert
 
 Make sure to load all built components (e.g., jailhouse, etc.) into QEMU VM (check [this](https://dessert.unina.it:8088/runphi/environment_builder#3-load-projects)). Then, run demos as described in the following (**all commands are executed within the QEMU VM**). Make sure to run ``jailhouse disable`` before each demo.
 
+When console/UART control is lost, please open a new shell and run ``./scripts/remote/ssh_connection.sh`` to get QEMU VM shell control back again.
+
 #### GIC demo
 
 ```
