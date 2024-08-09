@@ -327,109 +327,23 @@ Ping send seq 822127230_1385592283
 
 ## Demo in runphi 
 
-As of now, a Zephyr micro-ROS cell has been executed manually and its functioning has been tested. The next step is to set-up and test the RunPHI framework by deploying the partitioned container inside an automatically configured cell. 
+To run the ping pong application as a partitioned container via runphi, please refer to this [README](https://dessert.unina.it:8088/runphi/partitioned_container_demos/-/blob/main/demos/README.md). You can use the following pod manifest:
 
-1. **First, it is necessary to build the docker container for the application.**
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: zephyr-pingpong
+spec:
+  terminationGracePeriodSeconds: 0
+  containers:
 
-    ```bash
-    # Move to the provided folder:
-    cd ping_pong_docker
-    # Build and push the docker:
-    docker build -t yourname/dockername:latestjh .
-    docker push yourname/dockername:latestjh
+  - name: zephyr
+    image: dessertunina/microrospingpong:arm64jh
+    imagePullPolicy: Always
 
-2. **Now continue from the QEMU machine:**
-
-    ```bash
-    #Press CTRL+A X to exit from QEMU and start it again:
-    /PATH_TO_RUNPHI/scripts/qemu/start_qemu.sh
-
-    # Inside QEMU VM:
-
-    # start Jailhouse and root cell (for Zephyr: jailhouse/configs/arm64/qemu-arm64-rootcell_ZEPHYR.cell)
-    cd scripts_jailhouse_qemu/
-    sh start_jailhouse_net.sh qemu-arm64-rootcell_ZEPHYR.cell
-
-    # configure network by setting eth0 forwarning eth1 traffic (eth1 will be used by ZEPHYR cell)
-    sh config_net.sh
-
-    # From the host machine:
-    # Set-up RunPHI workspace in /usr/share/runPHI dir inside the QEMU VM.
-    cd /PATH_TO_RUNPHI/runPHI/runPHI_cell_configs
-    
-    # the following copy all stuff needed tu run partitioned containers
-    ./set_runphi_ws.sh
-    
-    # Let QEMU node joining  as a node to a Kubernetes orchestrator cluster.
-    # 
-    # CHECK ISSUE: https://dessert.unina.it:8088/ldesi/runphi/-/issues/13
-    # on the master node launch
-    # kubeadm token create --print-join-command
-    # Use the command generated, e.g.:
-    # kubeadm join 192.168.100.21:6443 --token hq1d5p.xjn6t7288l3p4r3h --discovery-token-ca-cert-hash sha256:03da27c59362b40cc3d5b3e8a646c2e19d2855122ddc0005b68d0f5266cfc451)
-
-    # If kubeadm kubeadm join fails run "kubeadm reset -f" 
-    # However /var/lib/kubelet/configBR.yaml will be deleted, so add a mechanism to re-copy it from "environment/qemu/jailhouse/install/var/lib/kubelet/configBR.yaml"
-
-3. **Create the app.yaml file as described in chapter four**
-
-    Define the application manifest in control plane nodes as in the following:
-
-    ```yaml
-    apiVersion: v1
-    kind: Pod
-    metadata:
-        name: demo
-    spec:
-        terminationGracePeriodSeconds: 0
-        containers:
-        - name: zephyr
-        image: myname/myapp:latest
-        resources:
-            limits:
-            memory: "200Mi"
-            cpu: "2"
-        requests:
-            memory: "100Mi"
-            cpu: "1"
-        nodeName: buildroot
-
-4. **Get the latest runphi binary and copy from host into QEMU VM**
-
-    ```bash
-    # Look /PATH_TO_RUNPHI/runPHI/rust_runphi/README.md
-    # scp /PATH_TO_RUNPHI/runPHI/rust_runphi/target/aarch64-unknown-linux-gnu/release/runphi to QEMU VM
-    scp /PATH_TO_RUNPHI/runPHI/rust_runphi/target/aarch64-unknown-linux-gnu/release/runphi root@192.0.7.36:/root/runphi
-    ```
-
-5. **From the QEMU machine:**
-
-    ```bash
-    cd /usr/share/runPHI
-    # Start the kubelet
-    sh ./start_kubelet.sh
-
-    # Replace runc executable with RunPHI
-    cp /usr/bin/runc /usr/local/sbin/runc_vanilla
-
-    cp /root/runphi /usr/bin/runc
-
-    ## Launch containerd patched for Jailhouse ARM64 with runphi config.toml
-    /usr/bin/containerd_arm64jh --config /etc/containerd/containerd_runphi_config.toml --log-level info > /var/log/container.log 2>&1
-
-    # setup FLANNEL
-    sh setup_flannel.sh
-
-6. **Run the POD**
-    From the k8s control plane node:
-
-    ```bash
-    # To start the partitioned container
-    kubectl apply -f app.yaml
-    
-    # To destroy the partitioned container
-    kubectl delete -f app.yaml
-    ```
+  nodeName: buildroot
+```
 
 ## Additional Resources
 
