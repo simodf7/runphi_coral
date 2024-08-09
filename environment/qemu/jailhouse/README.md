@@ -1,13 +1,14 @@
 # Run demos
 
-After building the environment ``qemu-jailhouse``, (check [this](https://dessert.unina.it:8088/runphi/environment_builder#1-download-configure-and-compile-everything)), start QEMU VM:
+After building the environment ``qemu-jailhouse``, (check [this](https://dessert.unina.it:8088/runphi/environment_builder#1-download-configure-and-compile-everything)), setup QEMU VM networking and start QEMU VM:
 
 ```
 # cd /PATH_TO_RUNPHI/
+# ./scripts/qemu/setup_bridge_tap.sh
 # ./scripts/qemu/start_qemu.sh
 ```
 
-Make sure to load all built components (e.g., jailhouse, etc.) into QEMU VM (check [this](https://dessert.unina.it:8088/runphi/environment_builder#4-load-projects)). Then, run demos as described in the following (all commands are executed within the QEMU VM). Make sure to run ``jailhouse disable`` before each demo.
+Make sure to load all built components (e.g., jailhouse, etc.) into QEMU VM (check [this](https://dessert.unina.it:8088/runphi/environment_builder#3-load-projects)). Then, run demos as described in the following (all commands are executed within the QEMU VM). Make sure to run ``jailhouse disable`` before each demo.
 
 #### GIC demo
 
