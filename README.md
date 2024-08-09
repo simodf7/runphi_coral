@@ -97,21 +97,19 @@ Supported BACKENDs:
 > [!WARNING]
 > We strongly recommend you run the compiling scripts in a docker container to avoid unexpected errors due to different software versions (e.g., compilers version).
 
+Be sure to add you username to docker group
+
+```
+sudo usermod -aG docker yourusername
+sudo `newgrp docker`
+```
+
 To open a shell in the Docker image with all the needed dependencies just run:
 
 ```bash
 cd ~/environment_builder
 docker build -t runphi_env_builder .
 docker run -it --rm --user $(id -u):$(id -g) -v /etc/passwd:/etc/passwd:ro --net=host --name env_builder_container -v ${PWD}:/home -w="/home" runphi_env_builder /bin/bash
-```
-
-> [!NOTE]
-> You may need to specify the entire absolute path to runphi: change ./runphi with \<your path\>/runphi
-
-Once in the docker container, move to the home directory
-
-```bash
-cd ~
 ```
 
 It is possible to run the scripts without docker but you will need the following packages (we don't recommend it):
