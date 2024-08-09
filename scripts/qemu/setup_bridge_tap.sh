@@ -14,6 +14,10 @@ BRIDGE_GATEWAY=192.0.3.1
 # BRIDGE_DHCPRANGE=192.0.3.2,192.0.3.100 ### use in the future
 TAP_NAME="tap0"
 
+### Install pre-requisites packages
+
+apt-get install iproute2 iptables
+
 ip link add ${BRIDGE_NAME} type bridge
 ip link set dev ${BRIDGE_NAME} up
 ip addr add dev ${BRIDGE_NAME} ${BRIDGE_GATEWAY}/${BRIDGE_NETMASK}
