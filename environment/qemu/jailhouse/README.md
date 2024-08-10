@@ -1,12 +1,23 @@
 # Run demos
 
-After building the environment ``qemu-jailhouse``, (check [this](https://dessert.unina.it:8088/runphi/environment_builder#1-download-configure-and-compile-everything)) (**if you built the environment via a docker container, please exit and destroy it**), setup QEMU VM networking and start QEMU VM. 
+After building the environment ``qemu-jailhouse``, (check [this](https://dessert.unina.it:8088/runphi/environment_builder#1-download-configure-and-compile-everything)) (**if you built the environment via a docker container, please exit and destroy it**), setup QEMU VM networking.
 
 ```
 # cd /PATH_TO_RUNPHI/
 # ./scripts/qemu/setup_bridge_tap.sh
-# ./scripts/qemu/start_qemu.sh
+```
 
+Optionally, if you want to run Zephyr demos that need networking (check [this](https://dessert.unina.it:8088/runphi/environment_builder/-/tree/main/environment/qemu/jailhouse#zephyr-dhcp-demo)), run also the following:
+
+```
+# cd /PATH_TO_RUNPHI/
+# ./scripts/qemu/setup_route_qemu_host_eth1_zephyr.sh
+```
+
+Finally, start the QEMU VM
+
+```
+# ./scripts/qemu/start_qemu.sh
 ## When request user: root, password: root
 ```
 
