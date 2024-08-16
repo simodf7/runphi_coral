@@ -1,14 +1,29 @@
 # Run demos
 
-After building the environment ``qemu-jailhouse``, (check [this](https://dessert.unina.it:8088/runphi/environment_builder#1-download-configure-and-compile-everything)), setup QEMU VM networking and start QEMU VM:
+After building the environment ``qemu-jailhouse``, (check [this](https://dessert.unina.it:8088/runphi/environment_builder#1-download-configure-and-compile-everything)) (**if you built the environment via a docker container, please exit and destroy it**), setup QEMU VM networking.
 
 ```
 # cd /PATH_TO_RUNPHI/
 # ./scripts/qemu/setup_bridge_tap.sh
-# ./scripts/qemu/start_qemu.sh
 ```
 
-Make sure to load all built components (e.g., jailhouse, etc.) into QEMU VM (check [this](https://dessert.unina.it:8088/runphi/environment_builder#3-load-projects)). Then, run demos as described in the following (all commands are executed within the QEMU VM). Make sure to run ``jailhouse disable`` before each demo.
+Optionally, if you want to run Zephyr demos that need networking (check [this](https://dessert.unina.it:8088/runphi/environment_builder/-/tree/main/environment/qemu/jailhouse#zephyr-dhcp-demo)), run also the following:
+
+```
+# cd /PATH_TO_RUNPHI/
+# ./scripts/qemu/setup_route_qemu_host_eth1_zephyr.sh
+```
+
+Finally, start the QEMU VM
+
+```
+# ./scripts/qemu/start_qemu.sh
+## When request user: root, password: root
+```
+
+Make sure to load all built components (e.g., jailhouse, etc.) into QEMU VM (check [this](https://dessert.unina.it:8088/runphi/environment_builder#3-load-projects)). Then, run demos as described in the following (**all commands are executed within the QEMU VM**). Make sure to run ``jailhouse disable`` before each demo.
+
+When console/UART control is lost, please open a new shell and run ``./scripts/remote/ssh_connection.sh`` to get QEMU VM shell control back again.
 
 #### GIC demo
 
