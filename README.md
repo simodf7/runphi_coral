@@ -11,7 +11,7 @@ To build a working environment we are going to use Pre-Built Components and To-B
 Each environment (target + backend) is characterized by a configuration file (``<target>-<backend>.sh``, e.g., ``qemu-jailhouse.sh``) that specifies a set of "To-Build Components" that are characterized by specific compilation flags and specific GitHub repository/commit.
 Each target "Pre-Built components" are instead stored in the ``/PATH_TO_RUNPHI/environment/qemu/jailhouse/`` directory
 
-The ``~/configure_everything.sh -t <target> -b <backend>`` command downloads each "To-Build component" from their GitHub repository, compiles them and puts the result artifacts with the "Pre-Built Components" in the right environment directory.
+The ``~/build_environment.sh -t <target> -b <backend>`` command downloads each "To-Build component" from their GitHub repository, compiles them and puts the result artifacts with the "Pre-Built Components" in the right environment directory.
 The backend directory of the specified target will then store all the files needed to boot and run our system (both in emulation or real hardware).
 
 While the system is running the "remote" scripts (scripts/remote/) give you a simple way to load/update software components in the environment (e.g. Update Kernel, Load RunPHI, ...).
@@ -89,7 +89,7 @@ Supported BACKENDs:
   > Scripts to update and load components, images and utilities on the running environment.
 - change_environment.sh
   > Change the current environment to set a specific \<target\>+\<backend\>.
-- configure_everything.sh
+- build_environment.sh
   > Download and compile all the "To-Build Components" for a given environment (\<target\>+\<backend\>) with a single script (it may take a while...).
 
 ## Dependencies
@@ -130,7 +130,7 @@ pip3 install Mako
 Launch the following script to download, configure and compile all the "To-Build Components" for the chosen \<target\> (e.g. qemu) and \<backend\> (e.g. jailhouse):
 
 ```bash
-./scripts/configure_everything.sh -t <target> -b <backend>
+./scripts/build_environment.sh -t <target> -b <backend>
 ```
 
 From now on the chosen target and backend will be the default ones. If you need to change for some reason the default target and backend, we provide the script "change_environment":
