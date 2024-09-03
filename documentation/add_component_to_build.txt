@@ -28,7 +28,7 @@ try the script and verify that the new component output image is generated and c
       - <name_component>_BUILD="n"
 
 3) UPDATE CONFIGURE EVERYTHING
-    - In the scripts/configure_everything.sh
+    - In the scripts/build_environment.sh
     - in the "## CLONE PHASE ##" add a new CLONE copying one of the existing and changing the subject 
     - In the "#Wait for all the clones to complete" section add the wait ${pid<name of the component>}
     - in the "## COMPILING PHASE ##" section add a call to the script created in point 1:
@@ -41,6 +41,6 @@ try the script and verify that the new component output image is generated and c
 5) TEST IT: 
   - deleted the entire directory of the previously created component in environment/<target>/<backend>/build/<name_component>
   - put to "n" to all the "<component>_BUILD" variables in environment/<target>/<backend>/environment_cfgs/<target>-<backend>.sh of your target except for the <component_to_test>_BUILD="y" (remember to save the current configuration to recopy it after the test) 
-  - launch ./configure_everything.sh -t <target> -b <backend> and verify that the repository is cloned correctly and that the resulting image has been correctly copied in the target directory where expected.
+  - launch ./build_environment.sh -t <target> -b <backend> and verify that the repository is cloned correctly and that the resulting image has been correctly copied in the target directory where expected.
 
 6) [OPTIONAL] Add a configuration managment (to do ...)
