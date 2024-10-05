@@ -11,7 +11,8 @@ RSYNC_REMOTE_PATH=""
 
 ## CROSS COMPILING ARCHITECTURES
 ARCH="arm64"
-CROSS_COMPILE="/tools/Xilinx/SDK/2019.1/gnu/aarch64/lin/aarch64-linux/bin/aarch64-linux-gnu-" #aarch64-linux-gnu
+#CROSS_COMPILE="/tools/Xilinx/SDK/2019.1/gnu/aarch64/lin/aarch64-linux/bin/aarch64-linux-gnu-" #aarch64-linux-gnu
+CROSS_COMPILE="aarch64-linux-gnu-"
 REMOTE_COMPILE="arm-none-eabi-"
 
 ## COMPONENTS ##
@@ -19,7 +20,7 @@ REMOTE_COMPILE="arm-none-eabi-"
 QEMU_BUILD="n"
 
 # ATF
-ATF_BUILD="y"
+ATF_BUILD="n"
 ATF_COMPILE_ARGS=""
 ATF_PATCH_ARGS=""
 ATF_REPOSITORY="https://github.com/DanieleOttaviano/arm-trusted-firmware.git"
@@ -33,10 +34,10 @@ LINUX_COMPILE_ARGS="-m"
 LINUX_PATCH=""
 LINUX_REPOSITORY="https://github.com/Xilinx/linux-xlnx.git"
 LINUX_BRANCH="xlnx_rebase_v5.15_LTS"
-#LINUX_COMMIT="7484228ddbb5760eac350b1b4ffe685c9da9e765"
+LINUX_COMMIT="7484228ddbb5760eac350b1b4ffe685c9da9e765"
 
 # BUILDROOT
-BUILDROOT_BUILD="n"
+BUILDROOT_BUILD="y"
 UPD_BUILDROOT_COMPILE_ARGS=""
 BUILDROOT_COMPILE_ARGS=""
 BUILDROOT_PATCH_ARGS=""
@@ -45,12 +46,12 @@ BUILDROOT_BRANCH="2023.05.x"
 BUILDROOT_COMMIT="25d59c073ac355d5b499a9db5318fb4dc14ad56c"
 
 # JAILHOUSE
-JAILHOUSE_BUILD="y"
+JAILHOUSE_BUILD="n"
 UPD_JAILHOUSE_COMPILE_ARGS=""
 JAILHOUSE_COMPILE_ARGS=""
 JAILHOUSE_PATCH_ARGS="-p 0001-Update-for-kernel-version-greater-then-5-7-and-5-15.patch"
 JAILHOUSE_REPOSITORY="https://github.com/DanieleOttaviano/jailhouse.git"
-JAILHOUSE_BRANCH="hardware_containers"
+JAILHOUSE_BRANCH="" #"hardware_containers"
 JAILHOUSE_COMMIT=""
 
 # BOOTGEN
