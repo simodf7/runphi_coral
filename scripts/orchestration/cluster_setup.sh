@@ -87,3 +87,4 @@ ssh ${RUNPHI_NODE_USER}@${RUNPHI_NODE_IP} "/etc/init.d/S92kubelet start"
 wait $PID_JOIN
 ssh ${RUNPHI_NODE_USER}@${RUNPHI_NODE_IP} "mkdir -p /usr/share/runPHI"
 scp -r ${RUNPHI_DIR}/target/runPHI_cell_configs/* ${RUNPHI_NODE_USER}@${RUNPHI_NODE_IP}:/usr/share/runPHI
+scp -r $(find ${RUNPHI_DIR}/target -maxdepth 1 -type f) ${RUNPHI_NODE_USER}@${RUNPHI_NODE_IP}:/root/target/
