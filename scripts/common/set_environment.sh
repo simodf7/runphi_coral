@@ -86,6 +86,13 @@ qemu_bin_dir=${qemu_dir}/build/aarch64-softmmu
 # ATF
 atf_dir=${build_dir}/arm-trusted-firmware
 atf_image_dir=${atf_dir}/build/zynqmp/release/bl31
+# U-BOOT
+uboot_dir=${build_dir}/u-boot
+uboot_image_dir=${uboot_dir}
+uboot_config_dir=${uboot_dir}/configs
+custom_uboot_dir=${custom_build_dir}/u-boot
+custom_uboot_config_dir=${custom_uboot_dir}/configs
+custom_uboot_patch_dir=${custom_uboot_dir}/patch
 # LINUX
 linux_dir=${build_dir}/linux
 image_dir=${linux_dir}/arch/${ARCH}/boot
@@ -120,6 +127,7 @@ bootgen_dir=${build_dir}/bootgen
 # JAILHOUSE
 defconfig_buildroot_name=${BACKEND}_${TARGET}_buildroot_defconfig
 defconfig_linux_name=${BACKEND}_${TARGET}_kernel_defconfig
+defconfig_uboot_name=${BACKEND}_${TARGET}_u-boot_defconfig
 
 ## SETUP THE SPECIFIC TARGET ##
 source ${environment_cfgs_dir}/${TARGET}-${BACKEND}.sh

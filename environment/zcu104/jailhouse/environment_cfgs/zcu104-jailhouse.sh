@@ -28,6 +28,9 @@ ATF_REPOSITORY="https://github.com/DanieleOttaviano/arm-trusted-firmware.git"
 ATF_BRANCH="master"
 ATF_COMMIT=""
 
+# U-BOOT 
+UBOOT_BUILD="n"
+
 # LINUX
 LINUX_BUILD="y"
 UPD_LINUX_COMPILE_ARGS=""
