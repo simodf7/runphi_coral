@@ -112,13 +112,10 @@ if [[ "${INSTALL_NFS,,}" =~ ^y(es)?$ ]]; then
   cp -rf "${jailhouse_dir}" "${rootfs_dir}/${TARGET}/root/" > /dev/null 2>&1
 
   # Jailhouse should install pyjailhouse in the libexec/jailhouse directory but it doesn't. So lets do it manually
-  if [ -d "${rootfs_dir}/${TARGET}/usr/local/libexec/jailhouse/pyjailhouse" ]; then
-    echo "pyjailhouse is already in the right directory"
-  else
-    echo "moving pyjailhouse in the right directory..."
-    pyjailhouse_path=$(find "${rootfs_dir}/${TARGET}/usr" -type d -name "pyjailhouse")
-    cp -r "${pyjailhouse_path}" "${rootfs_dir}/${TARGET}/usr/local/libexec/jailhouse"
-  fi
+  echo "moving pyjailhouse in the right directory..."
+  pyjailhouse_path=$(find "${rootfs_dir}/${TARGET}/usr/local/lib" -type d -name "pyjailhouse")
+  cp -r "${pyjailhouse_path}" "${rootfs_dir}/${TARGET}/usr/local/libexec/jailhouse"
+  # fi
 
   echo "JAILHOUSE has been successfully installed in the NFS directory!"
 else
