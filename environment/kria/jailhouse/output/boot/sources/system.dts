@@ -108,9 +108,9 @@
 			no-map;
 			reg = <0x0 0x3ed00000 0x0 0x8000000>;
 		};
-		jailhouse_reserved: jailhouse@6f000000 {
+		jailhouse_reserved: jailhouse@7e000000 {
 			no-map;
-			reg = <0x0 0x6f000000 0x0 0x1000000>;
+			reg = <0x0 0x7e000000 0x0 0x2000000>;
 		}; 
 	};
 
@@ -169,17 +169,17 @@
 			mboxes = <&ipi_mailbox_rpu0 0>, <&ipi_mailbox_rpu0 1>;
 			mbox-names = "tx", "rx";
 		};
-        r5f_1 {
-            compatible = "xilinx,r5f";
-            #address-cells = <0x2>;
-            #size-cells = <0x2>;
-            ranges;
-            sram = <0x92 0x93>;
-            memory-region = <&rproc_1_reserved>;
-            power-domain = <0x0c 0x08>;
-            mboxes = <&ipi_mailbox_rpu1 0>, <&ipi_mailbox_rpu1 1>;
-            mbox-names = "tx", "rx";
-        };
+		r5f_1 {
+		    compatible = "xilinx,r5f";
+		    #address-cells = <0x2>;
+		    #size-cells = <0x2>;
+		    ranges;
+		    sram = <0x92 0x93>;
+		    memory-region = <&rproc_1_reserved>;
+		    power-domain = <0x0c 0x08>;
+		    mboxes = <&ipi_mailbox_rpu1 0>, <&ipi_mailbox_rpu1 1>;
+		    mbox-names = "tx", "rx";
+		};
 	};
 
 
