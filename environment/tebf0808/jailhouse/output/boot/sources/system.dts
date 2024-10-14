@@ -112,7 +112,8 @@
 		jailhouse_reserved: jailhouse@6f000000 {
 			no-map;
 			reg = <0x0 0x6f000000 0x0 0x1000000>;
-		}; 
+		};
+	
 	};
 
 
