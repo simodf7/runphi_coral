@@ -3,7 +3,7 @@
 #WARNING: configure with the right .cell and .dtb
 
 LINUX_INMATE_CELL="zynqmp-kv260-linux-demo.cell"
-LINUX_INMATE_DTB="inmate-zynqmp.dtb"
+LINUX_INMATE_DTB="inmate-zynqmp-kv260.dtb"
 
 jailhouse cell linux \
 	${JAILHOUSE_DIR}/configs/arm64/${LINUX_INMATE_CELL} \
