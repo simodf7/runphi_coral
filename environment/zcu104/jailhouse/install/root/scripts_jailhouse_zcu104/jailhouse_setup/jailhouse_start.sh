@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Default cell configuration
-PLATFORM="zynqmp-zcu104i-root-col"
+PLATFORM="zynqmp-zcu104-root-col"
 
 # Check for input parameter
 if [ "$1" == "-o" ] || [ "$1" == "--omnv" ]; then
