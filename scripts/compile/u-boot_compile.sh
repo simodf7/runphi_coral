@@ -41,7 +41,7 @@ export CROSS_COMPILE="${CROSS_COMPILE}"
 PLATFORM="xilinx_zynqmp_virt_defconfig"
 
 # Compile U-boot 
-make -C "${uboot_dir}" ${PLATFORM} 
+#make -C "${uboot_dir}" ${PLATFORM} 
 #echo 'CONFIG_BOOTCOMMAND="if dhcp ${scriptaddr} kria/boot.scr; then source ${scriptaddr}; fi"' >> ${uboot_dir}/.config
 make -C "${uboot_dir}"  -j"$(nproc)"
 if [[ $? -ne 0 ]]; then
