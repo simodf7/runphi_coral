@@ -1,3 +1,4 @@
 qemu-jailhouse
 kria-jailhouse
 zcu104-jailhouse
+zcu102-jailhouse

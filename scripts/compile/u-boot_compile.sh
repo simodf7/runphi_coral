@@ -42,6 +42,8 @@ PLATFORM="xilinx_zynqmp_virt_defconfig"
 
 # Compile U-boot 
 #make -C "${uboot_dir}" ${PLATFORM} 
+# IF zcu102 (sudo apt-et install libgnutls28-dev)
+# export BL31=/home/environment/zcu102/jailhouse/output/boot/bl31.elf
 #echo 'CONFIG_BOOTCOMMAND="if dhcp ${scriptaddr} kria/boot.scr; then source ${scriptaddr}; fi"' >> ${uboot_dir}/.config
 make -C "${uboot_dir}"  -j"$(nproc)"
 if [[ $? -ne 0 ]]; then
