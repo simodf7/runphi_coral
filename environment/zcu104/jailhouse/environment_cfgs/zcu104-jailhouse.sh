@@ -9,10 +9,10 @@ RSYNC_ARGS=""
 RSYNC_REMOTE_PATH=""
 
 
-## CROSS COMPILING ARCHITECTURES
+### CROSS COMPILING ARCHITECTURES
 ARCH="arm64"
-CROSS_COMPILE="/home/daniele/opt/Xilinx/SDK/2019.1/gnu/aarch64/lin/aarch64-linux/bin/aarch64-linux-gnu-" #"aarch64-linux-gnu-"
-#CROSS_COMPILE="aarch64-linux-gnu-"
+BUILD_ARCH="aarch64"
+CROSS_COMPILE="aarch64-linux-gnu-"
 REMOTE_COMPILE="arm-none-eabi-"
 
 
@@ -28,14 +28,17 @@ ATF_REPOSITORY="https://github.com/DanieleOttaviano/arm-trusted-firmware.git"
 ATF_BRANCH="master"
 ATF_COMMIT=""
 
+# U-BOOT 
+UBOOT_BUILD="n"
+
 # LINUX
 LINUX_BUILD="y"
 UPD_LINUX_COMPILE_ARGS=""
 LINUX_COMPILE_ARGS="-m"
-LINUX_PATCH_ARGS=""
+LINUX_PATCH_ARGS="-d jailhouse_enable,preempt_rt"
 LINUX_REPOSITORY="https://github.com/Xilinx/linux-xlnx.git"
-LINUX_BRANCH="xlnx_rebase_v5.15_LTS"
-LINUX_COMMIT="7484228ddbb5760eac350b1b4ffe685c9da9e765"
+LINUX_BRANCH="xlnx_rebase_v6.1_LTS"
+LINUX_COMMIT=""
 
 # BUILDROOT
 BUILDROOT_BUILD="y"
@@ -49,10 +52,10 @@ BUILDROOT_COMMIT="25d59c073ac355d5b499a9db5318fb4dc14ad56c"
 # JAILHOUSE
 JAILHOUSE_BUILD="y"
 UPD_JAILHOUSE_COMPILE_ARGS=""
-JAILHOUSE_COMPILE_ARGS="-r all"
-JAILHOUSE_PATCH_ARGS="-p 0001-Update-for-kernel-version-greater-then-5-7-and-5-15.patch"
-JAILHOUSE_REPOSITORY="git@github.com:DanieleOttaviano/jailhouse.git"
-JAILHOUSE_BRANCH="master"
+JAILHOUSE_COMPILE_ARGS="-n -r armr5"
+JAILHOUSE_PATCH_ARGS=""
+JAILHOUSE_REPOSITORY="https://github.com/Minervasys/jailhouse.git"
+JAILHOUSE_BRANCH="rebased_omnivisor_branch"
 JAILHOUSE_COMMIT=""
 
 # BOOTGEN

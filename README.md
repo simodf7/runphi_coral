@@ -44,14 +44,12 @@ Supported BACKENDs:
 
 ## Main Directories
 
-- docker
+- Dockerfile
   > Dockerfile to build the build container
 - documentation
   > documentation of RunPHI Project
-- runPHI
-  > runPHI source code
 - scripts
-  > Utility scripts (Core of RunPHI Project)
+  > Utility scripts (Core of Environment Builder)
 - environment
   > List of Target/Backend
   
@@ -83,6 +81,10 @@ Supported BACKENDs:
   > Scripts to compile "To-Build Components" individually
 - defconfigs
   > Scripts to Save and Update the configuration of the configurable "To-Build Components"
+- orchestration
+  > Setup for orchestration
+- patch
+  > Utility to apply custom patches to components
 - qemu
   > Script to launch the QEMU emulation (the target is QEMU).
 - remote
