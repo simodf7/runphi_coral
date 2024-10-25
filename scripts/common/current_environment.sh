@@ -1,3 +1,3 @@
 #!/bin/bash
-TARGET="qemu"
+TARGET="zcu102"
 BACKEND="jailhouse"
