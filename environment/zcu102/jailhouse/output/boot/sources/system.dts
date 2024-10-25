@@ -2387,20 +2387,10 @@
 			phandle = <0x4b>;
 		};
 
- 		jailhouse_mem: jailhouse_mem@87c000000 {
+ 		jailhouse_mem: jailhouse_mem@7f000000 {
  			no-map;
- 		    reg = <0x8 0x7c000000 0x0 0x04000000>; 		
+ 		    reg = <0x0 0x7f000000 0x0 0x01000000>; 		
 		};
- 		
-		private_hi: private_hi@800000000 {
-			no-map;
- 			reg = <0x8 0x00000000 0x0 0x7c000000>;
- 		};
-
- 		private_lo: private_lo@010000000 {
-			no-map;
- 			reg = <0x0 0x10000000 0x0 0x70000000>;
- 		};
 	};
 
 	tcm_0a@ffe00000 {
