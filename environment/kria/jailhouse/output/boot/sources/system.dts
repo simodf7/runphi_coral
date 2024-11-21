@@ -151,6 +151,7 @@
     };
 
 	rf5ss@ff9a0000 {
+		phandle = <0x94>;
 		compatible = "xlnx,zynqmp-r5-remoteproc";
 		xlnx,cluster-mode = <1>;
 		ranges;
@@ -159,6 +160,7 @@
 		#size-cells = <0x2>;
 
 		r5f_0 {
+			phandle = <0x95>;
 			compatible = "xilinx,r5f";
 			#address-cells = <2>;
 			#size-cells = <2>;
@@ -170,6 +172,7 @@
 			mbox-names = "tx", "rx";
 		};
 		r5f_1 {
+			phandle = <0x96>;
 		    compatible = "xilinx,r5f";
 		    #address-cells = <0x2>;
 		    #size-cells = <0x2>;
