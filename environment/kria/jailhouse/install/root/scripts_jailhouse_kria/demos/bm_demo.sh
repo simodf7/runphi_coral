@@ -4,6 +4,10 @@ PLATFORM="zynqmp-kv260"
 
 CPUs=("RPU" "APU" "RISCV")
 
+BITSTREAM="pico32_tg.bit"
+
+FPGA_REGION="0"
+
 echo "Platform: ${PLATFORM}"
 
 # Check if the first argument is provided, otherwise prompt the user
@@ -62,6 +66,9 @@ fi
 jailhouse cell create ${JAILHOUSE_DIR}/configs/arm64/${BAREMETAL_INMATE_CELL}
 if [ "$CELL_CHOICE" == "RPU" ]; then
     jailhouse cell load ${INMATE} ${JAILHOUSE_DIR}/inmates/demos/${ARCH}/${DEMO_BIN_TCM} -a 0xffe00000 ${JAILHOUSE_DIR}/inmates/demos/${ARCH}/${DEMO_BIN}
+elif [ "$CELL_CHOICE" == "RISCV" ]; then
+    jailhouse cell load ${INMATE} ${JAILHOUSE_DIR}/inmates/demos/${ARCH}/${DEMO_BIN} -b ${BITSTREAM} ${FPGA_REGION}
+
 else
     jailhouse cell load ${INMATE} ${JAILHOUSE_DIR}/inmates/demos/${ARCH}/${DEMO_BIN}
 fi
