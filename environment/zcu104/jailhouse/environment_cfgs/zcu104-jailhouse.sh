@@ -1,7 +1,8 @@
 #!/bin/bash
 
 ## Connection
-IP="143.225.229.215"
+#IP="143.225.229.215"
+IP="192.168.100.47"
 USER="root"
 SSH_ARGS=""
 RSYNC_ARGS_SSH=""
