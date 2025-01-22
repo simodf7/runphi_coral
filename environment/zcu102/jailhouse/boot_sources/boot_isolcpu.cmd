@@ -24,7 +24,7 @@ do
 			exit;
 		fi
 		if test -e ${devtype} ${devnum}:${distro_bootpart} /Image; then
-			setenv bootargs "eisolcpus=nohz,domain,managed_irq,2-3 skew_tick=1 nosoftlockup nowatchdog nohz_full=2-3 rcu_nocbs=2-3 rcu_nocb_poll processor.max_cstate=0 processor_idle.max_cstate=0 earlycon clk_ignore_unused earlyprintk root=/dev/mmcblk0p2 rw rootwait"
+			setenv bootargs "isolcpus=nohz,domain,managed_irq,2-3 skew_tick=1 nosoftlockup nowatchdog nohz_full=2-3 rcu_nocbs=2-3 rcu_nocb_poll processor.max_cstate=0 processor_idle.max_cstate=0 earlycon clk_ignore_unused earlyprintk root=/dev/mmcblk0p2 rw rootwait"
 			setenv uenvcmd "fatload mmc 0 0x3000000 Image && fatload mmc 0 0x2A00000 system.dtb && booti 0x3000000 - 0x2A00000"
 			setenv bootcmd "run uenvcmd"
 			fatload ${devtype} ${devnum}:${distro_bootpart} ${kernel_addr} Image;
