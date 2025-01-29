@@ -108,11 +108,7 @@
 			no-map;
 			reg = <0x0 0x3ed00000 0x0 0x8000000>;
 		};
-		cell_reserved: cell@46d00000 {
-			no-map;
-			reg = <0x0 0x46d00000 0x0 0x8300000>;
-		};
-		others_reserved: other@70000000 {
+		pico32_reserved: pico32@70000000 {
 			no-map;
 			reg = <0x0 0x70000000 0x0 0x2000000>;
 		};
@@ -193,6 +189,13 @@
 		};
 	};
 
+	pico32@80000000 {
+		phandle = <0x97>;	
+		compatible = "dottavia,pico32-remoteproc";
+		#address-cells = <0x2>;
+		#size-cells = <0x2>;
+		memory-region = <&pico32_reserved>;
+	};
 
 	zynqmp_ipi1 {
 		compatible = "xlnx,zynqmp-ipi-mailbox";
@@ -636,107 +639,6 @@
 		#size-cells = <0x02>;
 		ranges;
 		phandle = <0x38>;
-	};
-
-// ---- BEGIN SNIP ----
-// 	fpga_full: fpga-full {
-// 		status = "okay";
-// 		reconf_region: reconf_region0 {
-//   		compatible = "fpga-region";
-//   		fpga-bridges = <&reconf_bridge0>;
-// 		};
-// 	};
-//  
-// 	reconf_bridge0: reconf_bridge@a0080000  {
-// 		status = "okay";
-// 		compatible = "xlnx,dfx-axi-shutdown-manager-1.00";
-// 		reg = <0x0 0xa0080000 0x0 0x10>;
-// 		clock-names = "aclk";
-// 		clocks = <&zynqmp_clk 73>;
-// 		bridge-enable = <1>;
-//  };
-// ---- END SNIP ----
-
-// &fpga_region0 {
-//  #address-cells = <1>;
-//  #size-cells = <1>;
-
-//  firmware-name = "soc_system.rbf";
-//  fpga-bridges = <&fpga_bridge1>;
-//  ranges = <0x20000 0xff200000 0x100000>,
-//    <0x0 0xc0000000 0x20000000>;
-
-//  gpio@10040 {
-//   compatible = "altr,pio-1.0";
-//   reg = <0x10040 0x20>;
-//   altr,ngpio = <4>;
-//   #gpio-cells = <2>;
-//   clocks = <2>;
-//   gpio-controller;
-//  };
-
-//  onchip-memory {
-//   device_type = "memory";
-//   compatible = "altr,onchipmem-15.1";
-//   reg = <0x0 0x10000>;
-//  };
-// };
-
-// fpga_mgr: fpga-mgr@ff706000 {
-//   compatible = "altr,socfpga-fpga-mgr";
-//   reg = <0xff706000 0x1000
-//          0xffb90000 0x20>;
-//   interrupts = <0 175 4>;
-//  };
-
-//  fpga_bridge0: fpga-bridge@ff400000 {
-//   compatible = "altr,socfpga-lwhps2fpga-bridge";
-//   reg = <0xff400000 0x100000>;
-//   resets = <&rst LWHPS2FPGA_RESET>;
-//   clocks = <&l4_main_clk>;
-
-//   #address-cells = <1>;
-//   #size-cells = <1>;
-//   ranges;
-
-//   fpga_region0: fpga-region0 {
-//    compatible = "fpga-region";
-//    fpga-mgr = <&fpga_mgr>;
-//   };
-//  };
-
-//  fpga_bridge1: fpga-bridge@ff500000 {
-//   compatible = "altr,socfpga-hps2fpga-bridge";
-//   reg = <0xff500000 0x10000>;
-//   resets = <&rst HPS2FPGA_RESET>;
-//   clocks = <&l4_main_clk>;
-//  };
-
-	fpga-region0 {
-		compatible = "fpga-region";
-		fpga-mgr = <0x0b>;
-		#address-cells = <0x02>;
-		#size-cells = <0x02>;
-		ranges;
-		phandle = <0x9a>;
-	};
-
-	fpga-region1 {
-		compatible = "fpga-region";
-		fpga-mgr = <0x0b>;
-		#address-cells = <0x02>;
-		#size-cells = <0x02>;
-		ranges;
-		phandle = <0x9b>;
-	};
-
-	fpga-region2 {
-		compatible = "fpga-region";
-		fpga-mgr = <0x0b>;
-		#address-cells = <0x02>;
-		#size-cells = <0x02>;
-		ranges;
-		phandle = <0x9c>;
 	};
 
 	axi {
@@ -2169,9 +2071,6 @@
 		modepin_gpio = "/firmware/zynqmp-firmware/gpio";
 		zynqmp_clk = "/firmware/zynqmp-firmware/clock-controller";
 		fpga_full = "/fpga-full";
-		fpga_region0 = "/fpga-region0";
-		fpga_region1 = "/fpga-region1";
-		fpga_region2 = "/fpga-region2";
 		amba = "/axi";
 		can0 = "/axi/can@ff060000";
 		can1 = "/axi/can@ff070000";
