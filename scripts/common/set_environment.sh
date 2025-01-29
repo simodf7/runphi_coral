@@ -63,13 +63,14 @@ ARCH="arm64"
 ## Environment DIRECTORIES ##
 target_dir=${environment_dir}/${TARGET}
 backend_dir=${target_dir}/${BACKEND}
+# BOOT SOURCES
+boot_sources_dir=${backend_dir}/boot_sources
 # INSTALL
 install_dir=${backend_dir}/install
 # OUTPUT
 output_dir=${backend_dir}/output
 hardware_dir=${output_dir}/hardware
 boot_dir=${output_dir}/boot
-boot_sources_dir=${boot_dir}/sources
 rootfs_dir=${output_dir}/rootfs
 # BUILD
 build_dir=${backend_dir}/build
