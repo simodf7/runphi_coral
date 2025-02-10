@@ -196,7 +196,7 @@ Supposing that /dev/sda is the name of the SD card device.
 ```
 ## Format boot and root partitions 
 
-# sudo mkfs.fat /dev/sdc1 -n boot
+# sudo mkfs.vfat /dev/sdc1 -n boot
 mkfs.fat 4.2 (2021-01-31)
 mkfs.fat: /dev/sdc1 contains a mounted filesystem.
 
