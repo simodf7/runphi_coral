@@ -157,17 +157,66 @@ To prepare the SD, you need to create two partitions on it:
 
 Supposing that /dev/sda is the name of the SD card device.
 
-```bash
-sudo fdisk /dev/sda
-# Command (m for help): d # and accept all prompts, until there are no more partitions
-# Command (m for help): w
-sudo fdisk /dev/sda
-# Command (m for help): n # all default, except size (last sector) +1GB
+```
+# fdisk /dev/sda
+
+
+## Command (m for help): d # delete all existing partitions with 'd' option, and accept all prompts, until there are no more partitions
+## Command (m for help): w # write modification
+
+# fdisk /dev/sda
+
+
+# Command (m for help): n # create boot partition, select all default, except size (last sector) +1GB
+
+## Partition type
+##   p   primary (0 primary, 0 extended, 4 free)
+##   e   extended (container for logical partitions)
+
+# First sector (2048-61132799, default 2048): 2048
+# Last sector, +/-sectors or +/-size{K,M,G,T,P} (2048-61132799, default 61132799): +1GB
+
+## Created a new partition 1 of type 'Linux' and of size 954 MiB.
+
 # Command (m for help): a # to make it bootable
-# Command (m for help): n # all default
-# Command (m for help): w
-sudo mkfs.fat /dev/sda1 -n boot
-sudo mkfs.ext4 -L root /dev/sda2 
+
+## Selected partition 1
+## The bootable flag on partition 1 is enabled now.
+
+# Command (m for help): n # all default, to create a 2nd partition, size all remaining free space
+# Command (m for help): w # write modification to fs
+
+## Partition number (2-4, default 2):
+## First sector (1955840-61132799, default 1955840):
+## Last sector, +/-sectors or +/-size{K,M,G,T,P} (1955840-61132799, default 61132799):
+
+## Created a new partition 2 of type 'Linux' and of size 28.2 GiB.
+```
+
+```
+## Format boot and root partitions 
+
+# sudo mkfs.fat /dev/sdc1 -n boot
+mkfs.fat 4.2 (2021-01-31)
+mkfs.fat: /dev/sdc1 contains a mounted filesystem.
+
+... 
+
+# sudo mkfs.ext4 -L root /dev/sdc2
+mke2fs 1.47.0 (5-Feb-2023)
+/dev/sdc2 contains a ext4 file system labelled 'root'
+	created on Mon Feb 10 11:28:09 2025
+Proceed anyway? (y,N) y
+Creating filesystem with 7397120 4k blocks and 1851392 inodes
+Filesystem UUID: c9e1c436-3c71-4e06-87fc-c600e142c898
+Superblock backups stored on blocks:
+	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208,
+	4096000
+
+Allocating group tables: done
+Writing inode tables: done
+Creating journal (32768 blocks): done
+Writing superblocks and filesystem accounting information: done
 ```
 
 Then mount the boot partition with (Supposing /mnt/sd_boot is an available path):
