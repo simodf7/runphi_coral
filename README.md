@@ -272,9 +272,9 @@ Use the following script to load (or update if already loaded) runPHI and Jailho
 
 Verify in the /root directory if the files have been loaded correctly.
 
-### 5. Test QEMU-Jailhouse environment
+### 5. Test Environment
 
-Refer to this [README](https://dessert.unina.it:8088/runphi/environment_builder/-/blob/main/environment/qemu/jailhouse/README.md)
+- **QEMU-Jailhouse**: refer to this [README](https://dessert.unina.it:8088/runphi/environment_builder/-/blob/main/environment/qemu/jailhouse/README.md)
 
 ## Updates
 
