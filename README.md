@@ -155,17 +155,19 @@ To prepare the SD, you need to create two partitions on it:
 - boot: size 1G, FAT32 format
 - rootfs: size 31G (supposing the SD is 32G), ext4 format
 
-Supposing that /dev/sda is the name of the SD card device.
+Supposing that ``/dev/sda`` is the name of the SD card device.
 
+##### Delete all existing partitions
 ```
 # fdisk /dev/sda
 
-
 ## Command (m for help): d # delete all existing partitions with 'd' option, and accept all prompts, until there are no more partitions
 ## Command (m for help): w # write modification
+```
 
+##### Create boot and root partitions
+```
 # fdisk /dev/sda
-
 
 # Command (m for help): n # create boot partition, select all default, except size (last sector) +1GB
 
@@ -193,14 +195,11 @@ Supposing that /dev/sda is the name of the SD card device.
 ## Created a new partition 2 of type 'Linux' and of size 28.2 GiB.
 ```
 
+##### Format boot and root partitions 
 ```
-## Format boot and root partitions 
-
 # sudo mkfs.vfat /dev/sdc1 -n boot
 mkfs.fat 4.2 (2021-01-31)
-mkfs.fat: /dev/sdc1 contains a mounted filesystem.
-
-... 
+mkfs.fat: /dev/sdc1 contains a mounted filesystem. 
 
 # sudo mkfs.ext4 -L root /dev/sdc2
 mke2fs 1.47.0 (5-Feb-2023)
