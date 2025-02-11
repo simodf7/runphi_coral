@@ -276,7 +276,7 @@ Verify in the /root directory if the files have been loaded correctly.
 
 - **QEMU-Jailhouse**: refer to this [README](https://dessert.unina.it:8088/runphi/environment_builder/-/blob/main/environment/qemu/jailhouse/README.md)
 
-## Updates
+### 6. Updates
 
 If you manually modify the configuration in one of the "To-Built Components" (e.g., buildroot, Linux, jailhouse) you may need to compile them again. So there is a script for each of them (run using -h to see the possible flags):
 
@@ -302,6 +302,19 @@ If you change something and the configurations don't work anymore, you can updat
 ./scripts/defconfigs/buildroot_update_defconfigs.sh
 ./scripts/defconfigs/linux_update_defconfigs.sh
 ./scripts/defconfigs/jailhouse_update_defconfigs.sh
+```
+
+### 7. Destroy environment
+
+```
+$ docker run -it --rm --user $(id -u):$(id -g) -v /etc/passwd:/etc/passwd:ro --net=host --name env_builder_container_gigi -v ${PWD}:/home -w="/home" runphi_env_builder /bin/bash
+
+## within the container 
+root@test:~# ./scripts/clean/destroy_build.sh
+Default environment
+TARGET: zcu104
+BACKEND: jailhouse
+Do you really want to delete zcu104/jailhouse builds? (y/n): y
 ```
 
 ## Step by Step procedure (to do...)
