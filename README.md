@@ -309,6 +309,7 @@ If you change something and the configurations don't work anymore, you can updat
 ### 7. Destroy environment
 
 ```
+$ cd ~/environment_builder
 $ docker run -it --rm --user $(id -u):$(id -g) -v /etc/passwd:/etc/passwd:ro --net=host --name env_builder_container_gigi -v ${PWD}:/home -w="/home" runphi_env_builder /bin/bash
 
 ## within the container 
