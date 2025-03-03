@@ -54,6 +54,6 @@ if [ ${TARGET} == "qemu" ]; then
   ssh-keygen -f "/root/.ssh/known_hosts" -R "${IP}"
 fi
 
-cat ${HOME_DIR}/.ssh/id_rsa.pub | ssh ${SSH_ARGS} ${USER}@${IP} "mkdir -p /root/.ssh && cat >> /root/.ssh/authorized_keys && chmod 600 /root/.ssh/authorized_keys"
+ssh-copy-id -i ${HOME_DIR}/.ssh/id_rsa.pub ${SSH_ARGS} ${USER}@${IP}
 
-ssh ${SSH_ARGS} ${USER}@${IP} "[ -d /root/.ssh ] || mkdir -p /root/.ssh; [ -f /etc/dropbear/authorized_keys ] && cat /etc/dropbear/authorized_keys >> /root/.ssh/authorized_keys"
+ssh ${SSH_ARGS} ${USER}@${IP} "mkdir /root/.ssh/ && cp /etc/dropbear/authorized_keys /root/.ssh/"
