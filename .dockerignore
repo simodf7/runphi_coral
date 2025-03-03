@@ -1,0 +1,6 @@
+.git
+*.log
+*.tar
+*.tar.gz
+*.zip
+environment/
