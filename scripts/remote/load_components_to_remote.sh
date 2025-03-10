@@ -79,9 +79,9 @@ echo "ARGS: ${RSYNC_ARGS} ${RSYNC_ARGS_SSH}"
 #cp ~/runphi_manager/target/target_configs/<TARGET>_state.toml state.toml
 
 RUNPHI_INSTALL_DIR="/usr/share/runPHI"
-
+ssh ${USER}@${IP} "date -u -s '$(date -u +'%Y-%m-%d %H:%M:%S')'"
 if [ -z "${RSYNC_ARGS_SSH}" ]; then
-  [ ${J} -eq 1 ] && rsync -ruv ${RSYNC_ARGS} ${jailhouse_dir} ${USER}@${IP}:${RSYNC_REMOTE_PATH}
+  [ ${J} -eq 1 ] && rsync -ruv --modify-window=1 ${RSYNC_ARGS} ${jailhouse_dir} ${USER}@${IP}:${RSYNC_REMOTE_PATH}
 
   [ ${R} -eq 1 ] && rsync -ruv ${RSYNC_ARGS} ${runPHI_dir}/target ${USER}@${IP}:${RSYNC_REMOTE_PATH} # cp all runPHI_dir
   [ ${R} -eq 1 ] && ssh ${USER}@${IP} "mkdir -p ${RUNPHI_INSTALL_DIR}"
@@ -90,7 +90,7 @@ if [ -z "${RSYNC_ARGS_SSH}" ]; then
   [ ${R} -eq 1 ] && rsync -ruv ${RSYNC_ARGS} ${runPHI_dir}/target/target_configs/${TARGET}_platform_info.toml ${USER}@${IP}:${RUNPHI_INSTALL_DIR}/state.toml
 
 else
-  [ ${J} -eq 1 ] && rsync -ruv ${RSYNC_ARGS} "${RSYNC_ARGS_SSH}" ${jailhouse_dir} ${USER}@${IP}:${RSYNC_REMOTE_PATH}
+  [ ${J} -eq 1 ] && rsync -ruv --modify-window=1 ${RSYNC_ARGS} "${RSYNC_ARGS_SSH}" ${jailhouse_dir} ${USER}@${IP}:${RSYNC_REMOTE_PATH}
   [ ${R} -eq 1 ] && rsync -ruv ${RSYNC_ARGS} "${RSYNC_ARGS_SSH}" ${runPHI_dir} ${USER}@${IP}:${RSYNC_REMOTE_PATH}
 
   [ ${R} -eq 1 ] && rsync -ruv ${RSYNC_ARGS} "${RSYNC_ARGS_SSH}" ${runPHI_dir}/target ${USER}@${IP}:${RSYNC_REMOTE_PATH} # cp all runPHI_dir
