@@ -1,3 +1,3 @@
 #!/bin/bash
-TARGET="qemu"
+TARGET="kria"
 BACKEND="jailhouse"
