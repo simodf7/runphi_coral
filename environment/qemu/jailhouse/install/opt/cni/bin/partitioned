@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# Log file
+LOG_FILE="/tmp/cni-test-plugin.log"
+
+# Log environment variables
+#echo "$(date): Environment variables:" >> "$LOG_FILE"
+#env >> "$LOG_FILE"
+
+# Read stdin
+INPUT=$(cat)
+
+# Log stdin input
+echo "$(date): Stdin input:" >>"$LOG_FILE"
+echo "$INPUT" >>"$LOG_FILE"
+
+# Function to extract JSON values
+#json_value() {
+#    echo "$1" | sed -e 's/[{}]/''/g' | awk -v k="$2" '{n=split($0,a,","); for (i=1; i<=n; i++) print a[i]}' | sed -n "s/\"$k\":\([^\"]*\)/\1/p" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' -e 's/^"//' -e 's/"$//'
+#}
+
+# Parse the input JSON
+#CNI_COMMAND=$(echo "$INPUT" | json_value "$INPUT" "CNI_COMMAND")
+PREV_RESULT=$(echo "$INPUT" | jq -r '.prevResult // empty')
+ADDRESS=$(echo $PREV_RESULT | jq '.ips[0].address')
+echo "Address:" >>$LOG_FILE
+echo "$ADDRESS" >>$LOG_FILE
+echo "$PREV_RESULT"
+echo "Response:" >>$LOG_FILE
+echo $PREV_RESULT >>$LOG_FILE
+
+# Exit with success
+exit 0
