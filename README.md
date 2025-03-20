@@ -197,13 +197,13 @@ Supposing that ``/dev/sda`` is the name of the SD card device.
 
 ##### Format boot and root partitions 
 ```
-# sudo mkfs.vfat /dev/sdc1 -n boot
+# sudo mkfs.vfat /dev/sda1 -n boot
 mkfs.fat 4.2 (2021-01-31)
-mkfs.fat: /dev/sdc1 contains a mounted filesystem. 
+mkfs.fat: /dev/sda1 contains a mounted filesystem. 
 
-# sudo mkfs.ext4 -L root /dev/sdc2
+# sudo mkfs.ext4 -L root /dev/sda2
 mke2fs 1.47.0 (5-Feb-2023)
-/dev/sdc2 contains a ext4 file system labelled 'root'
+/dev/sda2 contains a ext4 file system labelled 'root'
 	created on Mon Feb 10 11:28:09 2025
 Proceed anyway? (y,N) y
 Creating filesystem with 7397120 4k blocks and 1851392 inodes
