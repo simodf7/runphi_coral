@@ -55,12 +55,14 @@ Supported BACKENDs:
   
 ## Target/Backend Directories
 
+- boot_sources
+  > Directory with all the boot files which can be modified and compiled. (Device Tree Source, Boot Script, ...)
 - build
-  > Directory with all the "To Build Components" (Linux, Buildroot, Qemu, Jailhouse, ...)
+  > Directory with all the "To Build Components" (U-Boot, Buildroot, Linux, Qemu, Jailhouse, ...)
 - custom_build
-  > Builds mirror directory with custom files (defconfig files, dts, .c , ...)
+  > Builds mirror directory with custom files (defconfig files, default_dts, cell_configs , ...)
 - environment_cfgs
-  > Configuration files for the environment
+  > Configuration files describing all the components of the environment
 - install
   > It is used as an overlay directory for the rootfs. Anything that you want to add to the target filesystem should be here (e.g. kernel modules, scripts, network configuration)
 - output
@@ -80,7 +82,7 @@ Supported BACKENDs:
 - compile
   > Scripts to compile "To-Build Components" individually
 - defconfigs
-  > Scripts to Save and Update the configuration of the configurable "To-Build Components"
+  > Scripts to Save and Update the configurations of the configurable "To-Build Components"
 - orchestration
   > Setup for orchestration
 - patch
@@ -127,6 +129,10 @@ pip3 install Mako
 > [!NOTE]
 > For each script you can use the flag _-h_ (help) to understand the behavior of the script and the accepted flags.
 
+### 0. Check the Environment Configuration
+
+All information regarding the environment, including GitHub repositories, commits, patches, and more, can be found in the following file, be sure to check it before starting the build: environment_builder/\<target\>/\<backend\>/environment_cfgs/\<target\>-\<backend\>.sh
+
 ### 1. Download, configure, and compile everything
 
 Launch the following script to download, configure and compile all the "To-Build Components" for the chosen \<target\> (e.g. qemu) and \<backend\> (e.g. jailhouse):
@@ -141,9 +147,104 @@ From now on the chosen target and backend will be the default ones. If you need 
 ./scripts/change_environment.sh -t <target> -b <backend>
 ```
 
-Otherwhise if you need to change the target and backend just for a single script you can always add the flags -t \<target\> -b \<backend\>.
+Otherwhise if you need to change the target and backend just for a single script you can always add the flags -t \<target\> -b \<backend\> to any other script.
 
-### 2. Configure ssh [OPTIONAL but RECOMMENDED]
+### 2. Preparing the bootable SD for the target board 
+
+To prepare the SD, you need to create two partitions on it:
+- boot: size 1G, FAT32 format
+- rootfs: size 31G (supposing the SD is 32G), ext4 format
+
+Supposing that ``/dev/sda`` is the name of the SD card device.
+
+##### Delete all existing partitions
+```
+# fdisk /dev/sda
+
+## Command (m for help): d # delete all existing partitions with 'd' option, and accept all prompts, until there are no more partitions
+## Command (m for help): w # write modification
+```
+
+##### Create boot and root partitions
+```
+# fdisk /dev/sda
+
+# Command (m for help): n # create boot partition, select all default, except size (last sector) +1GB
+
+## Partition type
+##   p   primary (0 primary, 0 extended, 4 free)
+##   e   extended (container for logical partitions)
+
+# First sector (2048-61132799, default 2048): 2048
+# Last sector, +/-sectors or +/-size{K,M,G,T,P} (2048-61132799, default 61132799): +1GB
+
+## Created a new partition 1 of type 'Linux' and of size 954 MiB.
+
+# Command (m for help): a # to make it bootable
+
+## Selected partition 1
+## The bootable flag on partition 1 is enabled now.
+
+# Command (m for help): n # all default, to create a 2nd partition, size all remaining free space
+# Command (m for help): w # write modification to fs
+
+## Partition number (2-4, default 2):
+## First sector (1955840-61132799, default 1955840):
+## Last sector, +/-sectors or +/-size{K,M,G,T,P} (1955840-61132799, default 61132799):
+
+## Created a new partition 2 of type 'Linux' and of size 28.2 GiB.
+```
+
+##### Format boot and root partitions 
+```
+# sudo mkfs.vfat /dev/sdc1 -n boot
+mkfs.fat 4.2 (2021-01-31)
+mkfs.fat: /dev/sdc1 contains a mounted filesystem. 
+
+# sudo mkfs.ext4 -L root /dev/sdc2
+mke2fs 1.47.0 (5-Feb-2023)
+/dev/sdc2 contains a ext4 file system labelled 'root'
+	created on Mon Feb 10 11:28:09 2025
+Proceed anyway? (y,N) y
+Creating filesystem with 7397120 4k blocks and 1851392 inodes
+Filesystem UUID: c9e1c436-3c71-4e06-87fc-c600e142c898
+Superblock backups stored on blocks:
+	32768, 98304, 163840, 229376, 294912, 819200, 884736, 1605632, 2654208,
+	4096000
+
+Allocating group tables: done
+Writing inode tables: done
+Creating journal (32768 blocks): done
+Writing superblocks and filesystem accounting information: done
+```
+
+Then mount the boot partition with (Supposing /mnt/sd_boot is an available path) and remove old files:
+```bash
+mount -t vfat /dev/sda1 /mnt/sd_boot
+rm -r /mnt/sd_boot/*
+```
+
+Then copy the boot files generated by the buid_environment script.
+```bash
+cd environment_builder/environment/<target>/<backend>/output/boot
+cp BOOT.BIN Image boot.scr system.dtb /mnt/sd_boot/
+umount /mnt/sd_boot 
+```
+
+In the rootfs partition we have to copy the rootfs files generated by the buid_environment script.
+```bash
+mount -t ext4 /dev/sda2 /mnt/sd_rootfs/
+rm -r /mnt/sd_rootfs/*
+cd environment_builder/environment/<target>/<backend>/output/rootfs
+tar xf ./rootfs.tar -C /mnt/sd_rootfs/
+umount /mnt/sd_rootfs
+```
+
+Be sure to set the board in SD boot mode (e.g. for zcu102 https://xilinx.github.io/Embedded-Design-Tutorials/docs/2021.1/build/html/docs/Introduction/ZynqMPSoC-EDT/8-boot-and-configuration.html#running-the-image-on-the-zcu102-board). 
+> [!NOTE]
+> The rootfs can also be compressed, and in that case there is no need to create a second partition but it is often convenient to have it uncompressed and easily accessible.
+
+### 3. Configure ssh [OPTIONAL but RECOMMENDED]
 
 > [!NOTE]
 > All the scripts in ./scripts/remote/* can be launched outside the docker container.
@@ -157,7 +258,7 @@ Otherwhise if you need to change the target and backend just for a single script
 After executing above script you can ssh QEMU VM without password.
 
 
-### 3. Load projects
+### 4. Load projects
 
 **While the board/QEMU is running** (skip to [this](https://dessert.unina.it:8088/runphi/environment_builder/-/blob/main/README.md#4-test-qemu-jailhouse-environment) if you want to test a ``qemu-jailhouse`` environment), use the following script to sync the install directory in the target file system:
 
@@ -173,11 +274,11 @@ Use the following script to load (or update if already loaded) runPHI and Jailho
 
 Verify in the /root directory if the files have been loaded correctly.
 
-### 4. Test QEMU-Jailhouse environment
+### 5. Test Environment
 
-Refer to this [README](https://dessert.unina.it:8088/runphi/environment_builder/-/blob/main/environment/qemu/jailhouse/README.md)
+- **QEMU-Jailhouse**: refer to this [README](https://dessert.unina.it:8088/runphi/environment_builder/-/blob/main/environment/qemu/jailhouse/README.md)
 
-## Updates
+### 6. Updates
 
 If you manually modify the configuration in one of the "To-Built Components" (e.g., buildroot, Linux, jailhouse) you may need to compile them again. So there is a script for each of them (run using -h to see the possible flags):
 
@@ -203,6 +304,20 @@ If you change something and the configurations don't work anymore, you can updat
 ./scripts/defconfigs/buildroot_update_defconfigs.sh
 ./scripts/defconfigs/linux_update_defconfigs.sh
 ./scripts/defconfigs/jailhouse_update_defconfigs.sh
+```
+
+### 7. Destroy environment
+
+```
+$ cd ~/environment_builder
+$ docker run -it --rm --user $(id -u):$(id -g) -v /etc/passwd:/etc/passwd:ro --net=host --name env_builder_container_gigi -v ${PWD}:/home -w="/home" runphi_env_builder /bin/bash
+
+## within the container 
+root@test:~# ./scripts/clean/destroy_build.sh
+Default environment
+TARGET: zcu104
+BACKEND: jailhouse
+Do you really want to delete zcu104/jailhouse builds? (y/n): y
 ```
 
 ## Step by Step procedure (to do...)
