@@ -12,7 +12,7 @@ project_dir=$(dirname "${script_dir:?"script_dir is not defined!"}")
 # ENVIRONMENT
 environment_dir=${project_dir}/environment
 # runPHI
-runPHI_dir=${project_dir}/runPHI/target
+#runPHI_dir=${project_dir}/runPHI/target
 ## VARIABLES ##
 ENVIRONMENTS_LIST=${environment_dir}/environments.txt
 TARGET=""
