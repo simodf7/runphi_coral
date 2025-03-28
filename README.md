@@ -249,7 +249,7 @@ Be sure to set the board in SD boot mode (e.g. for zcu102 https://xilinx.github.
 > [!NOTE]
 > All the scripts in ./scripts/remote/* can be launched outside the docker container.
 
-**While the board/QEMU is running** (skip to [this](https://dessert.unina.it:8088/runphi/environment_builder/-/blob/main/README.md#4-test-qemu-jailhouse-environment) if you want to test a ``qemu-jailhouse`` environment), use the following script on the host machine to create a local key pair for the user (if it doesn't exist) and send the pub key to the target to authorize the host to exchange data without requiring any password
+**While the board/QEMU is running** (skip to [this](https://dessert.unina.it:8088/runphi/environment_builder/-/blob/main/README.md#5-test-qemu-jailhouse-environment) if you want to test a ``qemu-jailhouse`` environment), use the following script on the host machine to create a local key pair for the user (if it doesn't exist) and send the pub key to the target to authorize the host to exchange data without requiring any password
 
 ```bash
 ./scripts/remote/set_remote_ssh.sh
@@ -274,7 +274,7 @@ Use the following script to load (or update if already loaded) runPHI and Jailho
 
 Verify in the /root directory if the files have been loaded correctly.
 
-### 5. Test Environment
+### 5. Test QEMU Jailhouse Environment
 
 - **QEMU-Jailhouse**: refer to this [README](https://dessert.unina.it:8088/runphi/environment_builder/-/blob/main/environment/qemu/jailhouse/README.md)
 
