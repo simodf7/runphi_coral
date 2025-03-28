@@ -269,7 +269,7 @@ After executing above script you can ssh QEMU VM without password.
 Use the following script to load (or update if already loaded) runPHI and Jailhouse in the board filesystem (run with -h flag for help).
 
 ```bash
-./scripts/remote/load_components_to_remote.sh -r -j
+./scripts/remote/load_components_to_remote.sh -r -j -p <path_of_runphi_manager>
 ```
 
 Verify in the /root directory if the files have been loaded correctly.
