@@ -260,7 +260,7 @@ After executing above script you can ssh QEMU VM without password.
 
 ### 4. Load projects
 
-**While the board/QEMU is running** (skip to [this](https://dessert.unina.it:8088/runphi/environment_builder/-/blob/main/README.md#4-test-qemu-jailhouse-environment) if you want to test a ``qemu-jailhouse`` environment), use the following script to sync the install directory in the target file system:
+**While the board/QEMU is running** (skip to [this](https://dessert.unina.it:8088/runphi/environment_builder/-/blob/main/README.md#5-test-qemu-jailhouse-environment) if you want to test a ``qemu-jailhouse`` environment), use the following script to sync the install directory in the target file system:
 
 ```bash
 ./scripts/remote/load_install_dir_to_remote.sh
