@@ -1,2 +1,4 @@
 environment/kria/jailhouse/install/usr/bin/kubelet filter=lfs diff=lfs merge=lfs -text
 environment/kria/jailhouse/install/usr/bin/crictl filter=lfs diff=lfs merge=lfs -text
+environment/qemu/jailhouse/install/usr/bin/kubelet filter=lfs diff=lfs merge=lfs -text
+environment/qemu/jailhouse/install/usr/bin/crictl filter=lfs diff=lfs merge=lfs -text
