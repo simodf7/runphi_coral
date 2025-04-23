@@ -20,13 +20,15 @@ While the system is running, the "remote" scripts (scripts/remote/) give you a s
 
 Supported TARGETs:
 
-- [x] qemu
-- [x] kria
+- [x] QEMU
+- [x] Kria KV260
+- [x] Xilinx Ultrascale+ ZCU 104
 - [ ] ...
 
 Supported BACKENDs:
 
-- [x] jailhouse
+- [x] Jailhouse
+- [x] Xen (WiP)
 - [ ] ...
 
 ## Main Directories
@@ -34,7 +36,7 @@ Supported BACKENDs:
 - Dockerfile
   > Dockerfile to build the build container
 - documentation
-  > documentation of RunPHI Project
+  > Documentation of RunPHI
 - scripts
   > Utility scripts (Core of Environment Builder)
 - environment
