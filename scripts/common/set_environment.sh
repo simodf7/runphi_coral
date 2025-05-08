@@ -61,6 +61,8 @@ echo "BACKEND: ${BACKEND}"
 ARCH="arm64"
 
 ## Environment DIRECTORIES ##
+# CONFIGURATIONS
+environment_cfgs_dir=${environment_dir}/../environment_cfgs
 target_dir=${environment_dir}/${TARGET}
 backend_dir=${target_dir}/${BACKEND}
 # BOOT SOURCES
@@ -76,9 +78,6 @@ rootfs_dir=${output_dir}/rootfs
 build_dir=${backend_dir}/build
 # CUSTOM BUILD
 custom_build_dir=${backend_dir}/custom_build
-# CONFIGURATIONS
-environment_cfgs_dir=${backend_dir}/environment_cfgs
-
 
 #### COMPONENTS DIRECTORIES ####
 # QEMU

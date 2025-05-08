@@ -15,8 +15,8 @@ CROSS_COMPILE="aarch64-linux-gnu-"
 REMOTE_COMPILE="arm-none-eabi-"
 
 ## Boot Sources Configuration
-BOOTCMD_CONFIG=""
-DTS_CONFIG=""
+BOOTCMD_CONFIG="nfs_isolcpu"
+DTS_CONFIG="omnv"
 
 ## COMPONENTS ##
 # QEMU
@@ -58,7 +58,7 @@ LINUX_PATCH_ARGS="-d jailhouse_enable,pico32_remoteproc, omnivisor" #preempt-rt 
 LINUX_REPOSITORY="https://github.com/Xilinx/linux-xlnx.git"
 LINUX_BRANCH="xlnx_rebase_v6.1_LTS"
 LINUX_COMMIT=""
-LINUX_CONFIG=""
+LINUX_CONFIG="isolcpu"
 
 # BUILDROOT
 BUILDROOT_BUILD="y"
@@ -78,7 +78,7 @@ JAILHOUSE_PATCH_ARGS=""
 JAILHOUSE_REPOSITORY="https://github.com/DanieleOttaviano/jailhouse.git"
 JAILHOUSE_BRANCH="fpga_create_rebase"
 JAILHOUSE_COMMIT=""
-JAILHOUSE_CONFIG="omnv_no_xmpu"
+JAILHOUSE_CONFIG="omnv"
 
 # BOOTGEN
 BOOTGEN_BUILD="y"
