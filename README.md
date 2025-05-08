@@ -41,7 +41,9 @@ Supported BACKENDs:
   > Utility scripts (Core of Environment Builder)
 - environment
   > List of Target/Backend
-  
+ - environment_cfgs
+  > Configuration files describing all the components of each environment 
+
 ## Target/Backend Directories
 
 - boot_sources
@@ -50,8 +52,6 @@ Supported BACKENDs:
   > Directory with all the "To Build Components" (U-Boot, Buildroot, Linux, Qemu, Jailhouse, ...)
 - custom_build
   > Builds mirror directory with custom files (defconfig files, default_dts, cell_configs, ...)
-- environment_cfgs
-  > Configuration files describing all the components of the environment
 - install
   > It is used as an overlay directory for the rootfs. Anything that you want to add to the target filesystem should be here (e.g., kernel modules, scripts, network configuration)
 - output
