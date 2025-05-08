@@ -9,7 +9,11 @@
 	cpus {
 		#address-cells = <0x01>;
 		#size-cells = <0x00>;
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> 0bd852a32d424427479d8209280feb76a202261e
 		cpu@0 {
 			compatible = "arm,cortex-a53";
 			device_type = "cpu";
@@ -18,6 +22,10 @@
 			reg = <0x00>;
 			cpu-idle-states = <0x02>;
 			clocks = <0x03 0x0a>;
+<<<<<<< HEAD
+=======
+			phandle = <0x1c>;
+>>>>>>> 0bd852a32d424427479d8209280feb76a202261e
 		};
 
 		cpu@1 {
@@ -27,6 +35,10 @@
 			reg = <0x01>;
 			operating-points-v2 = <0x01>;
 			cpu-idle-states = <0x02>;
+<<<<<<< HEAD
+=======
+			phandle = <0x1d>;
+>>>>>>> 0bd852a32d424427479d8209280feb76a202261e
 		};
 
 		cpu@2 {
@@ -36,6 +48,10 @@
 			reg = <0x02>;
 			operating-points-v2 = <0x01>;
 			cpu-idle-states = <0x02>;
+<<<<<<< HEAD
+=======
+			phandle = <0x1e>;
+>>>>>>> 0bd852a32d424427479d8209280feb76a202261e
 		};
 
 		cpu@3 {
@@ -45,6 +61,10 @@
 			reg = <0x03>;
 			operating-points-v2 = <0x01>;
 			cpu-idle-states = <0x02>;
+<<<<<<< HEAD
+=======
+			phandle = <0x1f>;
+>>>>>>> 0bd852a32d424427479d8209280feb76a202261e
 		};
 
 		idle-states {
@@ -91,7 +111,11 @@
 			clock-latency-ns = <0x7a120>;
 		};
 	};
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> 0bd852a32d424427479d8209280feb76a202261e
 	reserved-memory {
 		#address-cells = <2>;
 		#size-cells = <2>;
@@ -103,7 +127,19 @@
 		rproc_0_reserved: rproc@3ed00000 {
 			no-map;
 			reg = <0x0 0x3ed00000 0x0 0x8000000>;
+<<<<<<< HEAD
 		};		
+=======
+		};	
+		cell_reserved: cell@46d00000 {
+			no-map;
+			reg = <0x0 0x46d00000 0x0 0x8300000>;
+		};
+		others_reserved: other@70000000 {
+			no-map;
+			reg = <0x0 0x70000000 0x0 0x2000000>;
+		};	
+>>>>>>> 0bd852a32d424427479d8209280feb76a202261e
 		jailhouse_reserved: jailhouse@6f000000 {
 			no-map;
 			reg = <0x0 0x6f000000 0x0 0x1000000>;
@@ -147,6 +183,10 @@
     };
 
 	rf5ss@ff9a0000 {
+<<<<<<< HEAD
+=======
+		phandle = <0x94>;
+>>>>>>> 0bd852a32d424427479d8209280feb76a202261e
 		compatible = "xlnx,zynqmp-r5-remoteproc";
 		xlnx,cluster-mode = <1>;
 		ranges;
@@ -155,6 +195,10 @@
 		#size-cells = <0x2>;
 
 		r5f_0 {
+<<<<<<< HEAD
+=======
+			phandle = <0x95>;
+>>>>>>> 0bd852a32d424427479d8209280feb76a202261e
 			compatible = "xilinx,r5f";
 			#address-cells = <2>;
 			#size-cells = <2>;
@@ -166,6 +210,7 @@
 			mbox-names = "tx", "rx";
 		};
         r5f_1 {
+<<<<<<< HEAD
             compatible = "xilinx,r5f";
             #address-cells = <0x2>;
             #size-cells = <0x2>;
@@ -176,6 +221,19 @@
             mboxes = <&ipi_mailbox_rpu1 0>, <&ipi_mailbox_rpu1 1>;
             mbox-names = "tx", "rx";
         };
+=======
+			phandle = <0x96>;
+			compatible = "xilinx,r5f";
+			#address-cells = <0x2>;
+			#size-cells = <0x2>;
+			ranges;
+			sram = <0x92 0x93>;
+			memory-region = <&rproc_1_reserved>;
+			power-domain = <0x26 0x08>;
+			mboxes = <&ipi_mailbox_rpu1 0>, <&ipi_mailbox_rpu1 1>;
+			mbox-names = "tx", "rx";
+		};
+>>>>>>> 0bd852a32d424427479d8209280feb76a202261e
 	};
 
 
@@ -236,6 +294,10 @@
 		#address-cells = <0x02>;
 		#size-cells = <0x02>;
 		ranges;
+<<<<<<< HEAD
+=======
+		phandle = <0x20>;
+>>>>>>> 0bd852a32d424427479d8209280feb76a202261e
 
 		mailbox@ff990400 {
 			u-boot,dm-pre-reloc;
@@ -251,6 +313,10 @@
 		compatible = "arm,dcc";
 		status = "disabled";
 		u-boot,dm-pre-reloc;
+<<<<<<< HEAD
+=======
+		phandle = <0x21>;
+>>>>>>> 0bd852a32d424427479d8209280feb76a202261e
 	};
 
 	pmu {

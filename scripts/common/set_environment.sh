@@ -127,6 +127,16 @@ custom_jailhouse_inmate_demos_dir=${custom_jailhouse_dir}/inmates/demos
 # BOOTGEN
 bootgen_dir=${build_dir}/bootgen
 
+<<<<<<< HEAD
+=======
+## DEFCONFIGS ##
+# JAILHOUSE
+defconfig_buildroot_name=${BACKEND}_${TARGET}_buildroot_defconfig
+defconfig_busybox_name=${BACKEND}_${TARGET}_busybox_defconfig
+defconfig_linux_name=${BACKEND}_${TARGET}_kernel_defconfig
+defconfig_uboot_name=${BACKEND}_${TARGET}_u-boot_defconfig
+
+>>>>>>> 0bd852a32d424427479d8209280feb76a202261e
 ## SETUP THE SPECIFIC TARGET ##
 source ${environment_cfgs_dir}/${TARGET}-${BACKEND}.sh
 

@@ -35,7 +35,11 @@ shift $((OPTIND - 1))
 # Set the Environment
 source "${script_dir}"/common/set_environment.sh "${TARGET}" "${BACKEND}"
 
+<<<<<<< HEAD
 read -r -p "Do you really want to save "${defconfig_uboot_name}" (if already exist it will be overwritten)? (y/n): " SAVE
+=======
+read -r -p "Do you really want to save (your current config will be saved as default)? (y/n): " SAVE
+>>>>>>> 0bd852a32d424427479d8209280feb76a202261e
 
 # Save!
 if [[ "${SAVE,,}" =~ ^y(es)?$ ]]; then

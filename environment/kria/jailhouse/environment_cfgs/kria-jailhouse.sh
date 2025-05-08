@@ -41,11 +41,20 @@ UBOOT_BRANCH="xlnx_rebase_v2022.01"
 UBOOT_COMMIT=""
 UBOOT_CONFIG=""
 
+# U-BOOT 
+UBOOT_BUILD="y"
+UPD_UBOOT_COMPILE_ARGS=""
+UBOOT_COMPILE_ARGS=""
+UBOOT_PATCH_ARGS=""
+UBOOT_REPOSITORY="https://github.com/Xilinx/u-boot-xlnx.git"
+UBOOT_BRANCH="xlnx_rebase_v2022.01"
+UBOOT_COMMIT=""
+
 # LINUX
 LINUX_BUILD="y"
 UPD_LINUX_COMPILE_ARGS=""
 LINUX_COMPILE_ARGS="-m"
-LINUX_PATCH_ARGS="-d jailhouse_enable,preempt_rt,pico32_remoteproc"
+LINUX_PATCH_ARGS="-d jailhouse_enable,pico32_remoteproc, omnivisor" #preempt-rt before pico32 removed
 LINUX_REPOSITORY="https://github.com/Xilinx/linux-xlnx.git"
 LINUX_BRANCH="xlnx_rebase_v6.1_LTS"
 LINUX_COMMIT=""

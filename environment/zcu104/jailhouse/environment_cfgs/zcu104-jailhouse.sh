@@ -36,11 +36,14 @@ ATF_CONFIG=""
 # U-BOOT 
 UBOOT_BUILD="n"
 
+# U-BOOT 
+UBOOT_BUILD="n"
+
 # LINUX
 LINUX_BUILD="y"
 UPD_LINUX_COMPILE_ARGS=""
 LINUX_COMPILE_ARGS="-m"
-LINUX_PATCH_ARGS="-d jailhouse_enable,preempt_rt"
+LINUX_PATCH_ARGS="-d jailhouse_enable,pico32_remoteproc, omnivisor" #preempt-rt prima di pico32 rimossa
 LINUX_REPOSITORY="https://github.com/Xilinx/linux-xlnx.git"
 LINUX_BRANCH="xlnx_rebase_v6.1_LTS"
 LINUX_COMMIT=""
@@ -59,10 +62,10 @@ BUILDROOT_CONFIG=""
 # JAILHOUSE
 JAILHOUSE_BUILD="y"
 UPD_JAILHOUSE_COMPILE_ARGS=""
-JAILHOUSE_COMPILE_ARGS="-n -r armr5"
+JAILHOUSE_COMPILE_ARGS="-n -r all"
 JAILHOUSE_PATCH_ARGS=""
-JAILHOUSE_REPOSITORY="https://github.com/Minervasys/jailhouse.git"
-JAILHOUSE_BRANCH="rebased_omnivisor_branch"
+JAILHOUSE_REPOSITORY="https://github.com/DanieleOttaviano/jailhouse.git"
+JAILHOUSE_BRANCH="fpga_create_rebase"
 JAILHOUSE_COMMIT=""
 JAILHOUSE_CONFIG=""
 

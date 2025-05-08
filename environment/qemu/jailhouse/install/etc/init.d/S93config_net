@@ -21,4 +21,4 @@ echo "Addedd ${ETH0_IP} to ${ETH0_NAME} NIC (tap0 interface in QEMU VM)"
 # TODO: make gateway IP as a param
 ip route add default via ${DEFAULT_GATEWAY}
 
-echo "nameserver ${DEFAULT_GATEWAY}" > /etc/resolv.conf
+echo "nameserver 8.8.8.8" > /etc/resolv.conf

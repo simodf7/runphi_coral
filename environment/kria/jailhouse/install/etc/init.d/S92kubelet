@@ -1,0 +1,36 @@
+#!/bin/sh
+# Set default values for environment variables if not provided
+KUBELET_KUBECONFIG_ARGS="${KUBELET_KUBECONFIG_ARGS:---bootstrap-kubeconfig=/etc/kubernetes/bootstrap-kubelet.conf --kubeconfig=/etc/kubernetes/kubelet.conf}"
+KUBELET_CONFIG_ARGS="${KUBELET_CONFIG_ARGS:---config=/var/lib/kubelet/configBR.yaml}"
+
+# Check if EnvironmentFile is present and load its content
+if [ -f /var/lib/kubelet/kubeadm-flags.env ]; then
+  . /var/lib/kubelet/kubeadm-flags.env
+fi
+
+if [ -f /etc/sysconfig/kubelet ]; then
+  . /etc/sysconfig/kubelet
+fi
+
+case "$1" in
+  start)
+    sleep 1
+    echo "Starting kubelet..."
+    /usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_CONFIG_ARGS $KUBELET_KUBEADM_ARGS $KUBELET_EXTRA_ARGS >/var/log/kubelet.log 2>&1 &
+    ;;
+  stop)
+    echo "Stopping kubelet..."
+    pkill kubelet
+    ;;
+  restart)
+    $0 stop
+    sleep 1
+    $0 start
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart}"
+    exit 1
+    ;;
+esac
+
+exit 0
