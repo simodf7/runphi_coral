@@ -108,17 +108,8 @@
 			no-map;
 			reg = <0x0 0x3ed00000 0x0 0x8000000>;
 		};
-<<<<<<< HEAD
 		others_reserved: other@70000000 {
 			no-map;
-=======
-		cell_reserved: cell@46d00000 {
-			no-map;
-			reg = <0x0 0x46d00000 0x0 0x8300000>;
-		};
-		others_reserved: other@70000000 {
-			no-map;
->>>>>>> 0bd852a32d424427479d8209280feb76a202261e
 			reg = <0x0 0x70000000 0x0 0x2000000>;
 		};
 		jailhouse_reserved: jailhouse@7e000000 {

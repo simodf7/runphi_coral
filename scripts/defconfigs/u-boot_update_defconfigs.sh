@@ -43,11 +43,7 @@ shift $((OPTIND - 1))
 source "${script_dir}"/common/set_environment.sh "${TARGET}" "${BACKEND}"
 
 # ASK user if he really wants to update
-<<<<<<< HEAD
 read -r -p "Do you really want to update "${defconfig_uboot_name}" (your current configs will be lost)? (y/n): " UPDATE
-=======
-read -r -p "Do you really want to update (your current configs will be lost)? (y/n): " UPDATE
->>>>>>> 0bd852a32d424427479d8209280feb76a202261e
 
 # Update!
 if [[ "${UPDATE,,}" =~ ^y(es)?$ ]]; then
