@@ -27,6 +27,10 @@ CROSS_COMPILE="aarch64-linux-gnu-"
 
 REMOTE_COMPILE="arm-none-eabi-"
 
+## Boot Sources Configuration
+BOOTCMD_CONFIG=""
+DTS_CONFIG=""
+
 ## COMPONENTS ##
 
 ### EMULATION
@@ -38,6 +42,7 @@ QEMU_PATCH_ARGS=""
 QEMU_REPOSITORY="https://github.com/Xilinx/qemu.git"
 QEMU_BRANCH="xlnx_rel_v2023.1"
 QEMU_COMMIT="21adc9f99e813fb24fb65421259b5b0614938376"
+QEMU_CONFIG=""
 
 ### FIRMWARE 
 
@@ -61,6 +66,7 @@ LINUX_PATCH_ARGS=""
 LINUX_REPOSITORY="https://github.com/siemens/linux.git"
 LINUX_BRANCH="jailhouse-enabling/5.15"
 LINUX_COMMIT="" #E.g., LINUX_COMMIT="9f943ff23cec02b0b2db9e777197fb298ca2c4aa", LINUX_COMMIT="7484228ddbb5760eac350b1b4ffe685c9da9e765"
+LINUX_CONFIG=""
 
 ### FILESYSTEM 
 
@@ -72,6 +78,7 @@ BUILDROOT_PATCH_ARGS="-p 0001-gcc-target.patch"
 BUILDROOT_REPOSITORY="https://github.com/buildroot/buildroot.git"
 BUILDROOT_BRANCH="2023.05.x"
 BUILDROOT_COMMIT="25d59c073ac355d5b499a9db5318fb4dc14ad56c"
+BUILDROOT_CONFIG=""
 
 ### BACKEND (e.g., Jailhouse, Xen, Linux full isol)
 
@@ -83,6 +90,7 @@ JAILHOUSE_PATCH_ARGS="-p 0001-Update-for-kernel-version-greater-then-5-7-and-5-1
 JAILHOUSE_REPOSITORY="https://gitlab.com/minervasys/public/jailhouse.git"
 JAILHOUSE_BRANCH="minerva/public"
 JAILHOUSE_COMMIT="b817b436e3fdaa7fad999b47adc94180b18bff75"
+JAILHOUSE_CONFIG=""
 
 ### TARGET SPECIFIC (e.g., bootgen create BOOTBIN for Xilinx board)
 

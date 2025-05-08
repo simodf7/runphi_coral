@@ -48,7 +48,7 @@ shift $((OPTIND - 1))
 source "${script_dir}"/common/set_environment.sh "${TARGET}" "${BACKEND}"
 
 # ASK user if he really wants to update
-read -r -p "Do you really want to update (your current configs will be lost)? (y/n): " UPDATE
+read -r -p "Do you really want to update "${defconfig_builroot_name}" (your current configs will be lost)? (y/n): " UPDATE
 
 # Update!
 if [[ "${UPDATE,,}" =~ ^y(es)?$ ]]; then

@@ -19,6 +19,7 @@ TARGET=""
 # To Build (Default="n") to remove ...
 QEMU_BUILD="n"
 ATF_BUILD="n"
+UBOOT_BUILD="n"
 BUILDROOT_BUILD="n"
 LINUX_BUILD="n"
 JAILHOUSE_BUILD="n"

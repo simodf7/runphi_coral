@@ -127,12 +127,50 @@ custom_jailhouse_inmate_demos_dir=${custom_jailhouse_dir}/inmates/demos
 # BOOTGEN
 bootgen_dir=${build_dir}/bootgen
 
-## DEFCONFIGS ##
-# JAILHOUSE
-defconfig_buildroot_name=${BACKEND}_${TARGET}_buildroot_defconfig
-defconfig_busybox_name=${BACKEND}_${TARGET}_busybox_defconfig
-defconfig_linux_name=${BACKEND}_${TARGET}_kernel_defconfig
-defconfig_uboot_name=${BACKEND}_${TARGET}_u-boot_defconfig
-
 ## SETUP THE SPECIFIC TARGET ##
 source ${environment_cfgs_dir}/${TARGET}-${BACKEND}.sh
+
+
+## Boot Sources Configurations ##
+if [[ -n "${BOOTCMD_CONFIG}" ]]; then
+  bootcmd_file=boot_${BOOTCMD_CONFIG}.cmd
+else
+  bootcmd_file=boot.cmd
+fi
+if [[ -n "${DTS_CONFIG}" ]]; then
+  dts_file=system_${DTS_CONFIG}.dts
+else
+  dts_file=system.dts
+fi
+
+
+## DEFCONFIGS ##
+if [[ -n "${BUILDROOT_CONFIG}" ]]; then
+  defconfig_buildroot_name=${BACKEND}_${TARGET}_${BUILDROOT_CONFIG}_buildroot_defconfig
+else
+  defconfig_buildroot_name=${BACKEND}_${TARGET}_buildroot_defconfig
+fi
+
+if [[ -n "${BUSYBOX_CONFIG}" ]]; then
+  defconfig_busybox_name=${BACKEND}_${TARGET}_${BUSYBOX_CONFIG}_busybox_defconfig
+else
+  defconfig_busybox_name=${BACKEND}_${TARGET}_busybox_defconfig
+fi
+
+if [[ -n "${LINUX_CONFIG}" ]]; then
+  defconfig_linux_name=${BACKEND}_${TARGET}_${LINUX_CONFIG}_kernel_defconfig
+else
+  defconfig_linux_name=${BACKEND}_${TARGET}_kernel_defconfig
+fi
+
+if [[ -n "${UBOOT_CONFIG}" ]]; then
+  defconfig_uboot_name=${BACKEND}_${TARGET}_${UBOOT_CONFIG}_u-boot_defconfig
+else
+  defconfig_uboot_name=${BACKEND}_${TARGET}_u-boot_defconfig
+fi
+
+if [[ -n "${JAILHOUSE_CONFIG}" ]]; then
+  defconfig_jailhouse_name=config_${JAILHOUSE_CONFIG}.h
+else
+  defconfig_jailhouse_name=config.h
+fi
