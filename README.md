@@ -9,7 +9,7 @@ To build a working environment, we will use Pre-Built Components and To-Build Co
 - To-Build Components: all the software compiled using this repository's scripts. This is the software that we are interested in changing and modifying dynamically.
 
 Each environment (target + backend) is characterized by a configuration file (``<target>-<backend>.sh``, e.g., ``qemu-jailhouse.sh``) that specifies a set of "To-Build Components" that are characterized by specific compilation flags and specific GitHub repository/commit.
-Each target "Pre-Built components" are instead stored in the ``/PATH_TO_RUNPHI/environment/qemu/jailhouse/`` directory
+Each target "Pre-Built components" are instead stored in the ``/PATH_TO_RUNPHI/environment/<target>/<backend>/`` directories.
 
 The ``~/build_environment.sh -t <target> -b <backend>`` command downloads each "To-Build component" from their GitHub repository, compiles them, and puts the result artifacts with the "Pre-Built Components" in the right environment directory.
 The backend directory of the specified target will then store all the files needed to boot and run our system (both in emulation or real hardware).
@@ -41,7 +41,7 @@ Supported BACKENDs:
   > Utility scripts (Core of Environment Builder)
 - environment
   > List of Target/Backend
- - environment_cfgs
+- environment_cfgs
   > Configuration files describing all the components of each environment 
 
 ## Target/Backend Directories
@@ -120,11 +120,7 @@ pip3 install Mako
 
 ### 0. Check the Environment Configuration
 
-All information regarding the environment, including GitHub repositories, commits, patches, and more, can be found in the following file, be sure to check it before starting the build: environment_builder/\<target\>/\<backend\>/environment_cfgs/\<target\>-\<backend\>.sh
-
-### 0. Check the Environment Configuration
-
-All information regarding the environment, including GitHub repositories, commits, patches, and more, can be found in the following file, be sure to check it before starting the build: environment_builder/\<target\>/\<backend\>/environment_cfgs/\<target\>-\<backend\>.sh
+All information regarding the environment, including GitHub repositories, commits, patches, and more, can be found in the following file, be sure to check it before starting the build: environment_builder/environment_cfgs/\<target\>-\<backend\>.sh
 
 ### 1. Download, configure, and compile everything
 
@@ -134,13 +130,13 @@ Launch the following script to download, configure, and compile all the "To-Buil
 ./scripts/build_environment.sh -t <target> -b <backend>
 ```
 
-From now on, the chosen target and backend will be the default ones. If you need to change, for some reason, the default target and backend, we provide the script "change_environment":
+From now on, the chosen target and backend will be the default ones. If you need to change, for some reason, the default target and backend, we provide the script "change_environment" (e.g., when working with more than one environment is possible to switch from one to another before running the scripts):
 
 ```bash
 ./scripts/change_environment.sh -t <target> -b <backend>
 ```
 
-Otherwise, if you need to change the target and backend just for a single script, you can always add the flags -t \<target\> -b \<backend\> to any other script.
+Otherwise, if you need to change the target and backend just for a single script, you can always add the flags -t \<target\> -b \<backend\> to any other script. This will have the priority on the default environment.
 
 ### 2. Preparing the bootable SD for the target board 
 
@@ -233,7 +229,8 @@ tar xf ./rootfs.tar -C /mnt/sd_rootfs/
 umount /mnt/sd_rootfs
 ```
 
-Be sure to set the board in SD boot mode (e.g., for zcu102 https://xilinx.github.io/Embedded-Design-Tutorials/docs/2021.1/build/html/docs/Introduction/ZynqMPSoC-EDT/8-boot-and-configuration.html#running-the-image-on-the-zcu102-board). 
+Be sure to set the board in SD boot mode (e.g., for zcu102 https://xilinx.github.io/Embedded-Design-Tutorials/docs/2021.1/build/html/docs/Introduction/ZynqMPSoC-EDT/8-boot-and-configuration.html#running-the-image-on-the-zcu102-board).
+ 
 > [!NOTE]
 > The rootfs can also be compressed, and in that case, there is no need to create a second partition, but it is often convenient to have it uncompressed and easily accessible.
 
