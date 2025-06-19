@@ -43,7 +43,7 @@ UBOOT_BUILD="n"
 LINUX_BUILD="y"
 UPD_LINUX_COMPILE_ARGS=""
 LINUX_COMPILE_ARGS="-m"
-LINUX_PATCH_ARGS="-d jailhouse_enable,pico32_remoteproc, omnivisor" #preempt-rt prima di pico32 rimossa
+LINUX_PATCH_ARGS="-d jailhouse_enable, omnivisor" #preempt-rt
 LINUX_REPOSITORY="https://github.com/Xilinx/linux-xlnx.git"
 LINUX_BRANCH="xlnx_rebase_v6.1_LTS"
 LINUX_COMMIT=""
@@ -65,7 +65,7 @@ UPD_JAILHOUSE_COMPILE_ARGS=""
 JAILHOUSE_COMPILE_ARGS="-n -r all"
 JAILHOUSE_PATCH_ARGS=""
 JAILHOUSE_REPOSITORY="https://github.com/DanieleOttaviano/jailhouse.git"
-JAILHOUSE_BRANCH="fpga_create_rebase"
+JAILHOUSE_BRANCH="master"
 JAILHOUSE_COMMIT=""
 JAILHOUSE_CONFIG=""
 
