@@ -261,6 +261,19 @@ if [[ ${SKIPCLONE} -eq 0 ]]; then
   } &
   pidBOOTGEN=$!
 
+
+  #Clone WLAN for Coral
+  {
+    if [[ "${TARGET}" == "coral" ]]; then
+      echo "Starting WLAN cloning as Target is set as Coral"
+
+      # Clona la sorgente WLAN
+      git clone https://coral.googlesource.com/imx-board-wlan-src "${wlan_dir}"
+    fi
+  } &
+  pidWLAN=$!
+
+
   echo "Waiting for GIT to complete ..."
   #Wait for all the clones to complete
   wait ${pidQEMU}
@@ -270,6 +283,7 @@ if [[ ${SKIPCLONE} -eq 0 ]]; then
   wait ${pidBUILDROOT}
   wait ${pidJAILHOUSE}
   wait ${pidBOOTGEN}
+  wait ${pidWLAN}
 
 else
   echo "Skipping clone from repositories"
@@ -388,5 +402,16 @@ if [[ ${BOOTGEN_BUILD,,} =~ ^y(es)?$ ]]; then
 else
   echo "Skipping BOOTGEN compile"
 fi
+
+# Compile WLAN (just Coral)
+if [[ "${TARGET}" == "coral" ]]; then
+  echo "Compiling WLAN for Coral …"
+  bash "${script_dir}/wlan_compile.sh" ${WLAN_COMPILE_ARGS}
+  if [[ $? -eq 1 ]]; then
+    echo "WLAN compilation failed. Exiting…"
+    exit 1
+  fi
+fi
+
 
 echo "Finish!"
