@@ -61,6 +61,37 @@ shift $((OPTIND - 1))
 # Set the Environment
 source "${script_dir}"/common/set_environment.sh "${TARGET}" "${BACKEND}"
 
+# If target is coral, use imx-jailhouse build and install
+if [[ "${TARGET}" == "coral" ]]; then
+  echo "Compiling and installing Jailhouse for Coral..."
+  cd imx-jailhouse  { echo "Directory imx-jailhouse not found"; exit 1; }
+
+  # Build
+  make ARCH=${ARCH} \
+       CROSS_COMPILE=${CROSS_COMPILE} \
+       CC="aarch64-linux-gnu-gcc --sysroot=${SYSROOT}" \
+       KDIR=${KERNEL_SRC} #${linux_dir}
+  if [[ $? -ne 0 ]]; then
+    echo "ERROR: Jailhouse make failed for Coral"; exit 1
+  fi
+
+  # Install modules
+  make ARCH=${ARCH} \
+       CROSS_COMPILE=${CROSS_COMPILE} \
+       CC="aarch64-linux-gnu-gcc --sysroot=${SYSROOT}" \
+       KDIR=${KERNEL_SRC} \
+       INSTALL_MOD_PATH=/out modules_install # ${linux_dir} modifcare anche install mod path 
+  if [[ $? -ne 0 ]]; then
+    echo "ERROR: Jailhouse modules_install failed for Coral"; exit 1
+  fi
+
+  echo "Jailhouse for Coral compiled and installed successfully"
+  exit 0
+fi
+
+
+
+
 # Always copy configs, custom dts, custom cells, and custom inmates before builing Jailhouse
 #cp "${custom_jailhouse_cell_dir}"/dts/*.dts "${jailhouse_cell_dir}"/dts/
 cp -r "${custom_jailhouse_cell_dir}"/* "${jailhouse_cell_dir}"
