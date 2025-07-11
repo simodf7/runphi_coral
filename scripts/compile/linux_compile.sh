@@ -46,6 +46,34 @@ shift $((OPTIND - 1))
 # Set the Environment
 source "${script_dir}"/common/set_environment.sh "${TARGET}" "${BACKEND}"
 
+
+# Special Coral target build
+if [[ "${TARGET}" == "coral" ]]; then
+  echo "=== Building Linux kernel for Coral target ==="
+  cd "${linux_dir}"
+
+  # Patch dtc lexer (as in Dockerfile)
+  sed -i 's/YYLTYPE yylloc;/extern YYLTYPE yylloc;/g' scripts/dtc/dtc-lexer.l
+  sed -i 's/YYLTYPE yylloc;/extern YYLTYPE yylloc;/g' scripts/dtc/dtc-lexer.lex.c_shipped
+
+  # Build Image, DTBs, modules and prepare modules
+  make ARCH="${ARCH}" CROSS_COMPILE="${CROSS_COMPILE}" -j"$(nproc)" Image dtbs modules
+  if [[ $? -ne 0 ]]; then
+    echo "ERROR: Kernel Image/DTBs/modules build failed for Coral"
+    exit 1
+  fi
+  make ARCH="${ARCH}" CROSS_COMPILE="${CROSS_COMPILE}" -j"$(nproc)" modules_prepare
+  echo "Coral kernel Image, DTBs and modules prepared"
+
+
+  # Copy Image to boot directory
+  cp "${linux_dir}/arch/${ARCH}/boot/Image" "${boot_dir}/"
+  echo "Coral Image copied to ${boot_dir}"
+  exit 0
+fi
+
+
+
 # Compile the Kernel
 yes "" | make -C "${linux_dir}" ARCH="${ARCH}" CROSS_COMPILE="${CROSS_COMPILE}" Image -j"$(nproc)"
 if [[ $? -ne 0 ]]; then
