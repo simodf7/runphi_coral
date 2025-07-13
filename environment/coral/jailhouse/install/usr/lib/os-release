@@ -1,0 +1,8 @@
+PRETTY_NAME="Mendel GNU/Linux 5 (Eagle)"
+NAME="Mendel GNU/Linux"
+ID=mendel
+ID_LIKE=debian
+HOME_URL="https://coral.ai/"
+SUPPORT_URL="https://coral.ai/"
+BUG_REPORT_URL="https://coral.ai/"
+VERSION_CODENAME="eagle"

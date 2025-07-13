@@ -1,0 +1,30 @@
+Metadata-Version: 2.1
+Name: vitalsd
+Version: 1.0
+Summary: A vital statistics monitor that outputs to serial consoles for embedded systems
+Home-page: https://coral.googlesource.com/vitalsd.git
+Author: Mendel Linux Software Team
+Author-email: coral-support@google.com
+License: Apache 2
+Description: vitalsd - Statistics for Embedded Systems
+        =========================================
+        
+        ## What is this?
+        
+        vitalsd is a very simple tool that samples vital system statistics (CPU load,
+        free/total memory, temperatures, etc.) and outputs them periodically to a serial
+        port. It's designed to be used on embedded systems with physical serial ports
+        that can crash in unexpected ways that leave the system in a non-triageable
+        state.
+        
+Keywords: embedded development
+Platform: UNKNOWN
+Classifier: Development Status :: 3 - Alpha
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development
+Classifier: Topic :: Utilities
+Classifier: License :: OSI Approved :: Apache License
+Classifier: Operating System :: POSIX
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.5.0
+Description-Content-Type: text/markdown

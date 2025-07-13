@@ -1,0 +1,2 @@
+gstreamer1.0-plugins-good: spelling-error-in-readme-debian *
+gstreamer1.0-plugins-good: library-not-linked-against-libc *

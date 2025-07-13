@@ -1,0 +1,18 @@
+SUBSYSTEM=="apex", MODE="0660", GROUP="apex"
+DEVPATH=="/module/ov5645_camera_mipi_v2", ACTION=="add", RUN+="/bin/chgrp video /sys%p/parameters/ov5645_af", RUN+="/bin/chmod ug+rw /sys%p/parameters/ov5645_af"
+DEVPATH=="/module/ov5645_camera_mipi_v2", ACTION=="change", ENV{TRIGGER}!="none", RUN+="/bin/chgrp video /sys%p/parameters/ov5645_af", RUN+="/bin/chmod ug+rw /sys%p/parameters/ov5645_af"
+SUBSYSTEM=="gpio", GROUP="input", MODE="0660"
+SUBSYSTEM=="gpio*", PROGRAM="/bin/sh -c '\
+	chown -R root:input /sys/class/gpio && chmod -R 770 /sys/class/gpio;\
+	chown -R root:input /sys$devpath && chmod -R 770 /sys$devpath\
+'"
+SUBSYSTEM=="pwm", GROUP="input", MODE="0660"
+SUBSYSTEM=="pwm*", PROGRAM="/bin/sh -c '\
+	chown -R root:input /sys/class/pwm && chmod -R 770 /sys/class/pwm;\
+	chown -R root:input /sys$devpath && chmod -R 770 /sys$devpath\
+'"
+SUBSYSTEM=="spidev", GROUP="input", MODE="0660"
+SUBSYSTEM=="spidev*", PROGRAM="/bin/sh -c '\
+	chown -R root:input /sys/class/spidev && chmod -R 770 /sys/class/spidev;\
+	chown -R root:input /sys$devpath && chmod -R 770 /sys$devpath\
+'"

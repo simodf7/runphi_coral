@@ -1,0 +1,203 @@
+#!/bin/bash
+
+PROGRAM_NAME=$(basename "$0")
+TEMPDIR=$(mktemp -p /tmp -d bugreport.XXXXXXXX)
+
+QUIET=""
+DEBUG=""
+SUMMARY=""
+PACKAGE=""
+
+function die
+{
+    echo "${PROGRAM_NAME}: $@"
+    exit 1
+}
+
+function show-help
+{
+    cat <<EOF
+Usage: $PROGRAM_NAME [-d] [-h] [-p <packagename>] [-s <summary>]
+
+Where the options are:
+  -d   Turns on debug mode. Doesn't delete the temp directory this script
+         creates.
+  -h   Shows this help text.
+  -p <packagename>
+       Sets the package name this bugreport pertains to.
+  -s <summary>
+       Sets the summary about what this bug is about.
+EOF
+    exit 1
+}
+
+function cleanup
+{
+    rm -rf "${TEMPDIR}"
+}
+
+function is-debug-on
+{
+    if [[ -z "${DEBUG}" ]]; then
+        return 1
+    fi
+    return 0
+}
+
+function debug
+{
+    if is-debug-on; then
+        echo "$@"
+    fi
+}
+
+function gather-system-info
+{
+    cat <<EOF
+--- system information
+$(uname -a)
+$(uptime)
+$(lsb_release -idrc)
+
+--- dmesg
+$(dmesg)
+
+--- systemctl status
+$(systemctl -l --no-legend)
+
+--- installed packages
+$(dpkg --get-selections)
+
+--- apt sources
+EOF
+
+    if [[ -e /etc/apt/sources.list.d/* ]]; then
+        cat /etc/apt/sources.list.d/*
+    fi
+
+    if [[ -f /etc/apt/sources.list ]]; then
+        cat /etc/apt/sources.list
+    fi
+}
+
+function generate-message
+{
+    cat <<EOF
+--- summary
+$SUMMARY
+
+--- package affected
+$PACKAGE
+
+--- date
+$(date)
+
+EOF
+}
+
+function get-summary-line
+{
+    local message="$1"
+    local done
+    local yn
+
+    while [[ -z "${done}" ]]; do
+        echo "${message}"
+        read -p '> ' SUMMARY
+
+        if [[ -z "${SUMMARY}" ]]; then
+            echo
+            echo "Sorry, please try again."
+            continue
+        fi
+
+        read -p "Does this look correct? (y/n) " yn
+        if [[ "${yn}" == "y" ]]; then
+            done=t
+        fi
+    done
+}
+
+function main
+{
+    local args=$(getopt hdp:s:q $*)
+    local keep_tempdir=""
+
+    set -- $args
+
+    for i; do
+        case "$1" in
+            -d) # debug (don't delete tempdir)
+                QUIET=""
+                DEBUG=1
+                shift
+                ;;
+
+            -p) # package
+                PACKAGE="$2"
+                shift 2
+                ;;
+
+            -s) # summary
+                SUMMARY="$2"
+                shift 2
+                ;;
+
+            -q) # quiet
+                QUIET=1
+                DEBUG=""
+                shift 1
+                ;;
+
+            --)
+                shift
+                break
+                ;;
+
+            -h|*) # help
+                show-help
+                exit 1
+                ;;
+        esac
+    done
+
+    if ! is-debug-on; then
+        trap cleanup EXIT
+    fi
+
+    debug "Working in ${TEMPDIR}"
+    gather-system-info > "${TEMPDIR}/system-info.txt"
+
+    if [[ -z "$SUMMARY" ]]; then
+        get-summary-line "In a few words, describe the problem you've experienced."
+    fi
+
+    if [[ -z "$PACKAGE" ]]; then
+        echo "If you know the name of the package you think this relates to, please enter it here."
+        echo "If you don't, just press ENTER here."
+        read -p "> " PACKAGE
+    fi
+
+    generate-message > "${TEMPDIR}/message.txt"
+
+    local bugreport_filename="bugreport-$(date +%Y%m%dT%H%M%S).txt"
+    cat "${TEMPDIR}/message.txt" "${TEMPDIR}/system-info.txt" > "${TEMPDIR}/${bugreport_filename}"
+    gzip "${TEMPDIR}/${bugreport_filename}"
+    mv "${TEMPDIR}/${bugreport_filename}.gz" .
+
+    if [[ -z "${QUIET}" ]]; then
+        cat <<EOF
+
+Bugreport saved as ${bugreport_filename}.gz in your current directory.
+
+This is a plain text file containing system information. You can examine it by
+running the command 'zless ${bugreport_filename}.gz'.
+
+Please attach this in an email to coral-support@google.com.
+EOF
+    else
+        echo "${bugreport_filename}.gz"
+    fi
+}
+
+main "$@"

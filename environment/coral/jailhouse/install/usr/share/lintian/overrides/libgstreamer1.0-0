@@ -1,0 +1,2 @@
+libgstreamer1.0-0: package-name-doesnt-match-sonames libgstbase-1.0-0 libgstcheck-1.0-0 libgstcontroller-1.0-0 libgstnet-1.0-0 libgstreamer-1.0-0
+libgstreamer1.0-0: symbols-file-contains-debian-revision on symbol gst_poll_fd_can_read_pri@Base

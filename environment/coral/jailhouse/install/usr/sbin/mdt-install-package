@@ -1,0 +1,131 @@
+#!/bin/bash
+
+set -e
+
+PROGRAM=$(basename $0)
+BASEDIR=/var/cache/mdt
+REPOSITORY_PATH=$BASEDIR/packages
+LOCKFILE=$BASEDIR/mdt-lock
+
+# Exits the program gracefully with an error message.
+#
+function die
+{
+    echo $PROGRAM: $@
+    exit 1
+}
+
+# Given a package filename, returns the actual Debian base package name,
+# excluding the version number.
+#
+function get-package-name
+{
+    local package_filename="$1"; shift
+
+    dpkg-deb -I $package_filename \
+        | grep -E '^ Package: ' \
+        | awk '{ print $2 }'
+}
+
+# Given a package filename, copies the package into the local MDT package
+# repository for later installation.
+#
+function add-package
+{
+    local package_filename="$1"; shift
+
+    if [[ ! -f $package_filename ]]; then
+        die No such file or directory: $package_filename
+    fi
+
+    local package_name=$(get-package-name $package_filename)
+
+    (
+        flock -n -E 254 200
+        (
+            cp $package_filename $REPOSITORY_PATH
+            cd $REPOSITORY_PATH
+            apt-ftparchive packages . > Packages
+        )
+    ) 200>$LOCKFILE
+
+    local exitcode=$?
+    if [[ $exitcode == 254 ]]; then
+        die Couldn\'t acquire lockfile: $LOCKFILE
+    fi
+
+    return $exitcode
+}
+
+# Given a package filename, removes the package from the local MDT package
+# repository.
+#
+function remove-package
+{
+    local package_filename="$1"; shift
+    local package_basename=$(basename $package_filename)
+    local package_path=$REPOSITORY_PATH/$package_basename
+
+    if [[ ! -f $package_path ]]; then
+        die No such file or directory: $package_path
+    fi
+
+    (
+        flock -n -E 254 200
+        (
+            rm -f $package_path
+            cd $BASEDIR
+            apt-ftparchive packages packages > Packages
+        )
+    ) 200>$LOCKFILE
+
+    local exitcode=$?
+    if [[ $exitcode == 254 ]]; then
+        die Couldn\'t acquire lockfile: $LOCKFILE
+    fi
+
+    return $exitcode
+}
+
+function main
+{
+    local package_to_install="$1"; shift
+
+    if [[ -z $package_to_install ]]; then
+        echo "Usage: mdt-install-package <package>"
+        echo 
+        echo "Installs a given Debian package to the system using a local repository"
+        echo "to help install all dependent packages. Forces reinstalls."
+        echo
+        exit 1
+    fi
+
+    if [[ ! -f $package_to_install ]]; then
+        die No such file or directory: $PACKAGE_TO_INSTALL
+    fi
+
+    if [[ ! -d $REPOSITORY_PATH ]]; then
+        die Can\'t find local repository: $REPOSITORY_PATH
+    fi
+
+    if [[ ! -x /usr/bin/apt-ftparchive ]]; then
+        die apt-utils is not installed: can\'t find apt-ftparchive
+    fi
+
+    add-package $package_to_install \
+        || die failed to add package to repository: $package_to_install
+
+    local package_name=$(get-package-name $package_to_install)
+
+    apt-get -qq update \
+            --no-list-cleanup \
+            -o Dir::Etc::SourceList="sources.list.d/00-mdt-services.list" \
+            -o Dir::Etc::SourceParts="-"
+
+    apt-get install -y --reinstall $package_name
+
+    remove-package $package_to_install \
+        || die failed to remove package from repository: $package
+}
+
+main "$@"

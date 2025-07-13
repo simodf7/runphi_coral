@@ -1,0 +1,11 @@
+Metadata-Version: 1.2
+Name: edgetpuvision
+Version: 7.0
+Summary: EdgeTPU camera API
+Home-page: https://coral.ai/
+Author: Coral
+Author-email: coral-support@google.com
+License: Apache 2
+Description: API to run inference on image data coming from the camera.
+Platform: UNKNOWN
+Requires-Python: >=3.5.3

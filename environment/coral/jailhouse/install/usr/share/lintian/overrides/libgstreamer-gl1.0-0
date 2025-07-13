@@ -1,0 +1,4 @@
+libgstreamer-gl1.0-0: package-name-doesnt-match-sonames libgstgl-1.0-0
+libgstreamer-gl1.0-0: symbols-file-contains-current-version-with-debian-revision on symbol gst_gl_window_prefer_fullscreen@Base
+libgstreamer-gl1.0-0: symbols-file-contains-debian-revision on symbol gst_gl_window_prefer_fullscreen@Base
+

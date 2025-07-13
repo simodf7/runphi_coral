@@ -1,0 +1,26 @@
+This package was debianized by Sebastian Dröge <slomo@debian.org> on
+Tue, 30 Sep 2013 11:59:10 +0200.
+
+It was downloaded from http://gstreamer.freedesktop.org/src/gst-python/
+
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: GStreamer GObject Introspection overrides for python 1.0
+Upstream-Contact: gstreamer-devel@lists.freedesktop.org
+Source: http://gstreamer.freedesktop.org
+
+Files: ./gi/overrides/GstPbutils.py
+Copyright: 2012, Alessandro Decina <alessandro.d@gmail.com>
+License: LGPL-2.1+
+ /usr/share/common-licenses/LGPL
+
+Files: ./gi/overrides/Gst.py
+Copyright: 2012, Thibault Saunier <thibault.saunier@collabora.com>
+License: LGPL-2.1+
+ /usr/share/common-licenses/LGPL
+
+Files: ./gi/overrides/gstmodule.c
+Copyright: 2002, David I. Lehn
+  2012, Thibault Saunier <thibault.saunier@collabora.com>
+License: LGPL-2+
+ /usr/share/common-licenses/LGPL
+

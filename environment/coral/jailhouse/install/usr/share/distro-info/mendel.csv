@@ -1,0 +1,6 @@
+version,codename,series,created,release,eol
+1.0,Animal,mendel-animal,2018-10-01,2018-10-01,2019-01-21
+2.0,Beaker,mendel-beaker,2019-01-17,2019-01-21,2019-04-04
+3.0,Chef,mendel-chef,2019-03-21,2019-03-21,2019-11-01
+4.0,Day,mendel-day,2019-11-01,2019-11-01,2020-07-13
+5.0,Eagle,mendel-eagle,2020-07-13,2020-07-13

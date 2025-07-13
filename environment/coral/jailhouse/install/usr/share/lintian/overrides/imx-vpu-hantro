@@ -1,0 +1,3 @@
+imx-vpu-hantro: copyright-should-refer-to-common-license-file-for-lgpl
+imx-vpu-hantro: non-dev-pkg-with-shlib-symlink *
+imx-vpu-hantro: package-name-doesnt-match-sonames libcodec1 libcodec-enc1 libg1-1 libhantro1 libhantro-h1-1

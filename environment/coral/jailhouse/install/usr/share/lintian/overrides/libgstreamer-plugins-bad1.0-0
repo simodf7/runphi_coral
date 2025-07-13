@@ -1,0 +1,2 @@
+libgstreamer-plugins-bad1.0-0: package-name-doesnt-match-sonames libgstadaptivedemux-1.0-0 libgstbadaudio-1.0-0 libgstbadvideo-1.0-0 libgstbasecamerabinsrc-1.0-0 libgstcodecparsers-1.0-0 libgstinsertbin-1.0-0 libgstisoff-1.0-0 libgstmpegts-1.0-0 libgstphotography-1.0-0 libgstplayer-1.0-0 libgsturidownloader-1.0-0 libgstwayland-1.0-0 libgstwebrtc-1.0-0
+libgstreamer-plugins-bad1.0-0: library-not-linked-against-libc *
