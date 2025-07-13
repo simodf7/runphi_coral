@@ -318,7 +318,7 @@ Do you really want to delete zcu104/jailhouse builds? (y/n): y
 
 To ensure **RunPHI** is executable on the **Google Coral Dev Board**, a different container must be used to match all the dependencies required for the board's specific environment. To do this, you need to build a container image using the Dockerfile named `Dockerfile_coral`.
 
-> 💡 **Note:** As recommended in the **Dependencies** section, you should add your username to the Docker group.
+> **Note:** As recommended in the **Dependencies** section, you should add your username to the Docker group.
 
 
 ```bash
@@ -333,7 +333,7 @@ docker run -it --rm \
   -v "${PWD}":/home \
   -w /home \
   runphi_root:latest /bin/bash
-
+```
 
 At this point, a shell inside the container will open, and you can proceed to build the environment as described in the previous sections:
 
@@ -342,11 +342,13 @@ $ ./scripts/build_environment.sh -t coral -b jailhouse
 ```
 
 If everything went well and all required components were built, you can now create a bootable image that will later be flashed to the SD card for use with the board.
-To do this, execute the create_image_coral.sh script located in the scripts/coral directory:
+To do this, execute the `create_image_coral.sh` script located in the `scripts/coral` directory:
 
 ```
 $ ./scripts/coral/create_image_coral.sh
 ```
+
+
 After the script, you'll find an image named `flashcard_custom.img` in RunPHI directory. To flash the board, follow the instructions located in `README.md` in the `environent/coral/jailhouse` directory. 
 
 ## Warnings
