@@ -11,32 +11,33 @@
 
 set -e
 
+
+# DIRECTORIES
+current_dir=$(dirname -- "$(readlink -f -- "$0")")
+script_dir=$(dirname "${current_dir}")
+source "${script_dir}"/common/common.sh
+
+# Set the Environment
+source "${script_dir}"/common/set_environment.sh "${TARGET}" "${BACKEND}"
+
 VERSION="4.14.98"
-INSTALL_PATH="/out" # da modificare
+INSTALL_PATH=${boot_dir}
+KERNEL_SRC=${linux_dir}
 
-# WLAN sources directory
-SRC_DIR="imx-board-wlan-src"
 
-echo "==> Entering in ${SRC_DIR}"
-cd "${SRC_DIR}" || { echo "Directory ${SRC_DIR} non trovata"; exit 1; }
+echo "==> Entering in ${wlan_dir}"
+cd "${wlan_dir}" || { echo "Directory ${wlan_dir} non trovata"; exit 1; }
 
-echo "==> Checkout kernel version: ${VERSION}"
-git checkout "${VERSION}"
 
-echo "==> WLAN building"
-make ARCH="${ARCH}" \
-     CROSS_COMPILE="${CROSS_COMPILE}" \
-     KERNEL_SRC="${KERNEL_SRC}"
+make ARCH=${ARCH} \
+     CROSS_COMPILE=${CROSS_COMPILE} \
+     KERNEL_SRC=${KERNEL_SRC}
 
-echo "==> Wlan modules installation in ${INSTALL_PATH}"
-make ARCH="${ARCH}" \
-     CROSS_COMPILE="${CROSS_COMPILE}" \
-     KERNEL_SRC="${KERNEL_SRC}" \
-     INSTALL_MOD_PATH="${INSTALL_PATH}" modules_install
+make ARCH=${ARCH} \
+     CROSS_COMPILE=${CROSS_COMPILE} \
+     KERNEL_SRC=${KERNEL_SRC} \
+     INSTALL_MOD_PATH=${INSTALL_PATH} modules_install
 
-echo "==> WLAN successfully builded and installed"
-
-echo "==> Linux Modules and kernel install"
 
 # Modules install
 make -C "${KERNEL_SRC}" INSTALL_MOD_PATH="${INSTALL_PATH}" modules_install
