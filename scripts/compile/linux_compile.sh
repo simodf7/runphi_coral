@@ -51,6 +51,8 @@ source "${script_dir}"/common/set_environment.sh "${TARGET}" "${BACKEND}"
 if [[ "${TARGET}" == "coral" ]]; then
   echo "=== Building Linux kernel for Coral target ==="
   cd "${linux_dir}"
+	
+  echo "Entered in ${linux_dir}" 
 
   # Patch dtc lexer (as in Dockerfile)
   sed -i 's/YYLTYPE yylloc;/extern YYLTYPE yylloc;/g' scripts/dtc/dtc-lexer.l
@@ -69,6 +71,7 @@ if [[ "${TARGET}" == "coral" ]]; then
   # Copy Image to boot directory
   cp "${linux_dir}/arch/${ARCH}/boot/Image" "${boot_dir}/"
   echo "Coral Image copied to ${boot_dir}"
+
   exit 0
 fi
 

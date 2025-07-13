@@ -64,13 +64,16 @@ source "${script_dir}"/common/set_environment.sh "${TARGET}" "${BACKEND}"
 # If target is coral, use imx-jailhouse build and install
 if [[ "${TARGET}" == "coral" ]]; then
   echo "Compiling and installing Jailhouse for Coral..."
-  cd imx-jailhouse  { echo "Directory imx-jailhouse not found"; exit 1; }
+  cd ${jailhouse_dir} || { echo "Directory imx-jailhouse not found"; exit 1; }
+
+
+  SYSROOT=${install_dir}
 
   # Build
   make ARCH=${ARCH} \
        CROSS_COMPILE=${CROSS_COMPILE} \
        CC="aarch64-linux-gnu-gcc --sysroot=${SYSROOT}" \
-       KDIR=${KERNEL_SRC} #${linux_dir}
+       KDIR=${linux_dir}
   if [[ $? -ne 0 ]]; then
     echo "ERROR: Jailhouse make failed for Coral"; exit 1
   fi
@@ -79,8 +82,8 @@ if [[ "${TARGET}" == "coral" ]]; then
   make ARCH=${ARCH} \
        CROSS_COMPILE=${CROSS_COMPILE} \
        CC="aarch64-linux-gnu-gcc --sysroot=${SYSROOT}" \
-       KDIR=${KERNEL_SRC} \
-       INSTALL_MOD_PATH=/out modules_install # ${linux_dir} modifcare anche install mod path 
+       KDIR=${linux_dir} \
+       INSTALL_MOD_PATH=${boot_dir} modules_install 
   if [[ $? -ne 0 ]]; then
     echo "ERROR: Jailhouse modules_install failed for Coral"; exit 1
   fi
