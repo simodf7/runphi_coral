@@ -1,0 +1,46 @@
+FROM ubuntu:22.04
+
+# Imposto timezone
+ENV TZ=America/Los_Angeles
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
+    && echo $TZ > /etc/timezone
+
+# Aggiorno e installo pacchetti base (incluso sudo)
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
+       sudo vim git make sed binutils diffutils python3 ninja-build build-essential \
+       curl bzip2 tar findutils unzip cmake ca-certificates libncurses-dev \
+       python3-docutils meson dmidecode libselinux1-dev qtbase5-dev xz-utils \
+       util-linux kmod rsync libglib2.0-dev libpixman-1-dev wget cpio bc \
+       libncurses5 libncurses5-dev flex bison openssl libssl-dev python3-pip file \
+       pkg-config u-boot-tools parted udev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Installo pacchetti Python
+RUN pip3 install --no-cache-dir Mako
+
+# Linaro GCC 11.3.1 toolchain
+WORKDIR /opt
+RUN curl -fSL \
+      https://snapshots.linaro.org/gnu-toolchain/11.3-2022.06-1/aarch64-linux-gnu/gcc-linaro-11.3.1-2022.06-x86_64_aarch64-linux-gnu.tar.xz \
+    -o linaro-gcc.tar.xz \
+ && tar -xJf linaro-gcc.tar.xz \
+ && rm linaro-gcc.tar.xz
+
+
+# Ambiente toolchain
+ENV TOOLCHAIN_DIR=/opt/gcc-linaro-11.3.1-2022.06-x86_64_aarch64-linux-gnu
+ENV PATH=${TOOLCHAIN_DIR}/bin:${PATH}
+ENV ARCH=arm64
+ENV CROSS_COMPILE=aarch64-linux-gnu-
+
+# Prompt personalizzato per root
+RUN echo "PS1='\[\e[38;5;39m\]\w\[\e[0m\] \[\e[38;5;46;1m\]>\[\e[0m\] '" >> /root/.bashrc
+
+# Imposto root come utente di default (opzionale, è default in Ubuntu)
+USER root
+WORKDIR /root
+ENV HOME=/root
+
+# Avvio shell interattiva login come root
+CMD ["bash", "-lc", "source ~/.bashrc && exec bash -il"]
