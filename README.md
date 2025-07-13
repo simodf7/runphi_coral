@@ -316,30 +316,38 @@ Do you really want to delete zcu104/jailhouse builds? (y/n): y
 
 ## Setup for Google Coral Dev Board
 
-To make sure RunPHI is executable for Google Coral Dev Board, a different container must beused to match all the dependencies required for the specific environment of the board. In order to do so, a container image must be build from the Dockerfile named `Dockerfile_coral`
+To ensure **RunPHI** is executable on the **Google Coral Dev Board**, a different container must be used to match all the dependencies required for the board's specific environment. To do this, you need to build a container image using the Dockerfile named `Dockerfile_coral`.
 
-It's recommended, as shown in Dependencies, to add your username to the docker group. 
-After doing so, just run:
+> 💡 **Note:** As recommended in the **Dependencies** section, you should add your username to the Docker group.
 
-```
-$ cd ~/environment_builder
-$ docker build -t runphi_root -f Dockerfile_coral_root .
-$ docker run -it --rm   --privileged   -v /etc/passwd:/etc/passwd:ro   -v /etc/group:/etc/group:ro   --net=host   --name env_builder_container   -v "${PWD}":/home   -w /home   runphi_root:latest   /bin/bash
-```
 
-At this point, shell of the container will open and then it will be possible to build the environment as shown in the previous sections. 
+```bash
+cd ~/environment_builder
+docker build -t runphi_root -f Dockerfile_coral_root .
+docker run -it --rm \
+  --privileged \
+  -v /etc/passwd:/etc/passwd:ro \
+  -v /etc/group:/etc/group:ro \
+  --net=host \
+  --name env_builder_container \
+  -v "${PWD}":/home \
+  -w /home \
+  runphi_root:latest /bin/bash
+
+
+At this point, a shell inside the container will open, and you can proceed to build the environment as described in the previous sections:
 
 ```
 $ ./scripts/build_environment.sh -t coral -b jailhouse 
 ```
 
-If everything went well and all the to-build components were builded, you may now want to ccreate a bootable image, which will be later loaded into SD Card to properly flash the board.  To do so, it's required to execute `create_image_coral.sh` in `scripts/coral` directory:
+If everything went well and all required components were built, you can now create a bootable image that will later be flashed to the SD card for use with the board.
+To do this, execute the create_image_coral.sh script located in the scripts/coral directory:
 
 ```
 $ ./scripts/coral/create_image_coral.sh
 ```
-After the script, you'll find an image named `flashcard_custom.img` in RunPHI directory. Toproperly flash the board, follow now the instructions reported in README.md inside `environent/coral/jailhouse`
-
+After the script, you'll find an image named `flashcard_custom.img` in RunPHI directory. To flash the board, follow the instructions located in `README.md` in the `environent/coral/jailhouse` directory. 
 
 ## Warnings
 
