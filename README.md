@@ -323,7 +323,7 @@ To ensure **RunPHI** is executable on the **Google Coral Dev Board**, a differen
 
 ```bash
 cd ~/environment_builder
-docker build -t runphi_root -f Dockerfile_coral_root .
+docker build -t runphi_root -f Dockerfile_coral .
 docker run -it --rm \
   --privileged \
   -v /etc/passwd:/etc/passwd:ro \
