@@ -126,6 +126,10 @@ custom_jailhouse_inmate_demos_dir=${custom_jailhouse_dir}/inmates/demos
 # BOOTGEN
 bootgen_dir=${build_dir}/bootgen
 
+# CORAL
+wlan_dir=${build_dir}/wlan
+
+
 ## SETUP THE SPECIFIC TARGET ##
 source ${environment_cfgs_dir}/${TARGET}-${BACKEND}.sh
 

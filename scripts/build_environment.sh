@@ -406,7 +406,7 @@ fi
 # Compile WLAN (just Coral)
 if [[ "${TARGET}" == "coral" ]]; then
   echo "Compiling WLAN for Coral …"
-  bash "${script_dir}/wlan_compile.sh" ${WLAN_COMPILE_ARGS}
+  bash "${script_dir}"/compile/wlan_compile.sh ${WLAN_COMPILE_ARGS}
   if [[ $? -eq 1 ]]; then
     echo "WLAN compilation failed. Exiting…"
     exit 1
