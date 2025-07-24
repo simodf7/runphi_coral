@@ -52,8 +52,19 @@ sudo mount -t ext4 -o loop,rw "${IMG_DIR}/rootfs.img" "${MNT}"
 sudo rm -rf "${MNT}/lib/modules/"*
 sudo bash -c 'echo "jailhouse"' > "${MNT}/etc/modules-load.d/jailhouse.conf"
 sudo cp -r "${KMODS_SRC_DIR}/4.14.98+" "${MNT}/lib/modules/"
-sudo cp "${JAILHOUSE_SRC_DIR}/tools/jailhouse" "${MNT}/usr/local/bin"
-sudo cp "${JAILHOUSE_SRC_DIR}/hypervisor/jailhouse.bin" "${MNT}/lib/firmware/"
+sudo cp "${NEW_BOOT_DIR}/lib/firmware/"* "${MNT}/lib/firmware/"
+sudo cp -r "${NEW_BOOT_DIR}/usr/lib/"* "${MNT}/usr/lib/"
+sudo cp -r "${NEW_BOOT_DIR}/usr/local/lib/"* "${MNT}/usr/local/lib/"
+sudo cp -r "${NEW_BOOT_DIR}/usr/local/libexec" "${MNT}/usr/local/"
+sudo cp -r "${JAILHOUSE_SRC_DIR}/pyjailhouse" "${MNT}/usr/local/libexec/"
+sudo cp "${NEW_BOOT_DIR}/usr/local/sbin/"* "${MNT}/usr/local/sbin/"
+sudo cp -r "${NEW_BOOT_DIR}/usr/local/share/jailhouse" "${MNT}/usr/local/share"
+sudo cp -r "${NEW_BOOT_DIR}/usr/local/share/man/man8" "${MNT}/usr/local/share/man"
+sudo cp "${NEW_BOOT_DIR}/usr/share/bash-completion/completions/jailhouse" "${MNT}/usr/share/bash-completion/completions/"
+
+# sudo cp "${JAILHOUSE_SRC_DIR}/tools/jailhouse" "${MNT}/usr/local/bin"
+# sudo cp "${JAILHOUSE_SRC_DIR}/hypervisor/jailhouse.bin" "${MNT}/lib/firmware/"
+
 sync
 sudo umount "${MNT}"
 echo ">>> rootfs.img aggiornato."
