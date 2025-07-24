@@ -88,6 +88,27 @@ if [[ "${TARGET}" == "coral" ]]; then
     echo "ERROR: Jailhouse modules_install failed for Coral"; exit 1
   fi
 
+ 
+   # Install Jailhouse
+   make ARCH=${ARCH} \
+         CROSS_COMPILE=${CROSS_COMPILE} \
+         CC="aarch64-linux-gnu-gcc --sysroot=${SYSROOT}" \
+         KDIR=${linux_dir} \
+         DESTDIR=${boot_dir} \
+         PREFIX=/usr install 
+   if [[ $? -ne 0 ]]; then
+    echo "ERROR: Jailhouse install failed for Coral"; exit 1
+  fi
+     
+   python3 setup.py install \
+         --prefix=/usr \
+         --root=${boot_dir}
+   if [[ $? -ne 0 ]]; then
+	echo "ERROR: Jailhouse python setup failed for Coral"; exit 1 
+   fi
+
+
+
   echo "Jailhouse for Coral compiled and installed successfully"
   exit 0
 fi
