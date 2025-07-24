@@ -5,12 +5,19 @@ ENV TZ=America/Los_Angeles
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
     && echo $TZ > /etc/timezone
 
+RUN apt-get update \
+ && apt-get install -y software-properties-common \
+ && add-apt-repository ppa:deadsnakes/ppa \
+ && apt-get update \
+ && apt-get install -y python3.7 python3.7-distutils \
+ && ln -sf /usr/bin/python3.7 /usr/bin/python3
+
 # Aggiorno e installo pacchetti base (incluso sudo)
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-       sudo vim git make sed binutils diffutils python3 ninja-build build-essential \
+       sudo vim git make sed binutils diffutils ninja-build build-essential \
        curl bzip2 tar findutils unzip cmake ca-certificates libncurses-dev \
-       python3-docutils meson dmidecode libselinux1-dev qtbase5-dev xz-utils \
+       meson dmidecode libselinux1-dev qtbase5-dev xz-utils \
        util-linux kmod rsync libglib2.0-dev libpixman-1-dev wget cpio bc \
        libncurses5 libncurses5-dev flex bison openssl libssl-dev python3-pip file \
        pkg-config u-boot-tools parted udev \
