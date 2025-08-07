@@ -19,68 +19,127 @@ source "${script_dir}"/common/common.sh
 # Set the Environment
 source "${script_dir}"/common/set_environment.sh "${TARGET}" "${BACKEND}"
 
-# Cartella con le immagini da modificare
 IMG_DIR="${boot_sources_dir}"
 
-# Punti di origine dei file compilati (modifica se serve)
 NEW_BOOT_DIR="${boot_dir}"        # Image, System.map
 KMODS_SRC_DIR="${boot_dir}"/lib/modules/
 JAILHOUSE_SRC_DIR="${jailhouse_dir}"
 
 sudo losetup -D
 
-# Punto di mount temporaneo
+echo "Cartella di build: ${build_dir}"
+
+
 MNT="/mnt/coral"
 sudo mkdir -p "${MNT}"
 
-echo "=== Inizio aggiornamento immagini ==="
 
 # 1) boot.img
-echo ">>> Mount and update boot.img"
-sudo mount -t ext2 -o loop,rw "${IMG_DIR}/boot.img" "${MNT}"
+echo ">>> boot.img creation"
+
+sudo dd if=/dev/zero of="boot.img" bs=1 count=0 seek="128M"
+
+# Format as filesystem ext2
+sudo mkfs.ext2 -F -L "boot" "boot.img"
+
+# loop device association
+LOOP=$(sudo losetup --show -f "boot.img")
+
+# mount
+sudo mount "${LOOP}" "${MNT}"
+
+sudo cp -a --preserve=all "${build_dir}/boot/"* "${MNT}"
 sudo rm -f "${MNT}/Image" "${MNT}/System.map"* "${MNT}/config"*
-sudo cp "${NEW_BOOT_DIR}/Image"      "${MNT}/"
-sudo cp "${NEW_BOOT_DIR}/System.map-4.14.98+" "${MNT}/"
-sudo cp "${NEW_BOOT_DIR}/config-4.14.98+" "${MNT}/"
+sudo cp -a --preserve=all  "${NEW_BOOT_DIR}/Image"      "${MNT}/"
+sudo cp -a --preserve=all "${NEW_BOOT_DIR}/System.map-4.14.98+" "${MNT}/"
+sudo cp -a --preserve=all "${NEW_BOOT_DIR}/config-4.14.98+" "${MNT}/"
+
+# 6) sync and unmount
 sync
 sudo umount "${MNT}"
-echo ">>> boot.img aggiornato."
+
+echo "> Okay: created boot.img"
+# 7) removing loop device
+sudo losetup -d "${LOOP}"
+
 
 # 2) rootfs.img
-echo ">>> Mount and update rootfs.img"
-sudo mount -t ext4 -o loop,rw "${IMG_DIR}/rootfs.img" "${MNT}"
+echo ">>>  rootfs.img creation"
+
+
+sudo dd if=/dev/zero of="rootfs.img" bs=1 count=0 seek="4G"
+
+# Format as filesystem ext4
+sudo mkfs.ext4 -F -L "rootfs" "rootfs.img"
+
+# loop device association
+LOOP=$(sudo losetup --show -f "rootfs.img")
+
+
+# mount
+sudo mount "${LOOP}" "${MNT}"
+
+sudo cp -a --preserve=all -r "${build_dir}/rootfs/"* "${MNT}"
+
 sudo rm -rf "${MNT}/lib/modules/"*
 sudo bash -c 'echo "jailhouse"' > "${MNT}/etc/modules-load.d/jailhouse.conf"
-sudo cp -r "${KMODS_SRC_DIR}/4.14.98+" "${MNT}/lib/modules/"
-sudo cp "${NEW_BOOT_DIR}/lib/firmware/"* "${MNT}/lib/firmware/"
-sudo cp -r "${NEW_BOOT_DIR}/usr/lib/"* "${MNT}/usr/lib/"
-sudo cp -r "${NEW_BOOT_DIR}/usr/local/lib/"* "${MNT}/usr/local/lib/"
-sudo cp -r "${NEW_BOOT_DIR}/usr/local/libexec" "${MNT}/usr/local/"
-sudo cp -r "${JAILHOUSE_SRC_DIR}/pyjailhouse" "${MNT}/usr/local/libexec/"
-sudo cp "${NEW_BOOT_DIR}/usr/local/sbin/"* "${MNT}/usr/local/sbin/"
-sudo cp -r "${NEW_BOOT_DIR}/usr/local/share/jailhouse" "${MNT}/usr/local/share"
-sudo cp -r "${NEW_BOOT_DIR}/usr/local/share/man/man8" "${MNT}/usr/local/share/man"
-sudo cp "${NEW_BOOT_DIR}/usr/share/bash-completion/completions/jailhouse" "${MNT}/usr/share/bash-completion/completions/"
+sudo cp -a --preserve=all -r "${KMODS_SRC_DIR}/4.14.98+" "${MNT}/lib/modules/"
+sudo cp -a --preserve=all "${NEW_BOOT_DIR}/lib/firmware/"* "${MNT}/lib/firmware/"
+sudo cp -a --preserve=all -r "${NEW_BOOT_DIR}/usr/lib/"* "${MNT}/usr/lib/"
+sudo cp -a --preserve=all -r "${NEW_BOOT_DIR}/usr/local/lib/"* "${MNT}/usr/local/lib/"
+sudo cp -a --preserve=all -r "${NEW_BOOT_DIR}/usr/local/libexec" "${MNT}/usr/local/"
+sudo cp -a --preserve=all -r "${JAILHOUSE_SRC_DIR}/pyjailhouse" "${MNT}/usr/local/libexec/"
+sudo cp -a --preserve=all  "${NEW_BOOT_DIR}/usr/local/sbin/"* "${MNT}/usr/local/sbin/"
+sudo cp -a --preserve=all -r "${NEW_BOOT_DIR}/usr/local/share/jailhouse" "${MNT}/usr/local/share"
+sudo cp -a --preserve=all -r "${NEW_BOOT_DIR}/usr/local/share/man/man8" "${MNT}/usr/local/share/man"
+sudo cp -a --preserve=all "${NEW_BOOT_DIR}/usr/share/bash-completion/completions/jailhouse" "${MNT}/usr/share/bash-completion/completions/"
 
 # sudo cp "${JAILHOUSE_SRC_DIR}/tools/jailhouse" "${MNT}/usr/local/bin"
 # sudo cp "${JAILHOUSE_SRC_DIR}/hypervisor/jailhouse.bin" "${MNT}/lib/firmware/"
 
 sync
 sudo umount "${MNT}"
-echo ">>> rootfs.img aggiornato."
+
+
+echo "> Okay: created rootfs.img"
+# 7) removing loop device
+sudo losetup -d "${LOOP}"
+
 
 # 3) home.img
-echo ">>> Mount and update home.img"
-sudo mount -t ext4 -o loop,rw "${IMG_DIR}/home.img" "${MNT}"
-sudo cp -r "${JAILHOUSE_SRC_DIR}" "${MNT}/"
+
+
+echo ">>> creating home.img"
+
+
+sudo dd if=/dev/zero of="home.img" bs=1 count=0 seek="2G"
+
+# Format as filesystem ext4
+sudo mkfs.ext4 -F -L "home" "home.img"
+
+# loop device association
+LOOP=$(sudo losetup --show -f "home.img")
+
+# mount
+sudo mount "${LOOP}" "${MNT}"
+
+
+sudo cp -a --preserve=all -r "${build_dir}/home/"* "${MNT}"
+sudo cp -a --preserve=all -r "${JAILHOUSE_SRC_DIR}" "${MNT}/"
 sync
 sudo umount "${MNT}"
-echo ">>> home.img aggiornato."
+echo ">>> created home.img"
+echo 
 
-echo "=== Fine aggiornamento immagini ==="
-echo
+sudo losetup -d "${LOOP}"
 
-# === Sezione 1.5: pulizia e aggiornamento 'Image' in necessary ===
+
+# Spostamento immagini 
+sudo mv "boot.img" "${IMG_DIR}/"
+sudo mv "rootfs.img" "${IMG_DIR}/"
+sudo mv "home.img" "${IMG_DIR}/"
+
+
 
 echo ">>> Pulizia e aggiornamento 'Image' in ${IMG_DIR}"  # rimozione vecchia Image e copia nuova
 sudo rm -f "${IMG_DIR}/Image"
