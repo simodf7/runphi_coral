@@ -1,0 +1,18 @@
+bluez: dbus-policy-at-console etc/dbus-1/system.d/bluetooth.conf *
+bluez: maintainer-script-should-not-use-dpkg-maintscript-helper postinst:5
+bluez: maintainer-script-should-not-use-dpkg-maintscript-helper postinst:11
+bluez: maintainer-script-should-not-use-dpkg-maintscript-helper postinst:14
+bluez: maintainer-script-should-not-use-dpkg-maintscript-helper postinst:21
+bluez: maintainer-script-should-not-use-dpkg-maintscript-helper postinst:25
+bluez: maintainer-script-should-not-use-dpkg-maintscript-helper postinst:28
+bluez: maintainer-script-should-not-use-dpkg-maintscript-helper postinst:31
+bluez: maintainer-script-should-not-use-dpkg-maintscript-helper preinst:5
+bluez: maintainer-script-should-not-use-dpkg-maintscript-helper preinst:11
+bluez: maintainer-script-should-not-use-dpkg-maintscript-helper preinst:14
+bluez: maintainer-script-should-not-use-dpkg-maintscript-helper preinst:21
+bluez: maintainer-script-should-not-use-dpkg-maintscript-helper preinst:28
+bluez: maintainer-script-should-not-use-dpkg-maintscript-helper preinst:32
+bluez: maintainer-script-should-not-use-dpkg-maintscript-helper preinst:35
+bluez: maintainer-script-should-not-use-dpkg-maintscript-helper preinst:38
+bluez: systemd-service-file-refers-to-unusual-wantedby-target lib/systemd/system/bluetooth.service bluetooth.target
+

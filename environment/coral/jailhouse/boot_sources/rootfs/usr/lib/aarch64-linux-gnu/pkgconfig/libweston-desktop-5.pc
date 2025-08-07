@@ -1,0 +1,11 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${prefix}/lib/aarch64-linux-gnu
+includedir=${prefix}/include
+
+Name: libweston-desktop
+Description: Desktop shells abstraction library for libweston compositors
+Version: 5.0.0
+Requires.private: libweston-5 wayland-server
+Cflags: -I${includedir}/libweston-5
+Libs: -L${libdir} -lweston-desktop-5

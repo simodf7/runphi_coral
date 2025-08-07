@@ -1,0 +1,34 @@
+#!/bin/bash -e
+
+# Remove leftover bootstrap log files.
+rm -f /var/log/bootstrap.log  >>/var/log/rootfs-cleanups.log
+
+# Choose a locale and regenerate it to eliminate LC warnings.
+echo en_US.UTF-8 UTF-8 >/etc/locale.gen
+locale-gen 2>&1 >>/var/log/rootfs-cleanups.log
+echo LANG=en_US.UTF-8 >/etc/locale.conf
+
+# Add the mendel user and give them all the access they need.
+if ! grep -qE '^mendel:' /etc/passwd; then
+    adduser mendel --home /home/mendel --shell /bin/bash --disabled-password --gecos ""  2>&1 >>/var/log/rootfs-cleanups.log
+
+    mkdir -p /home/mendel  2>&1 >>/var/log/rootfs-cleanups.log
+    chown mendel:mendel /home/mendel  2>&1 >>/var/log/rootfs-cleanups.log
+    echo 'mendel:mendel' |chpasswd  2>&1 >>/var/log/rootfs-cleanups.log
+fi
+
+# Create group apex to give mendel user r/w privileges to apex devices
+if ! grep -qE '^apex:' /etc/group; then
+    groupadd apex 2>&1 >>/var/log/rootfs-cleanups.log
+fi
+
+# Reload and trigger udev rules so that apex devices get proper attributes
+udevadm control --reload-rules
+udevadm trigger
+
+MENDEL_GROUPS="adm audio bluetooth games i2c input plugdev staff sudo users video netdev systemd-journal apex render"
+
+for i in $MENDEL_GROUPS; do
+    echo "runonce: adding mendel to $i" 2>&1 >>/var/log/rootfs-cleanups.log
+	adduser mendel $i 2>&1 >>/var/log/rootfs-cleanups.log
+done

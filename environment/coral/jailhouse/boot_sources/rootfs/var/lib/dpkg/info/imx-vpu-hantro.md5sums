@@ -1,0 +1,10 @@
+a650e7eb4d0c48c1b43b99f5d51c3131  lib/udev/rules.d/60-imx-vpu-hantro.rules
+6b0a82786ea39d50117c0ebd9c41605a  usr/lib/libcodec.so.1
+c5269e056826cae34313044ae7a3d358  usr/lib/libcodec_enc.so.1
+2aaffd476e1a157f078ad19975246c35  usr/lib/libg1.so.1
+8a6808795baf5b08b339be5ef1e87151  usr/lib/libhantro.so.1
+8d71e6e49acb451163a7abe4fa08c77a  usr/lib/libhantro_h1.so.1
+50b25ef83172c2b8b55fdced0d7cdcca  usr/share/doc/imx-vpu-hantro/README.Debian
+3d5b5350733d0f70d5c09d2d6b23d881  usr/share/doc/imx-vpu-hantro/changelog.Debian.gz
+8162ab06678ff7d8f89c418b3ac5dc89  usr/share/doc/imx-vpu-hantro/copyright
+7058b1df33ca2a91946f7bc55ae96372  usr/share/lintian/overrides/imx-vpu-hantro

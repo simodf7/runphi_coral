@@ -1,0 +1,7 @@
+DISTRIB_CODENAME=eagle
+DISTRIB_DESCRIPTION="Mendel GNU/Linux Eagle"
+DISTRIB_ID=Mendel
+DISTRIB_RELEASE=mendel-eagle
+PRETTY_NAME="Mendel"
+NAME="Mendel"
+ID=Mendel

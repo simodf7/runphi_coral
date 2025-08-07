@@ -1,0 +1,10 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${prefix}/lib/aarch64-linux-gnu
+includedir=${prefix}/include/imx-mm/vpu
+
+Name: VPU wrapper for imx vpu
+Description: Providing standard video encode/decode interface
+Version: 4.4.5
+Libs: -L${libdir} -lfslvpuwrap
+Cflags: -I${includedir}

@@ -1,0 +1,34 @@
+#!/bin/sh -e
+
+version=4.14.98-imx
+image_path=/boot/vmlinuz-$version
+
+if [ "$1" != configure ]; then
+    exit 0
+fi
+
+depmod $version
+
+if [ -f /lib/modules/$version/.fresh-install ]; then
+    change=install
+else
+    change=upgrade
+fi
+linux-update-symlinks $change $version $image_path
+rm -f /lib/modules/$version/.fresh-install
+
+if [ -d /etc/kernel/postinst.d ]; then
+    DEB_MAINT_PARAMS="$*" run-parts --report --exit-on-error --arg=$version \
+	      --arg=$image_path /etc/kernel/postinst.d
+fi
+
+# Automatically added by dh_installmodules/12.1.1
+if [ "$1" = "configure" ] || [ "$1" = "abort-upgrade" ] || [ "$1" = "abort-deconfigure" ] || [ "$1" = "abort-remove" ] ; then
+	if [ -e /boot/System.map-4.14.98-imx ]; then
+		depmod -a -F /boot/System.map-4.14.98-imx 4.14.98-imx || true
+	fi
+fi
+# End automatically added section
+
+
+exit 0

@@ -1,0 +1,7 @@
+a774336373b7d6c2823e9e1743894e02  lib/systemd/system/usb-gadget-getty-ttyGS0.service
+86f1e67c1d7ac2a2fd61646937071418  lib/systemd/system/usb-gadget.service
+e4186729b73eba7f28c019b980f5a823  usr/bin/usb-gadget-start.sh
+35e8fb49bb95aa462efec4c38e453a12  usr/bin/usb-gadget-stop.sh
+a8f579c6fba1c50a809cf2b50ed3ed5b  usr/share/doc/usb-gadget/changelog.Debian.gz
+90b825e31d1d74dc87b4888a30271e33  usr/share/doc/usb-gadget/copyright
+883447892f263faac2722fc6c63ab19c  usr/share/lintian/overrides/usb-gadget

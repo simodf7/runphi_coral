@@ -1,0 +1,7 @@
+#!/bin/sh -e
+
+# We need spidev stuff loaded so that we get SPI access
+# XXX: Should this live here? Seems specific to a particular board.
+echo spidev >> /etc/modules
+
+

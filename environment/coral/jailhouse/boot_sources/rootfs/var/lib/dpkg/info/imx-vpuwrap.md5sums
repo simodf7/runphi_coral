@@ -1,0 +1,8 @@
+a758a53cda7887293c413fda652dc234  usr/lib/aarch64-linux-gnu/libfslvpuwrap.a
+dd6815d40ffe1779a771c30c453dc2e0  usr/lib/aarch64-linux-gnu/libfslvpuwrap.la
+7391dd9f844093891fe092fd844120fa  usr/lib/aarch64-linux-gnu/libfslvpuwrap.so.3.0.0
+ef11f274987bacea42f9c1f8cebbf293  usr/lib/aarch64-linux-gnu/pkgconfig/libfslvpuwrap.pc
+4786229d31ca3a65a594e110acdeaf05  usr/share/doc/imx-vpuwrap/changelog.Debian.gz
+fe3103854ce019751b23e58633741830  usr/share/doc/imx-vpuwrap/changelog.gz
+74ad9f8fa546f6041843cd8ec55723b6  usr/share/doc/imx-vpuwrap/copyright
+2bd9db71939d3634b7658fc77b79e2b7  usr/share/lintian/overrides/imx-vpuwrap

@@ -1,0 +1,5 @@
+7b51a80b375c725b686ce4a83e384dff  lib/udev/rules.d/60-imx-board-audio.rules
+c615cc7861a22a896eca920db1652a9e  usr/share/alsa/ucm/edgetpu-audio-card/HiFi.conf
+2ab4ab9955812e464406c793c78bffee  usr/share/alsa/ucm/edgetpu-audio-card/edgetpu-audio-card.conf
+bcb2f7601fc5a3a78d75ce1145d7cd27  usr/share/doc/imx-board-audio/changelog.Debian.gz
+13e04e98e8e081839eadc74227fcf271  usr/share/doc/imx-board-audio/copyright

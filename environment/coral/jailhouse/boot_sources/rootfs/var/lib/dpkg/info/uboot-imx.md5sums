@@ -1,0 +1,7 @@
+0ca649a465304826ed6641a784beb068  boot/boot.scr
+710546642bce859f686aa7f3af6842b4  boot/u-boot.imx
+60feb2eef36cd562a82ffb89de82085f  lib/systemd/system/uboot-imx.service
+205f5f5fb44a0edc802e03cc2c61a7cb  usr/bin/install-uboot.sh
+ae226417d27f9cd9b8efa224ab32b700  usr/share/doc/uboot-imx/changelog.Debian.gz
+7058abcb8d81b6588137e77b04551c92  usr/share/doc/uboot-imx/copyright
+a05505e9ce98a2896459a4413628ed8a  usr/share/lintian/overrides/uboot-imx

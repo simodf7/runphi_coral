@@ -1,0 +1,2 @@
+gstreamer1.0-plugins-bad: library-not-linked-against-libc *
+

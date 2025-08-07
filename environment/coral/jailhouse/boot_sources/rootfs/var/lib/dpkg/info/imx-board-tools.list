@@ -1,0 +1,12 @@
+/.
+/usr
+/usr/bin
+/usr/bin/pinout
+/usr/bin/snapshot
+/usr/sbin
+/usr/sbin/reboot-bootloader
+/usr/share
+/usr/share/doc
+/usr/share/doc/imx-board-tools
+/usr/share/doc/imx-board-tools/changelog.Debian.gz
+/usr/share/doc/imx-board-tools/copyright

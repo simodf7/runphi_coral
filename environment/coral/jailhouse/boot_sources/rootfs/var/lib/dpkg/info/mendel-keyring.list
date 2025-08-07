@@ -1,0 +1,14 @@
+/.
+/etc
+/etc/apt
+/etc/apt/trusted.gpg.d
+/etc/apt/trusted.gpg.d/mendel-keyring.gpg
+/usr
+/usr/share
+/usr/share/doc
+/usr/share/doc/mendel-keyring
+/usr/share/doc/mendel-keyring/changelog.Debian.gz
+/usr/share/doc/mendel-keyring/copyright
+/usr/share/lintian
+/usr/share/lintian/overrides
+/usr/share/lintian/overrides/mendel-keyring

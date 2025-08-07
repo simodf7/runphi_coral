@@ -1,0 +1,11 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${prefix}/lib/aarch64-linux-gnu
+includedir=${prefix}/include
+
+Name: libweston API
+Description: Header files for libweston compositors development
+Version: 5.0.0
+Requires.private: wayland-server pixman-1 xkbcommon
+Cflags: -I${includedir}/libweston-5
+Libs: -L${libdir} -lweston-5

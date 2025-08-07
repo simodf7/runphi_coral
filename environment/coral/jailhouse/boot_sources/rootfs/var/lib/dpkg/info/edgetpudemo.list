@@ -1,0 +1,16 @@
+/.
+/usr
+/usr/bin
+/usr/bin/edgetpu_demo
+/usr/share
+/usr/share/doc
+/usr/share/doc/edgetpudemo
+/usr/share/doc/edgetpudemo/changelog.Debian.gz
+/usr/share/doc/edgetpudemo/copyright
+/usr/share/edgetpudemo
+/usr/share/edgetpudemo/coco_labels.txt
+/usr/share/edgetpudemo/index.html
+/usr/share/edgetpudemo/mobilenet_ssd_v1_coco_quant_postprocess.tflite
+/usr/share/edgetpudemo/mobilenet_ssd_v1_coco_quant_postprocess_edgetpu.tflite
+/usr/share/edgetpudemo/video_device.mp4
+/usr/share/edgetpudemo/video_stream.mp4

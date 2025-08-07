@@ -1,0 +1,5 @@
+0a7b082576cf3c1b12b9cc4daae21eae  usr/lib/aarch64-linux-gnu/libGLESv2.so.2.1.0
+2295a81abfbf493c2fefd51c81b8618e  usr/share/bug/libgles2/control
+88308645f97332a7c951c0f783bd013c  usr/share/doc/libgles2/changelog.Debian.gz
+7a3ee43e24107ff75a75812b52fa8525  usr/share/doc/libgles2/copyright
+c892a92ca2f1c99b9fd25bdb589b6b7c  usr/share/lintian/overrides/libgles2

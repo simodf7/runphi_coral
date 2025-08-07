@@ -1,0 +1,8 @@
+fad75caf591ea6ede8c286d1fb0b4404  lib/firmware/bdwlan30.bin
+a66e11addd02b60fb4e5df85b10e6cfe  lib/firmware/otp30.bin
+324a396fc292823bae5c4cdf734456a5  lib/firmware/qwlan30.bin
+c53fd51389cf306ee56198b7e282ac5e  lib/firmware/utf30.bin
+f59fc7044c783326c04fae75ebb74fec  lib/firmware/wlan/qcom_cfg.ini
+7ef65f2aaf412a221fcbea78eee5b2e4  lib/modules/4.14.98-imx/extra/wlan.ko
+08be99211423667cae7050064f74118f  usr/share/doc/imx-board-wlan/changelog.Debian.gz
+51d4c6e193b82a7bfeb4ced13ddb10a4  usr/share/doc/imx-board-wlan/copyright

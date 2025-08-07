@@ -1,0 +1,2 @@
+deb [arch=arm64] https://mendel-linux.org/apt/eagle-bsp-enterprise eagle main
+deb-src https://mendel-linux.org/apt/eagle-bsp-enterprise eagle main

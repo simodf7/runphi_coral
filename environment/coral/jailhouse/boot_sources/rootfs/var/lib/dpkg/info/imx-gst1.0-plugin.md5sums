@@ -1,0 +1,17 @@
+e62465a3203adf2c50d50f12a82380cf  usr/bin/gplay-1.0
+5605b894e6b3b8e4cd229a62e9648b47  usr/bin/grecorder-1.0
+13a25df93834ca89ff32dc9a57fd06b0  usr/lib/aarch64-linux-gnu/gstreamer-1.0/libgstimxcompositor.la
+cd71f0454fe7f28894e76dc460d5ebf4  usr/lib/aarch64-linux-gnu/gstreamer-1.0/libgstimxcompositor.so
+9007b33d3af088f08af984615ba80fb1  usr/lib/aarch64-linux-gnu/gstreamer-1.0/libgstimxvideoconvert.la
+2678383103339f34303f07005cb4817c  usr/lib/aarch64-linux-gnu/gstreamer-1.0/libgstimxvideoconvert.so
+d67aa351fd090f362bb0714bc130d257  usr/lib/aarch64-linux-gnu/gstreamer-1.0/libgstvpu.la
+7004814a56f678925e9f4fc8e0953676  usr/lib/aarch64-linux-gnu/gstreamer-1.0/libgstvpu.so
+5c8f71b8a57ae8516b9fc4aaac5042b6  usr/lib/aarch64-linux-gnu/libgstfsl-1.0.la
+90fe3b6305585555e7ddbb169a7efcca  usr/lib/aarch64-linux-gnu/libgstfsl-1.0.so.0.0.0
+6d662ea8d181475e06711ec3f191babe  usr/lib/aarch64-linux-gnu/librecorder_engine-1.0.la
+c5d18ccf6340454e599f1d405963e8b9  usr/lib/aarch64-linux-gnu/librecorder_engine-1.0.so.0.0.0
+579d65a85f4f2f8b778db470122b000c  usr/lib/aarch64-linux-gnu/pkgconfig/gstreamer-fsl-1.0.pc
+217b9dd42832c2ea9843411804c76a17  usr/share/doc/imx-gst1.0-plugin/changelog.Debian.gz
+6a0160889cf04b0e788ec743a276bbc7  usr/share/doc/imx-gst1.0-plugin/copyright
+a18fd28b6213cde128ee75998cb10a58  usr/share/imx-gst1.0-plugin/1.0/opencv_haarcascades/haarcascade_frontalface_old_format.xml
+ab6b74c58018566e8cd561d9048dd0ec  usr/share/lintian/overrides/imx-gst1.0-plugin

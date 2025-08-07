@@ -1,0 +1,6 @@
+[console_scripts]
+edgetpu_classify = edgetpuvision.classify:main
+edgetpu_classify_server = edgetpuvision.classify_server:main
+edgetpu_detect = edgetpuvision.detect:main
+edgetpu_detect_server = edgetpuvision.detect_server:main
+

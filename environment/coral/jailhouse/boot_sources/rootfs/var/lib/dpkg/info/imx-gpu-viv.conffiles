@@ -1,0 +1,2 @@
+/etc/OpenCL/vendors/Vivante.icd
+/etc/ld.so.conf.d/10-vivante.conf

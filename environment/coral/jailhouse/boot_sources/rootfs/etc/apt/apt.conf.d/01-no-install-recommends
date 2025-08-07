@@ -1,0 +1,4 @@
+// Prevent the auto-installation of recommends when packages are installed,
+// since we are primarily an embedded system and have limited disk and RAM.
+
+APT::Install-Recommends "false";

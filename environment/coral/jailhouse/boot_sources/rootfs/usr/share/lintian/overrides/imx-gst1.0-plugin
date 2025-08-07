@@ -1,0 +1,4 @@
+imx-gst1.0-plugin: non-empty-dependency_libs-in-la-file *
+imx-gst1.0-plugin: non-dev-pkg-with-shlib-symlink *
+imx-gst1.0-plugin: package-name-doesnt-match-sonames libgstfsl-1.0-0 librecorder-engine-1.0-0
+imx-gst1.0-plugin: copyright-should-refer-to-common-license-file-for-lgpl

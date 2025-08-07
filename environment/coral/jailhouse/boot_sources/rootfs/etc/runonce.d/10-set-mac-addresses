@@ -1,0 +1,163 @@
+#!/usr/bin/python
+
+'''This script generates the wifi and bluetooth MAC addresses assigned to a
+board, given the MAC address of it's primary ethernet interface. It's primary
+purpose is to store the MAC addresses in files on the root filesystem after
+system first start because we cannot burn these addresses into the peripherals,
+other than the ethernet PHY.
+
+This script only works in the case where the MAC addresses have been allocated
+in a monotonically adjacent style for all devices, and that wifi/bluetooth
+follows the ethernet MAC in series.
+'''
+
+
+import struct
+import sys
+
+
+BD_ADDR_PATH = '/etc/bluetooth/.bt_nv.bin'
+WIFI_ADDR_PATH = '/lib/firmware/wlan/wlan_mac.bin'
+
+BD_NVITEM = 0x02
+BD_RDWR_PROT = 0x00
+BD_NVITEM_SIZE = 0x06
+BD_ADDR_HEADER_STRUCT = r'<BBB'
+BD_ADDR_MAC_STRUCT = r'HHH'
+
+WIFI_CONFIG_TEMPLATE = '''\
+Intf0MacAddress={0}
+END
+'''
+
+ETHERNET_DEVICE = 'eth0'
+
+
+def GenerateNextMac(mac_address_str):
+    '''Given a MAC address string, generate the next MAC address in sequence.
+
+    Note: this strips off the vendor prefix and increments as though the suffix
+    was an integer. If the device suffix rolls over, there is no error thrown or
+    any other checking done.
+
+    Parameters:
+      mac_address_str: string. Colon-separated six-octet hexadecimal MAC address.
+
+    Returns:
+      string. The next MAC address in the sequence.
+    '''
+    vendor_prefix = GetMacDevicePrefixString(mac_address_str)
+    device_suffix = GetMacDeviceSuffixString(mac_address_str)
+    suffix_number = MacDeviceSuffixToNumber(device_suffix)
+    suffix_string = MacDeviceSuffixNumberToString(suffix_number + 1)
+    next_mac = vendor_prefix + ':' + suffix_string
+    return next_mac
+
+
+def MacDeviceSuffixNumberToString(device_suffix_number):
+    '''Given a device suffix number, generate a colon-separated hexadecimal
+    representation.
+
+    Parameters:
+      device_suffix_number: integer. The number to convert into a MAC suffix.
+
+    Returns:
+      string. The colon-separated hexadecimal version of the number passed in.
+    '''
+    suffix_string = '%06x' % device_suffix_number
+    suffix_array = []
+
+    for idx in range(0, len(suffix_string), 2):
+        suffix_array.append(suffix_string[idx] + suffix_string[idx + 1])
+
+    return ':'.join(suffix_array)
+
+
+def MacDeviceSuffixToNumber(mac_suffix):
+    '''Converts a given a three-octet colon separated hexadecimal MAC device suffix
+    into an integer.'''
+    mac_array = mac_suffix.split(':')
+    flatmac = ''.join(mac_array)
+    return int(flatmac, 16)
+
+
+def GetMacDevicePrefixString(mac_address):
+    '''Return the vendor prefix from a given a full six-octet colon separated
+    hexadecimal MAC.'''
+    mac_array = mac_address.split(':')
+    return ':'.join(mac_array[:3])
+
+
+def GetMacDeviceSuffixString(mac_address):
+    '''Strip the vendor prefix from a given a full six-octet colon separated
+    hexadecimal MAC.'''
+    mac_array = mac_address.split(':')
+    return ':'.join(mac_array[3:])
+
+
+def FindEthernetMacString(device):
+    '''Returns the MAC address string for a given network device from sysfs.
+
+    If an error occurs attempting to read from sysfs, or runs into an EOF
+    prematurely, returns None.
+    '''
+    sysfs_path = '/sys/class/net/%s/address' % (device)
+
+    try:
+        with open(sysfs_path, 'r') as fp:
+            address = fp.readline()
+        if len(address) == 0:
+            return None
+        address = address[:-1]
+        return address.lower()
+    except Exception as e:
+        print('Error reading %s: %s' % (sysfs_path, e))
+        return None
+
+
+def WriteWifiMacAddress(next_mac):
+    '''Writes the given MAC address string to the wifi configuration files.'''
+    try:
+        with open(WIFI_ADDR_PATH, 'w') as fp:
+            fp.write(WIFI_CONFIG_TEMPLATE.format(next_mac.translate(None, ':')))
+        return True
+    except Exception as e:
+        print('Error writing wifi configuration to %s: %s' % (WIFI_ADDR_PATH, e))
+        return False
+
+
+def WriteBluetoothMacAddress(next_mac):
+    '''Writes the given MAC address string to a binary file readable by Bluez.'''
+    mac_bytes = [int(x, 16) for x in next_mac.split(':')]
+    even_bytes = mac_bytes[0::2]
+    odd_bytes = mac_bytes[1::2]
+    zipped_bytes = zip(even_bytes, odd_bytes)
+    mac_bytes = [(x << 8) + y for x, y in zipped_bytes]
+    mac_bytes.reverse()
+
+    try:
+        with open(BD_ADDR_PATH, 'w') as fp:
+            fp.write(struct.pack(BD_ADDR_HEADER_STRUCT + BD_ADDR_MAC_STRUCT,
+                                 BD_NVITEM, BD_RDWR_PROT, BD_NVITEM_SIZE,
+                                 *mac_bytes))
+        return True
+    except Exception as e:
+        print('Error writing bluetooth configuration to %s: %s' % (BD_ADDR_PATH, e))
+
+
+def Main():
+    base_mac_address = FindEthernetMacString(ETHERNET_DEVICE)
+
+    if base_mac_address == None:
+        sys.stderr.write('Unable to find MAC address for device %s\n' % (ETHERNET_DEVICE))
+        sys.exit(1)
+
+    next_mac = GenerateNextMac(base_mac_address)
+    print('Wifi/Bt MAC address will be %s' % next_mac)
+
+    WriteWifiMacAddress(next_mac)
+    WriteBluetoothMacAddress(next_mac)
+
+
+if __name__ == '__main__':
+    Main()

@@ -1,0 +1,5 @@
+254d92a87433e59830d9d983f94ed799  lib/udev/rules.d/60-libedgetpu1-std.rules
+fe38d60c112e0ccb3d7a0ddff1c1b50d  usr/lib/aarch64-linux-gnu/libedgetpu.so.1.0
+70a4a3f0688efc2ed82bd5eb80c40990  usr/share/doc/libedgetpu1-std/changelog.gz
+2813111a1f301e283c1babcc1e98910f  usr/share/doc/libedgetpu1-std/copyright
+8321daa841a81c960c5b5dd07ceef03f  usr/share/lintian/overrides/libedgetpu1-std

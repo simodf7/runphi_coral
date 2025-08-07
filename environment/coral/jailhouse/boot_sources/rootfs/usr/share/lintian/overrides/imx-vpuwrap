@@ -1,0 +1,4 @@
+imx-vpuwrap: copyright-should-refer-to-common-license-file-for-lgpl
+imx-vpuwrap: package-name-doesnt-match-sonames libfslvpuwrap3
+imx-vpuwrap: non-empty-dependency_libs-in-la-file usr/lib/aarch64-linux-gnu/libfslvpuwrap.la
+imx-vpuwrap: non-dev-pkg-with-shlib-symlink usr/lib/aarch64-linux-gnu/libfslvpuwrap.so.3.0.0 usr/lib/aarch64-linux-gnu/libfslvpuwrap.so

@@ -1,0 +1,2 @@
+# This file is in /boot to be found by u-boot, not Linux.
+uboot-imx: non-etc-file-marked-as-conffile boot/overlays.txt

@@ -1,0 +1,3 @@
+/etc/dnsmasq.d/02-usb-gadget
+/etc/dnsmasq.d/99-no-default-dns
+/etc/dnsmasq.d/99-no-default-route

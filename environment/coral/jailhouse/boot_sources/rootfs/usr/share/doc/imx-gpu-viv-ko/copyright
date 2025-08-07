@@ -1,0 +1,7 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: imx-gpu-viv-ko
+Source: https://coral.withgoogle.com
+
+Files: *
+Copyright: Copyright (C) 2014 - 2020 Vivante Corporation
+License: GPL-2

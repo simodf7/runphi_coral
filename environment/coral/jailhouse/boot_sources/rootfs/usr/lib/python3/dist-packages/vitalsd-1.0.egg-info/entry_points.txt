@@ -1,0 +1,3 @@
+[console_scripts]
+vitalsd = vitalsd.main:main
+

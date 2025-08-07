@@ -1,0 +1,8 @@
+libEGL 1 imx-gpu-viv
+libGLESv1_CL 1 imx-gpu-viv
+libGLESv1_CM 1 imx-gpu-viv
+libGLESv2 2 imx-gpu-viv
+libOpenCL 1 imx-gpu-viv
+libgbm 1 imx-gpu-viv
+libvulkan 1 imx-gpu-viv
+libwayland-egl 1 imx-gpu-viv

@@ -1,0 +1,8 @@
+e4f04225298e4ca37c9761ff2786c560  lib/systemd/system/mdt-keymaster.path
+6edbf1f11c955b6750e1f2f568f35f00  lib/systemd/system/mdt-keymaster.service
+8ecae9080118de8cddabbc211301ea74  usr/bin/mdt-keymaster
+775a042e97e080f8b6985312f2b56f1c  usr/sbin/mdt-install-package
+b995cf4bd59fb1e5649a4f617e24a1c0  usr/sbin/mendel-reportbug
+57435037e99907a83edf90d8901f42ce  usr/share/doc/mdt-services/changelog.gz
+8422fa682ecdaa38b0869c6118fd1241  usr/share/doc/mdt-services/copyright
+5ce45234dfe5cb2b82a11fcf62070958  usr/share/lintian/overrides/mdt-services

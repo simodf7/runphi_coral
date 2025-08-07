@@ -1,0 +1,5 @@
+6440fd4003bc9246e57f9f2a4edbe288  usr/bin/aarch64-linux-gnu-g++-8
+eedd2e318b24bc0bbea81f5d4c4b4be2  usr/lib/gcc/aarch64-linux-gnu/8/cc1plus
+d34e924e0b649f39a4c876c1a4ec4e1f  usr/share/doc/gcc-8-base/C++/README.C++
+d0771ff062aa82b7d1a8b8c156a2666f  usr/share/doc/gcc-8-base/C++/changelog.gz
+a89ae81e2bc26ab60e743086b3bf6453  usr/share/lintian/overrides/g++-8

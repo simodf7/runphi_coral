@@ -1,0 +1,3 @@
+/etc/NetworkManager/conf.d/wifi.ignore-p2p0.conf
+/etc/NetworkManager/conf.d/wifi.scan-rand-mac-address.conf
+/etc/runonce.d/10-set-mac-addresses

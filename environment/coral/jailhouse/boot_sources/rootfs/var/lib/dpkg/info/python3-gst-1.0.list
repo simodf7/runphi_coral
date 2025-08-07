@@ -1,0 +1,17 @@
+/.
+/usr
+/usr/lib
+/usr/lib/python3
+/usr/lib/python3/dist-packages
+/usr/lib/python3/dist-packages/gi
+/usr/lib/python3/dist-packages/gi/overrides
+/usr/lib/python3/dist-packages/gi/overrides/Gst.py
+/usr/lib/python3/dist-packages/gi/overrides/GstPbutils.py
+/usr/lib/python3/dist-packages/gi/overrides/_gi_gst.cpython-37m-aarch64-linux-gnu.so
+/usr/share
+/usr/share/doc
+/usr/share/doc/python3-gst-1.0
+/usr/share/doc/python3-gst-1.0/changelog.Debian.arm64.gz
+/usr/share/doc/python3-gst-1.0/changelog.Debian.gz
+/usr/share/doc/python3-gst-1.0/changelog.gz
+/usr/share/doc/python3-gst-1.0/copyright

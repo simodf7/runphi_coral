@@ -1,0 +1,16 @@
+/.
+/lib
+/lib/modules
+/lib/modules/4.14.98-imx
+/lib/modules/4.14.98-imx/kernel
+/lib/modules/4.14.98-imx/kernel/extra
+/lib/modules/4.14.98-imx/kernel/extra/galcore.ko
+/lib/udev
+/lib/udev/rules.d
+/lib/udev/rules.d/60-imx-gpu-viv-ko.rules
+/usr
+/usr/share
+/usr/share/doc
+/usr/share/doc/imx-gpu-viv-ko
+/usr/share/doc/imx-gpu-viv-ko/changelog.Debian.gz
+/usr/share/doc/imx-gpu-viv-ko/copyright

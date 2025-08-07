@@ -1,0 +1,12 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${prefix}/lib/aarch64-linux-gnu
+includedir=${prefix}/include/gstreamer-1.0/gst/imx-mm
+pluginsdir=${prefix}/lib/aarch64-linux-gnu/gstreamer-1.0
+
+Name: GStreamer Freescale Plugins Libraries
+Description: Streaming media framework, Freescale plugins libraries
+Requires: gstreamer-1.0 gstreamer-base-1.0
+Version: 4.4.5
+Libs: -L${libdir} -lgstfsl-1.0
+Cflags: -I${includedir}

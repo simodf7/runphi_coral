@@ -1,0 +1,5 @@
+3964de6542deba753cd3e1347135d367  lib/systemd/system/runonce.service
+d593d0dc08a06ea1928c76c43550a67f  usr/sbin/runonce
+4fefe157cf502a7fcde5d0748168124d  usr/share/doc/runonce/changelog.Debian.gz
+608e6f30eb36a138e316ba03c5ed5494  usr/share/doc/runonce/copyright
+f9f4e4e3b0b31df95c984377a6f63667  usr/share/lintian/overrides/runonce

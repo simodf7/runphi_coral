@@ -1,0 +1,12 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${prefix}/lib/aarch64-linux-gnu
+includedir=${prefix}/include
+libexecdir=${prefix}/lib/aarch64-linux-gnu
+pkglibexecdir=${libexecdir}/weston
+
+Name: Weston Plugin API
+Description: Header files for Weston plugin development
+Version: 5.0.0
+Requires.private: libweston-5
+Cflags: -I${includedir}/weston

@@ -1,0 +1,3 @@
+vitalsd: init.d-script-not-included-in-package etc/init.d/vitalsd
+vitalsd: systemd-service-file-refers-to-unusual-wantedby-target lib/systemd/system/vitalsd.service basic.target
+

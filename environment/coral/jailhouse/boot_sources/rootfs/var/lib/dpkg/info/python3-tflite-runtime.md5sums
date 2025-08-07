@@ -1,0 +1,14 @@
+588cded639623d0b99e97f704eba783c  usr/lib/python3/dist-packages/tflite_runtime-2.5.0.post1.egg-info/PKG-INFO
+68b329da9893e34099c7d8ad5cb9c940  usr/lib/python3/dist-packages/tflite_runtime-2.5.0.post1.egg-info/dependency_links.txt
+d41d8cd98f00b204e9800998ecf8427e  usr/lib/python3/dist-packages/tflite_runtime-2.5.0.post1.egg-info/requires.txt
+73f42a9d1e316740264dfc47d1086816  usr/lib/python3/dist-packages/tflite_runtime-2.5.0.post1.egg-info/top_level.txt
+409581af28eb7aeb3535bb9162d3ca7b  usr/lib/python3/dist-packages/tflite_runtime/__init__.py
+4660484f26b1fb8a046162124014fd85  usr/lib/python3/dist-packages/tflite_runtime/_pywrap_tensorflow_interpreter_wrapper.cpython-36m-aarch64-linux-gnu.so
+84a516f3d29b0ff375f4c7c0371cefc1  usr/lib/python3/dist-packages/tflite_runtime/_pywrap_tensorflow_interpreter_wrapper.cpython-37m-aarch64-linux-gnu.so
+dbfaafab0ae2d070b08078babebc2211  usr/lib/python3/dist-packages/tflite_runtime/_pywrap_tensorflow_interpreter_wrapper.cpython-38-aarch64-linux-gnu.so
+e9d8577bcd8f6de057157925b75a0623  usr/lib/python3/dist-packages/tflite_runtime/_pywrap_tensorflow_interpreter_wrapper.cpython-39-aarch64-linux-gnu.so
+31d375c719304e584870f43623124e90  usr/lib/python3/dist-packages/tflite_runtime/interpreter.py
+822f8c25703ab21e8439227dc24bcd36  usr/lib/python3/dist-packages/tflite_runtime/metrics_interface.py
+f211bedf83d289eb66a0b39be28e97df  usr/lib/python3/dist-packages/tflite_runtime/metrics_portable.py
+19409090c7e737d351ca5ad91af637b8  usr/share/doc/python3-tflite-runtime/changelog.gz
+17b33da0a853669a800965f7e03acaa7  usr/share/doc/python3-tflite-runtime/copyright

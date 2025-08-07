@@ -1,0 +1,4 @@
+/dev/mmcblk0p4 / ext4 noatime,defaults 0 1
+/dev/mmcblk0p1 /boot ext2 noatime,defaults 0 2
+/dev/mmcblk0p3 /home ext4 noatime,nosuid,nodev,defaults 0 3
+tmpfs /var/log tmpfs defaults 0 0

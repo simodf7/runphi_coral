@@ -1,0 +1,8 @@
+[Unit]
+Description=U-Boot install service
+
+[Service]
+ExecStart=/usr/bin/install-uboot.sh
+
+[Install]
+WantedBy=multi-user.target

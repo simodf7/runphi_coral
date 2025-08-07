@@ -1,0 +1,2 @@
+imx-gpu-viv: package-modifies-ld.so-search-path etc/ld.so.conf.d/10-vivante.conf
+imx-gpu-viv: package-has-unnecessary-activation-of-ldconfig-trigger

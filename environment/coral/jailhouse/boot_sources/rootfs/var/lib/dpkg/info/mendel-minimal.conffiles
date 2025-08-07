@@ -1,0 +1,12 @@
+/etc/apt/apt.conf.d/01-no-install-recommends
+/etc/polkit-1/localauthority/10-vendor.d/org.freedesktop.NetworkManager.pkla
+/etc/profile.d/default-lang.sh
+/etc/runonce.d/00-e2fsresize
+/etc/runonce.d/00-rootfs-cleanups
+/etc/runonce.d/01-generate-hostname
+/etc/runonce.d/02-enable-services
+/etc/runonce.d/03-check-ssh-keys
+/etc/runonce.d/96-iptables
+/etc/runonce.d/97-set-datetime
+/etc/runonce.d/98-mendel-sudo
+/etc/runonce.d/99-reboot

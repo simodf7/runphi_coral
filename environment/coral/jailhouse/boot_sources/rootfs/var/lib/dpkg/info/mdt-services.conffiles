@@ -1,0 +1,3 @@
+/etc/apt/sources.list.d/00-mdt-services.list
+/etc/avahi/services/mdt.service
+/etc/runonce.d/90-enable-mdt-services

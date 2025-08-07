@@ -1,0 +1,9 @@
+/etc/debian_version
+/etc/dpkg/origins/debian
+/etc/dpkg/origins/mendel
+/etc/host.conf
+/etc/issue
+/etc/issue.net
+/etc/lsb-release
+/etc/mendel_version
+/etc/update-motd.d/10-uname

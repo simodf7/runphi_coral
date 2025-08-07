@@ -1,0 +1,4 @@
+d07a29a6a53404a7f06bfbe0825d6846  lib/modules/4.14.98-imx/kernel/extra/galcore.ko
+45ac0adb9cf1b3638357fe386d601c8e  lib/udev/rules.d/60-imx-gpu-viv-ko.rules
+aed2cb99dd4c526abcd33fef47210aff  usr/share/doc/imx-gpu-viv-ko/changelog.Debian.gz
+b39835e1ab4b815a8f24fca4387dca23  usr/share/doc/imx-gpu-viv-ko/copyright

@@ -1,0 +1,17 @@
+2ca26458f718e49c874dded06658928b  lib/systemd/system/vitalsd.service
+bf26d550f1f9065ae8c72b5e0b56afec  usr/bin/vitalsd
+878547dd62f0319098cdef12973d6937  usr/lib/python3/dist-packages/vitalsd-1.0.egg-info/PKG-INFO
+68b329da9893e34099c7d8ad5cb9c940  usr/lib/python3/dist-packages/vitalsd-1.0.egg-info/dependency_links.txt
+809e7cb3f90bc5158183989449be7954  usr/lib/python3/dist-packages/vitalsd-1.0.egg-info/entry_points.txt
+8b1f82ac03c79e52eaf16782bac8bf9e  usr/lib/python3/dist-packages/vitalsd-1.0.egg-info/top_level.txt
+396dae070d964b6a6996cca2fbcbd98e  usr/lib/python3/dist-packages/vitalsd/__init__.py
+4ba064e89b3ef99ab10657525872c310  usr/lib/python3/dist-packages/vitalsd/main.py
+885c7ba4e76db63c25a7870782d63497  usr/lib/python3/dist-packages/vitalsd/monitor.py
+d41d8cd98f00b204e9800998ecf8427e  usr/lib/python3/dist-packages/vitalsd/samplers/__init__.py
+8213ccd4fdcab4141a9c4f03e2056a02  usr/lib/python3/dist-packages/vitalsd/samplers/cpu.py
+91a06f25066e2185fbfd1b9f9b3af977  usr/lib/python3/dist-packages/vitalsd/samplers/mem.py
+60dafdd526f73e352b7caeba7dd87e45  usr/lib/python3/dist-packages/vitalsd/samplers/sampler.py
+89d5f4b01ff6c3e91295b71d613891fc  usr/share/doc/vitalsd/changelog.Debian.gz
+ce4bd6dee71c603f32b81315dd23108f  usr/share/doc/vitalsd/copyright
+51f0ef6a6439f5aeb8e312b0724cf994  usr/share/lintian/overrides/vitalsd
+4f6a246088efd69be249e4d7ca9fb2cc  usr/share/man/man1/vitalsd.1.gz

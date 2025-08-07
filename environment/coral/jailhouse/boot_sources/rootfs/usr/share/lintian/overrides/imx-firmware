@@ -1,0 +1,2 @@
+imx-firmware: systemd-service-file-refers-to-unusual-wantedby-target lib/systemd/system/btfw_loader.service basic.target
+

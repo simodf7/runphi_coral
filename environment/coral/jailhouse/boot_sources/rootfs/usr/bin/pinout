@@ -1,0 +1,126 @@
+#!/usr/bin/env python3
+
+# Copyright 2018 Google Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+import argparse
+
+class Style:
+    BOLD      = 1
+    DEFAULT   = 39
+    RED       = 31
+    GREEN     = 32
+    YELLOW    = 33
+    BLUE      = 34
+    MAGENTA   = 35
+    CYAN      = 36
+    DARK_GRAY = 90
+
+class Kind:
+    GND, POWER, I2C, UART, GPIO, SAI, SPI, PWM = range(8)
+
+KINDS = {
+    Kind.GND:   (Style.DARK_GRAY, 'GND',   'Ground'),
+    Kind.POWER: (Style.RED,       'POWER', 'Power: +5V or +3.3V'),
+    Kind.I2C:   (Style.GREEN,     'I2C',   'Inter-Integrated Circuit [/dev/i2c-N]'),
+    Kind.UART:  (Style.MAGENTA,   'UART',  'Serial Port [/dev/ttymxcN]'),
+    Kind.GPIO:  (Style.DEFAULT,   'GPIO',  'General Purpose Input Output [/sys/class/gpio/gpioN]'),
+    Kind.SAI:   (Style.CYAN,      'SAI',   'Synchronous Audio Interface'),
+    Kind.SPI:   (Style.BLUE,      'SPI',   'Serial Peripheral Interface [/dev/spidevN.N]'),
+    Kind.PWM:   (Style.YELLOW,    'PWM',   'Pulse Width Modulation [/sys/class/pwm/pwmchipN/pwm0]'),
+}
+
+PINS = {
+    1:  ('3.3.V',                   Kind.POWER), 2:  ('5V',                       Kind.POWER),
+    3:  ('I2C2_SDA (i2c-1)',        Kind.I2C),   4:  ('5V',                       Kind.POWER),
+    5:  ('I2C2_SCL (i2c-1)',        Kind.I2C),   6:  ('GND',                      Kind.GND),
+    7:  ('UART3_TXD (ttymxc2)',     Kind.UART),  8:  ('UART1_TX (ttymxc0)',       Kind.UART),
+    9:  ('GND',                     Kind.GND),   10: ('UART1_RX (ttymxc0)',       Kind.UART),
+    11: ('UART3_RXD (ttymxc2)',     Kind.UART),  12: ('SAI1_TXC',                 Kind.SAI),
+    13: ('GPIO6 (gpio6)',           Kind.GPIO),  14: ('GND',                      Kind.GND),
+    15: ('PWM3 (pwmchip2)',         Kind.PWM),   16: ('GPIO73 (gpio73)',          Kind.GPIO),
+    17: ('3.3V',                    Kind.POWER), 18: ('GPIO138 (gpio138)',        Kind.GPIO),
+    19: ('SPI1_MOSI (spidev0)',     Kind.SPI),   20: ('GND',                      Kind.GND),
+    21: ('SPI1_MISO (spidev0)',     Kind.SPI),   22: ('GPIO140 (gpio140)',        Kind.GPIO),
+    23: ('SPI1_SCLK (spidev0)',     Kind.SPI),   24: ('SPI1_SS0 (spidev0.0)',     Kind.SPI),
+    25: ('GND',                     Kind.GND),   26: ('SPI1_SS1 (spidev0.1)',     Kind.SPI),
+    27: ('I2C3_SDA (i2c-2)',        Kind.I2C),   28: ('I2C3_SCL (i2c-2)',         Kind.I2C),
+    29: ('GPIO7 (gpio7)',           Kind.GPIO),  30: ('GND',                      Kind.GND),
+    31: ('GPIO8 (gpio8)',           Kind.GPIO),  32: ('PWM1 (pwmchip0)',          Kind.PWM),
+    33: ('PWM2 (pwmchip1)',         Kind.PWM),   34: ('GND',                      Kind.GND),
+    35: ('SAI1_TXFS',               Kind.SAI),   36: ('GPIO141 (gpio141)',        Kind.GPIO),
+    37: ('GPIO77 (gpio77)',         Kind.GPIO),  38: ('SAI1_RXD0',                Kind.SAI),
+    39: ('GND',                     Kind.GND),   40: ('SAI1_TXD0',                Kind.SAI)
+}
+
+assert(len(PINS) % 2 == 0)
+assert(set(PINS.keys()) == set(range(1, len(PINS) + 1)))
+
+def pins():
+    for i in range(len(PINS) // 2):
+        yield (2 * i + 1, 2 * i + 2)
+
+def pin_desc(pin):
+    text, _ = PINS[pin]
+    return text
+
+def pin_kind(pin):
+    _, kind = PINS[pin]
+    return kind
+
+def stylize(text, style, esc='\033['):
+    return '%s%dm%s%s0m' % (esc, style, text, esc)
+
+def stylize_pin(text, pin):
+    style, _, _ = KINDS[pin_kind(pin)]
+    return stylize(text, style)
+
+def print_pinout(color):
+    max_len = max(len(pin_desc(l)) for l, _ in pins())
+
+    for l, r in pins():
+        l_pin, r_pin = str(l).ljust(2), str(r).rjust(2)
+        l_txt, r_txt = pin_desc(l).rjust(max_len), pin_desc(r)
+
+        if color:
+            l_pin = stylize(l_pin, Style.BOLD)
+            r_pin = stylize(r_pin, Style.BOLD)
+            l_txt, r_txt = stylize_pin(l_txt, l), stylize_pin(r_txt, r)
+
+        print('%s -> %s  %s <- %s' % (l_txt, l_pin, r_pin, r_txt))
+
+def print_legend(color):
+    max_len = max(len(name) for _, (_, name, _) in KINDS.items())
+
+    for kind, (style, name, desc) in KINDS.items():
+        txt = name.ljust(max_len)
+        if color:
+            txt = stylize(txt, style)
+        print('%s - %s' % (txt, desc))
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--nocolor', dest='color', action='store_false',
+                        default=True, help='Do not output in color.')
+    parser.add_argument('--nolegend', dest='legend', action='store_false',
+                        default=True, help='Do not output legend.')
+    args = parser.parse_args()
+
+    print_pinout(args.color)
+    if args.legend:
+        print()
+        print_legend(args.color)
+
+if __name__ == '__main__':
+    main()

@@ -1,0 +1,3 @@
+libgstreamer-plugins-base1.0-0: package-name-doesnt-match-sonames libgstallocators-1.0-0 libgstapp-1.0-0 libgstaudio-1.0-0 libgstfft-1.0-0 libgstpbutils-1.0-0 libgstriff-1.0-0 libgstrtp-1.0-0 libgstrtsp-1.0-0 libgstsdp-1.0-0 libgsttag-1.0-0 libgstvideo-1.0-0
+libgstreamer-plugins-base1.0-0: spelling-error-in-readme-debian *
+libgstreamer-plugins-base1.0-0: symbols-file-contains-debian-revision *

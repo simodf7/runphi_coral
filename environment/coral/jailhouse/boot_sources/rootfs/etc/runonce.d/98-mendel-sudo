@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Add the mendel user to the sudoers file if they're not there
+if ! grep -q mendel /etc/sudoers; then
+    echo 'mendel ALL=(ALL) NOPASSWD: ALL' >>/etc/sudoers
+fi

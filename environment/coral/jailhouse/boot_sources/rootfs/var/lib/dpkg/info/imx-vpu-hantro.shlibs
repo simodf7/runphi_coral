@@ -1,0 +1,5 @@
+libcodec 1 imx-vpu-hantro
+libcodec_enc 1 imx-vpu-hantro
+libg1 1 imx-vpu-hantro
+libhantro 1 imx-vpu-hantro
+libhantro_h1 1 imx-vpu-hantro

@@ -1,0 +1,5 @@
+67f2291903f799ca811af0153da189e8  lib/udev/rules.d/60-mendel-minimal.rules
+1612c0c653545d5f1893b9ab1a7c1b92  usr/share/doc/mendel-minimal/changelog.Debian.gz
+6f01e929af0584e854114774e01ba3fb  usr/share/doc/mendel-minimal/copyright
+c71947e98b8436c8fdac03b6101e7715  usr/share/mendel-minimal/adjectives.txt
+6ef0af1b8016edf11e182100b51962fb  usr/share/mendel-minimal/nouns.txt

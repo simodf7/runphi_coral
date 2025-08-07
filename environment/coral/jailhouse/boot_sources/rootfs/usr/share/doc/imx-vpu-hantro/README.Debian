@@ -1,0 +1,2 @@
+To decode video with the Hantro VPU a process must have permissions to access
+/dev/ion and /dev/mxc_hantro, owned by the video group.

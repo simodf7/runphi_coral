@@ -1,0 +1,9 @@
+[Unit]
+Description=Restart mdt-keymaster when authorized_keys changes
+
+[Path]
+PathChanged=/home/mendel/.ssh/authorized_keys
+Unit=mdt-keymaster.service
+
+[Install]
+WantedBy=mdt-keymaster.service

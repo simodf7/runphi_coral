@@ -1,0 +1,5 @@
+e331672eb4443a72a41cc749caad64f5  usr/bin/pinout
+da7b2378dedaf2bf8d2b458be05e28e8  usr/bin/snapshot
+642902e9495430d8f60e20d83c6415f1  usr/sbin/reboot-bootloader
+6a62c6c15da030770bc479b79716f5ec  usr/share/doc/imx-board-tools/changelog.Debian.gz
+44702a1e5397130d4f6325cb10575244  usr/share/doc/imx-board-tools/copyright

@@ -1,0 +1,2 @@
+deb [arch=arm64] https://packages.cloud.google.com/apt mendel-eagle main
+deb-src https://packages.cloud.google.com/apt mendel-eagle main

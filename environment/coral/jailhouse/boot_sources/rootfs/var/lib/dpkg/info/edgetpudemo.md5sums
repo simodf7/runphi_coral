@@ -1,0 +1,9 @@
+c14e710b4583735c1e1e5de3301eb82b  usr/bin/edgetpu_demo
+0ffd90f7658074101f99f2623c65fff6  usr/share/doc/edgetpudemo/changelog.Debian.gz
+06632c7e5964209e848079cc1ffba7b9  usr/share/doc/edgetpudemo/copyright
+685c42fa5c7290b82ff43cb3c124213d  usr/share/edgetpudemo/coco_labels.txt
+2d23c2f34cb3f2873bdc7a77a80a9a41  usr/share/edgetpudemo/index.html
+4fce190156a303d91e619db7923b563c  usr/share/edgetpudemo/mobilenet_ssd_v1_coco_quant_postprocess.tflite
+978f301927be1fb02fa270b091e2ca54  usr/share/edgetpudemo/mobilenet_ssd_v1_coco_quant_postprocess_edgetpu.tflite
+f5ce173ed73facb5d002ed5b039acac7  usr/share/edgetpudemo/video_device.mp4
+059adeda941b4587b92fa671c982cb23  usr/share/edgetpudemo/video_stream.mp4

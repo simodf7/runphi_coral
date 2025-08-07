@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Reboot system after all config is done
+/bin/sync
+/sbin/reboot
